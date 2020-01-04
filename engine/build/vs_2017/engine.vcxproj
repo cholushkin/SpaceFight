@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3F2F473F-2EE4-4C67-A6D8-5EBF2910EDC5}</ProjectGuid>
+    <RootNamespace>engine</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>15.0.28307.799</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(ProjectDir)../../bin/win32/$(Configuration)\</OutDir>
+    <IntDir>../../temp/$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(ProjectDir)../../bin/win32/$(Configuration)\</OutDir>
+    <IntDir>../../temp/$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\lib\lua;..\..\shared;..\..\lib\win32\include;..\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;WIN32_LANDSCAPE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <ResourceOutputFileName>$(OutDir)%(Filename).res</ResourceOutputFileName>
+    </ResourceCompile>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;bass.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\lib\win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\lib\lua;..\..\shared;..\..\lib\win32\include;..\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <ResourceCompile>
+      <ResourceOutputFileName>$(OutDir)%(Filename).res</ResourceOutputFileName>
+    </ResourceCompile>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;bass.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\lib\win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\shared\config.h" />
+    <ClInclude Include="..\..\shared\core\alg\alg_base.h" />
+    <ClInclude Include="..\..\shared\core\common\com_misc.h" />
+    <ClInclude Include="..\..\shared\core\common\com_types.h" />
+    <ClInclude Include="..\..\shared\core\io\io_base.h" />
+    <ClInclude Include="..\..\shared\core\log\log_log.h" />
+    <ClInclude Include="..\..\shared\core\math\mt_base.h" />
+    <ClInclude Include="..\..\shared\core\math\mt_vmath.h" />
+    <ClInclude Include="..\..\shared\core\render\r_render.h" />
+    <ClInclude Include="..\..\shared\core\res\res_base.h" />
+    <ClInclude Include="..\..\shared\core\sound\snd_base.h" />
+    <ClInclude Include="..\..\shared\ext\algorithm\alg_arrays.h" />
+    <ClInclude Include="..\..\shared\ext\draw2d\draw_helper.h" />
+    <ClInclude Include="..\..\shared\ext\gui\gui_base.h" />
+    <ClInclude Include="..\..\shared\ext\gui\wg_memo.h" />
+    <ClInclude Include="..\..\shared\ext\input\in_touchtracker.h" />
+    <ClInclude Include="..\..\shared\ext\log\log_loggers.h" />
+    <ClInclude Include="..\..\shared\ext\mathalgs\mt_base64.h" />
+    <ClInclude Include="..\..\shared\ext\mathalgs\mt_crc32.h" />
+    <ClInclude Include="..\..\shared\ext\mathalgs\mt_feedbackloop.h" />
+    <ClInclude Include="..\..\shared\ext\mathalgs\mt_polygon.h" />
+    <ClInclude Include="..\..\shared\ext\mathalgs\mt_probability.h" />
+    <ClInclude Include="..\..\shared\ext\mathalgs\mt_rle.h" />
+    <ClInclude Include="..\..\shared\ext\math\mt_camera.h" />
+    <ClInclude Include="..\..\shared\ext\math\mt_colors.h" />
+    <ClInclude Include="..\..\shared\ext\math\mt_easing.h" />
+    <ClInclude Include="..\..\shared\ext\math\mt_random.h" />
+    <ClInclude Include="..\..\shared\ext\patterns\pat_factory_method.h" />
+    <ClInclude Include="..\..\shared\ext\patterns\pat_observer.h" />
+    <ClInclude Include="..\..\shared\ext\patterns\pat_singleton.h" />
+    <ClInclude Include="..\..\shared\ext\primitives\ani_sprite.h" />
+    <ClInclude Include="..\..\shared\ext\primitives\r_font.h" />
+    <ClInclude Include="..\..\shared\ext\primitives\r_particles.h" />
+    <ClInclude Include="..\..\shared\ext\primitives\r_primitives.h" />
+    <ClInclude Include="..\..\shared\ext\primitives\r_primitives3d.h" />
+    <ClInclude Include="..\..\shared\ext\primitives\r_proc_anim.h" />
+    <ClInclude Include="..\..\shared\ext\primitives\r_sheet_sprite.h" />
+    <ClInclude Include="..\..\shared\ext\profiler\com_profile.h" />
+    <ClInclude Include="..\..\shared\ext\refs\ref_cast.h" />
+    <ClInclude Include="..\..\shared\ext\refs\ref_referenced.h" />
+    <ClInclude Include="..\..\shared\ext\refs\ref_sharedref.h" />
+    <ClInclude Include="..\..\shared\ext\refs\ref_weakref.h" />
+    <ClInclude Include="..\..\shared\ext\strings\str_base.h" />
+    <ClInclude Include="..\..\shared\ext\strings\str_conv.h" />
+    <ClInclude Include="..\..\shared\ext\strings\str_stringbuilder.h" />
+    <ClInclude Include="..\..\shared\ext\strings\str_stringmask.h" />
+    <ClInclude Include="..\..\shared\ext\strings\str_stringtable.h" />
+    <ClInclude Include="..\..\shared\ext\utf8\utf8.h" />
+    <ClInclude Include="..\..\shared\ext\utf8\utf8\core.h" />
+    <ClInclude Include="..\..\shared\ext\utf8\utf8\unchecked.h" />
+    <ClInclude Include="..\..\shared\platform.h" />
+    <CustomBuild Include="..\..\source\core\android\io_memfile.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\android\jni-stuff.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\android\snd_impl.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <ClInclude Include="..\..\source\core\io_file.h" />
+    <CustomBuild Include="..\..\source\core\iphone\getCompressedAudioAsPcm.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\iphone\snd_effects_impl.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\iphone\snd_impl.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\iphone\snd_music_impl.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <ClInclude Include="..\..\source\core\loaders\r_tex_dds.h" />
+    <ClInclude Include="..\..\source\core\loaders\r_tex_webp.h" />
+    <ClInclude Include="..\..\source\core\loaders\stb_image.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\dec\alphai.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\dec\decode_vp8.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\dec\vp8i.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\dec\vp8li.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\dec\webpi.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\dsp\dsp.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\dsp\lossless.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\dsp\neon.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\dsp\yuv.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\dsp\yuv_tables_sse2.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\mux\muxi.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\bit_reader.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\bit_reader_inl.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\bit_writer.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\color_cache.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\endian_inl.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\filters.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\huffman.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\quant_levels_dec.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\random.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\rescaler.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\thread.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\utils.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\webp\decode.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\webp\demux.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\webp\encode.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\webp\format_constants.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\webp\mux.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\webp\mux_types.h" />
+    <ClInclude Include="..\..\source\core\loaders\webp\webp\types.h" />
+    <ClInclude Include="..\..\source\core\r_device_gl.h" />
+    <ClInclude Include="..\..\source\core\win\resource.h" />
+    <ClInclude Include="..\..\source\core\win\snd_impl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\source\core\android\e_main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\android\io_memfile.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\android\jni-stuff.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\android\r_render_impl.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\android\snd_impl.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\com_misc.cpp" />
+    <ClCompile Include="..\..\source\core\io_base.cpp" />
+    <ClCompile Include="..\..\source\core\io_file.cpp" />
+    <ClCompile Include="..\..\source\core\iphone\snd_effects_impl.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\iphone\snd_impl.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\r_tex_dds.cpp" />
+    <ClCompile Include="..\..\source\core\loaders\r_tex_webp.cpp" />
+    <ClCompile Include="..\..\source\core\loaders\stb_image.c" />
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\alpha.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\buffer.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\frame.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\idec.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\io.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\quant.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\tree.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\vp8.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\vp8l.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\webp.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\demux\demux.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\alpha_processing.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\alpha_processing_mips_dsp_r2.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\alpha_processing_sse2.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\cpu.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\dec.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\dec_clip_tables.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\dec_mips32.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\dec_neon.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\dec_sse2.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\filters_mips_dsp_r2.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\lossless.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\lossless_mips32.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\lossless_neon.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\lossless_sse2.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\upsampling.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\upsampling_mips_dsp_r2.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\upsampling_neon.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\upsampling_sse2.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\yuv.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\yuv_mips32.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\yuv_mips_dsp_r2.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\yuv_sse2.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\mux\muxedit.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\mux\muxinternal.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\mux\muxread.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\bit_reader.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\color_cache.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\filters.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\huffman.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\quant_levels_dec.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\random.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\rescaler.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\thread.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\utils.c">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\log_log.cpp" />
+    <ClCompile Include="..\..\source\core\mt_vmath.cpp" />
+    <ClCompile Include="..\..\source\core\res_base.cpp" />
+    <ClCompile Include="..\..\source\core\r_device_gl.cpp" />
+    <ClCompile Include="..\..\source\core\r_render.cpp" />
+    <ClCompile Include="..\..\source\core\snd_base.cpp" />
+    <ClCompile Include="..\..\source\core\win\e_main.cpp" />
+    <ClCompile Include="..\..\source\core\win\r_render_impl.cpp" />
+    <ClCompile Include="..\..\source\core\win\snd_impl.cpp" />
+    <ClCompile Include="..\..\source\ext\ani_sprite.cpp" />
+    <ClCompile Include="..\..\source\ext\com_profile.cpp" />
+    <ClCompile Include="..\..\source\ext\draw_helper.cpp" />
+    <ClCompile Include="..\..\source\ext\gui_base.cpp" />
+    <ClCompile Include="..\..\source\ext\in_touchtracker.cpp" />
+    <ClCompile Include="..\..\source\ext\log_loggers.cpp" />
+    <ClCompile Include="..\..\source\ext\mt_base64.cpp" />
+    <ClCompile Include="..\..\source\ext\mt_camera.cpp" />
+    <ClCompile Include="..\..\source\ext\mt_crc32.cpp" />
+    <ClCompile Include="..\..\source\ext\mt_polygon.cpp" />
+    <ClCompile Include="..\..\source\ext\mt_probability.cpp" />
+    <ClCompile Include="..\..\source\ext\mt_random.cpp" />
+    <ClCompile Include="..\..\source\ext\mt_rle.cpp" />
+    <ClCompile Include="..\..\source\ext\pat_observer.cpp" />
+    <ClCompile Include="..\..\source\ext\r_font.cpp" />
+    <ClCompile Include="..\..\source\ext\r_particles.cpp" />
+    <ClCompile Include="..\..\source\ext\r_pmanager.cpp" />
+    <ClCompile Include="..\..\source\ext\r_primitives.cpp" />
+    <ClCompile Include="..\..\source\ext\r_primitives3d.cpp" />
+    <ClCompile Include="..\..\source\ext\r_sheet_sprite.cpp" />
+    <ClCompile Include="..\..\source\ext\str_stringbuilder.cpp" />
+    <ClCompile Include="..\..\source\ext\str_stringmask.cpp" />
+    <ClCompile Include="..\..\source\ext\str_stringtable.cpp" />
+    <ClCompile Include="..\..\source\ext\wg_memo.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\source\core\win\engine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\source\core\iphone\e_main.m">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\iphone\getCompressedAudioAsPcm.mm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\iphone\r_texture.m">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\iphone\snd_music_impl.m">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\iphone\TextBox.mm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
