@@ -101,15 +101,7 @@ extern "C" void input_touch_cancel(int x, int y, unsigned int id)
 extern "C" void screen_resize(unsigned int w, unsigned int h)
 {
     Device::sContext.SetPhysScreenSize(v2i16((i16)w, (i16)h));
-
     Device::sContext.SetUserScreenSize(Device::sContext.GetPhysScreenSize(), Context::sfFitFullScreen);
-
-    //OnResizeListener* ti = alg::INode<OnResizeListener>::first();
-    //while (ti)
-    //{
-    //    ti->OnScreenResized();
-    //    ti = ti->next();
-    //}
 }
 
 extern "C" void input_acceleration(float x, float y, float z)

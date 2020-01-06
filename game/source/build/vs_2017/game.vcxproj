@@ -110,19 +110,25 @@
     <ClInclude Include="..\..\helpers\vphys\vps.h" />
     <ClInclude Include="..\..\source\application.h" />
     <ClInclude Include="..\..\source\config.h" />
+    <ClInclude Include="..\..\source\res\ani_expl.h" />
     <ClInclude Include="..\..\source\res\resources.h" />
+    <ClInclude Include="..\..\source\res\sheet_gameplay.h" />
     <ClInclude Include="..\..\source\res\sheet_mainmenu.h" />
     <ClInclude Include="..\..\source\screengameplay.h" />
     <ClInclude Include="..\..\source\screenmainmenu.h" />
+    <ClInclude Include="..\..\source\widgets.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\helpers\erps\erps.cpp" />
     <ClCompile Include="..\..\helpers\vphys\vps.cpp" />
     <ClCompile Include="..\..\source\application.cpp" />
+    <ClCompile Include="..\..\source\res\ani_expl.cpp" />
     <ClCompile Include="..\..\source\res\resources.cpp" />
+    <ClCompile Include="..\..\source\res\sheet_gameplay.cpp" />
     <ClCompile Include="..\..\source\res\sheet_mainmenu.cpp" />
     <ClCompile Include="..\..\source\screengameplay.cpp" />
     <ClCompile Include="..\..\source\screenmainmenu.cpp" />
+    <ClCompile Include="..\..\source\widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\engine\build\vs_2017\engine.vcxproj">

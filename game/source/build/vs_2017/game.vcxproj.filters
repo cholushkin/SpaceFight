@@ -43,12 +43,6 @@
     <ClInclude Include="..\..\source\screenmainmenu.h">
       <Filter>Source\screens</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\res\resources.h">
-      <Filter>Source\res</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\res\sheet_mainmenu.h">
-      <Filter>Source\res</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\helpers\uid_generator\uidgenerator.h">
       <Filter>helpers\uid_generator</Filter>
     </ClInclude>
@@ -57,6 +51,21 @@
     </ClInclude>
     <ClInclude Include="..\..\source\config.h">
       <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\widgets.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\res\ani_expl.h">
+      <Filter>Source\res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\res\resources.h">
+      <Filter>Source\res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\res\sheet_gameplay.h">
+      <Filter>Source\res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\res\sheet_mainmenu.h">
+      <Filter>Source\res</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -72,14 +81,23 @@
     <ClCompile Include="..\..\source\screenmainmenu.cpp">
       <Filter>Source\screens</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\application.cpp">
+      <Filter>Source\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\widgets.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\res\ani_expl.cpp">
+      <Filter>Source\res</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\source\res\resources.cpp">
+      <Filter>Source\res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\res\sheet_gameplay.cpp">
       <Filter>Source\res</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\res\sheet_mainmenu.cpp">
       <Filter>Source\res</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\application.cpp">
-      <Filter>Source\Application</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
