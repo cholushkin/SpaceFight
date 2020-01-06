@@ -1,3 +1,6 @@
 /engine/bin
 /engine/temp
 /engine/build/vs_2017/.vs
+/game/source/bin
+/game/source/temp
+/game/source/build/vs_2017/.vs

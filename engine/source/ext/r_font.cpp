@@ -216,7 +216,7 @@ BitmapText::BitmapText()
 , m_length(0)
 , m_color(mt::COLOR_WHITE)
 , m_align(tlLeft)
-, m_filter(Material::fmLinear)
+, m_filter(Material::fmNearest)
 , m_scale(1.0f)
 {
 }

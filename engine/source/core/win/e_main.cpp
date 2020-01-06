@@ -25,8 +25,8 @@ float       g_pitch = 0.0f;
 
 int         g_downCount = 0;
 
-//static const v2i16 gWindowSize(1024, 768);  // 4:3
-static const v2i16 gWindowSize(1365, 768);  // 16:9
+static const v2i16 gWindowSize(1024, 768);  // 4:3
+//static const v2i16 gWindowSize(1365, 768);  // 16:9
 //static const v2i16 gWindowSize(1920, 1080); // FullHD
 //static const v2i16 gWindowSize(2208, 1242); // iPhone 6 Plus
 //static const v2i16 gWindowSize(1334,  750); // iPhone 6
