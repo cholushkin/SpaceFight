@@ -10,6 +10,15 @@ ResourceTableEntry m_gameresources[] =
   {ResID(RES_MAINMENU_SPR),"mainmenu.spr"},
   {ResID(RES_MAINMENU_0_PNG),"mainmenu_0.png"},
   {ResID(RES_MUSMAINMENU_MP3),"MusMainMenu.mp3"},
+  {ResID(RES_SFXEXPLODE1_WAV),"SfxExplode1.wav"},
+  {ResID(RES_SFXEXPLODE2_WAV),"SfxExplode2.wav"},
+  {ResID(RES_SFXEXPLODE3_WAV),"SfxExplode3.wav"},
+  {ResID(RES_SFXHIT_WAV),"SfxHit.wav"},
+  {ResID(RES_SFXMENUAPPLY_WAV),"SfxMenuApply.wav"},
+  {ResID(RES_SFXMENUSELECT_WAV),"SfxMenuSelect.wav"},
+  {ResID(RES_SFXPLASMAHIT_WAV),"SfxPlasmaHit.wav"},
+  {ResID(RES_SFXREFILLENERGYSTEP_WAV),"SfxRefillEnergyStep.wav"},
+  {ResID(RES_SFXSHOOT_WAV),"SfxShoot.wav"},
 };
 
 u32 m_ngameresources = sizeof(m_gameresources) / sizeof(m_gameresources[0]);

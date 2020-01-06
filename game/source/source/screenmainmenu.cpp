@@ -18,6 +18,9 @@ ScreenMainMenu::ScreenMainMenu(Application& g)
     m_logoText.SetFontScale(4);
     m_logoText.SetAlign(BitmapText::tlCenter);
 
+    m_app.GetSMGR().StartMusic(RES_MUSMAINMENU_MP3);
+    //m_app.GetSMGR().P(RES_TRACKMAINMENU_MOD);
+
     /*m_trail.m.m_filter = Material::fmNearest;
     return LoadPS(m_trail, RES_FIRE_PSI, RES_EXPLOSION_PNG, r, p);*/
 
@@ -25,8 +28,12 @@ ScreenMainMenu::ScreenMainMenu(Application& g)
 
 void ScreenMainMenu::Draw(r::Render& r)
 {
-    m_sheetMainMenu->Draw(r, mainmenu::MainMenuBackground, r.GetScreenSize() / 2, COLOR_WHITE);
-    m_logoText.Draw(r, r.GetScreenSize() / 2);
+    // draw background
+    const auto logoTextPos = v2f(r.GetScreenSize().x/2.0f, 0.0f);
+    m_sheetMainMenu->Draw(r, mainmenu::MainMenuBackground, r.GetScreenSize()/2, COLOR_WHITE);
+
+    // draw logo text
+    m_logoText.Draw(r, logoTextPos);
     //    const mt::v2i16& s = r::Device::sContext.GetUserScreenSize();
     //    // white bg
     //    const mt::v2f bgcrds[4] = { mt::v2f(0, 0), mt::v2f(s.x, 0), mt::v2f(s.x, s.y), mt::v2f(0, s.y) };
