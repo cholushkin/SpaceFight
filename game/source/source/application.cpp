@@ -3,6 +3,8 @@
 #include "res/resources.h"
 #include "screenmainmenu.h"
 #include "config.h"
+#include "core/log/log_log.h"
+#include "ext/log/log_loggers.h"
 
 using namespace in;
 using namespace res;
@@ -15,6 +17,11 @@ Application::Application() : m_rpool(64)
 
 bool Application::Init()
 {
+    // console 
+    dlog::Log::GetInstance()->EnableLogger(0, new dlog::LoggerSysConsole("unit test info", 120, 1200));
+    dlog::Log::GetInstance()->GetLogger(0)->SetLevelFilter(dlog::Log::PRIORITY_DEBUG);
+    NLOGI_COLOR("sf", "Space fight v.0.1. Initializing[c:ff0000].[c:00ff00].[c:0000ff].[c:ffffff]");
+
     // renderer
     if (!m_render.Init())
         return false;
@@ -23,13 +30,12 @@ bool Application::Init()
         mt::v2f(SCREEN_WIDTH, SCREEN_HEIGHT),
         Context::sfFitFullScreen);
 
-    m_render.SetClearColor(mt::COLOR_PINK);
-
     // basic
     m_time = GetCPUCycles();
     m_dtime = 0;
     m_screenmgr.Push(new ScreenMainMenu(*this));
 
+    NLOGI("sf", "done.");
     return true;
 }
 
