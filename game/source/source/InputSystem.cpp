@@ -3,81 +3,29 @@
 
 #include "windows.h"
 
-
-
-void InputSystem::Update(float /*dt*/, entt::DefaultRegistry& registry)
+void InputSystem::Update(float /*dt*/, entt::DefaultRegistry& /*registry*/)
 {
-    //// We only need to update the player position, since the ai wil be managed by the aisystem.
-    //// Here, we can retrieve the player entity, because only ONE entity can have a single instance component (tag).
-    const auto player = registry.attachee<PlayerTag>();
-    //PositionComponent& pc = registry.get<PositionComponent>(player);
-
-    //if (m_movingNorth)
-    //{
-    //    pc.m_y -= 0.15 * time;
-    //}
-
-    //if (m_movingSouth)
-    //{
-    //    pc.m_y += 0.15 * time;
-    //}
-
-    //// lock to screen
-    //if (pc.m_y < 0.0)
-    //{
-    //    pc.m_y = 0.0;
-    //}
-    //else if (pc.m_y > (480.0 - 96.0)) // screen width - sprite width
-    //{
-    //    pc.m_y = (480.0 - 96.0);
-    //}
-
-    //// Next, we want to update the balls position and move it according to the directions its currently travelling.
-    //const auto ball = registry.attachee<BallTag>();
-    //BallTag& ballTag = registry.get<BallTag>();
-    //PositionComponent& ballPos = registry.get<PositionComponent>(ball);
-
-    //// allow the ball to move based on a fixed-timestep loop.
-    //ballPos.m_x += ballTag.m_velX * time;
-    //ballPos.m_y += ballTag.m_velY * time;
-
-    //// ensure ball can be reset
-    //if (ballPos.m_x < 0.0)
-    //{
-    //    // ball passed the player paddle, reset it.
-    //    ballPos.m_x = (640.0 / 2.0) - 16.0;
-    //    ballPos.m_y = (480.0 / 2.0) - 16.0;
-
-    //    ballTag.m_velX = randomVelocitySign(ballTag.m_startingVelX);
-    //    ballTag.m_velY = randomVelocitySign(ballTag.m_startingVelY);
-    //}
-    //else if (ballPos.m_x > (640.0 - 16.0)) // screen width - sprite width
-    //{
-    //    // ball passed the ai paddle, reset it.
-    //    ballPos.m_x = (640.0 / 2.0) - 16.0;
-    //    ballPos.m_y = (480.0 / 2.0) - 16.0;
-
-    //    ballTag.m_velX = randomVelocitySign(ballTag.m_startingVelX);
-    //    ballTag.m_velY = randomVelocitySign(ballTag.m_startingVelY);
-    //}
-
-    //// lock to screen
-    //if (ballPos.m_y < 0.0)
-    //{
-    //    // Reverse ball, "bouncing" it.
-    //    ballPos.m_y = 0.0;
-    //    ballTag.m_velY *= -1;
-    //}
-    //else if (ballPos.m_y > (480.0 - 16.0)) // screen height - sprite height
-    //{
-    //    // Reverse ball, "bouncing" it.
-    //    ballPos.m_y = (480.0 - 16.0);
-    //    ballTag.m_velY *= -1;
-    //}
+    ProcessInput();
 }
 
 
 void InputSystem::ProcessInput()
 {
-    m_keyStatusMap.KeyW = GetKeyState(0x57) < 0; // W key
+    // keyboard section 1
+    m_keyStatusMap.KeyboardP1_UP = GetKeyState(0x57) < 0; // W key
+    m_keyStatusMap.KeyboardP1_LEFT = GetKeyState(0x41) < 0; // A key
+    m_keyStatusMap.KeyboardP1_DOWN = GetKeyState(0x53) < 0; // S key
+    m_keyStatusMap.KeyboardP1_RIGHT = GetKeyState(0x44) < 0; // D key
+    m_keyStatusMap.KeyboardP1_SHOOT = GetKeyState(VK_SPACE) < 0; // SPACE key
+
+    // keyboard section 2
+    m_keyStatusMap.KeyboardP2_UP = GetKeyState(0x50) < 0; // P key
+    m_keyStatusMap.KeyboardP2_LEFT = GetKeyState(0x4C) < 0; // L key
+    m_keyStatusMap.KeyboardP2_DOWN = GetKeyState(VK_OEM_1) < 0; // ; key
+    m_keyStatusMap.KeyboardP2_RIGHT = GetKeyState(VK_OEM_7) < 0; // ' key
+    m_keyStatusMap.KeyboardP2_SHOOT = GetKeyState(VK_RSHIFT) < 0; // RIGHT SHIFT key
+
+    // keyboard system section
+    m_keyStatusMap.Keyboard_Apply = GetKeyState(VK_RETURN) < 0; // ENTER key
+    m_keyStatusMap.Keyboard_Cancel = GetKeyState(VK_ESCAPE) < 0; // ESCAPE key
 }

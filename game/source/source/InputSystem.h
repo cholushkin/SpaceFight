@@ -8,7 +8,24 @@ class InputSystem
 {
     struct KeyStatusMap
     {
-        bool KeyW;
+        // keyboard section 1
+        bool KeyboardP1_UP;
+        bool KeyboardP1_LEFT;
+        bool KeyboardP1_DOWN;
+        bool KeyboardP1_RIGHT;
+        bool KeyboardP1_SHOOT;
+
+        // keyboard section 2
+        bool KeyboardP2_UP;
+        bool KeyboardP2_LEFT;
+        bool KeyboardP2_DOWN;
+        bool KeyboardP2_RIGHT;
+        bool KeyboardP2_SHOOT;
+
+        // keyboard system section 
+        bool Keyboard_Apply;
+        bool Keyboard_Cancel;
+        
     };
 public:
     InputSystem() = default;

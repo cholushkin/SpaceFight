@@ -68,6 +68,9 @@ private:
 
     InputSystem             m_inputSystem;
     entt::DefaultRegistry   m_registry;
+
+
+    void CreatePlayerEntity();
 };
 
 #endif // screengameplay_h__

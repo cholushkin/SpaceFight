@@ -100,11 +100,16 @@ ScreenGameplay::ScreenGameplay(Application& app)
     , m_res(app)
     , m_gameState(Playing)
 {
+    // create 2 players for now (hardcoded)
+    CreatePlayerEntity();
+    CreatePlayerEntity();
+
     const auto player = m_registry.create();
-    m_registry.attach<PlayerTag>(player);
+    //m_registry.attach<PlayerTag>(player);
     /*m_registry.assign<SpriteComponent>(player, 12, 96, SDL_Colour{ 255, 255, 255, 255 });
     m_registry.assign<PositionComponent>(player, 20.0, 20.0);*/
 }
+
 
 ScreenGameplay::~ScreenGameplay()
 {
@@ -121,3 +126,10 @@ void ScreenGameplay::Update(f32 dt)
 void ScreenGameplay::Draw(r::Render& /*r*/)
 {
 }
+
+void ScreenGameplay::CreatePlayerEntity()
+{
+    const auto player = m_registry.create();
+
+}
+
