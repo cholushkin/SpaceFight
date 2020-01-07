@@ -686,6 +686,7 @@ public:
   void Push(Screen*); // push back
   template<class TS>
   TS* Push(TS* p){
+    static_assert(std::is_base_of<Screen, TS>::value, "Argument does not inherit Screen");
     Push((Screen*)p);
     return p;
   }
