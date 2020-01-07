@@ -133,6 +133,7 @@
     <ClInclude Include="..\..\source\application.h" />
     <ClInclude Include="..\..\source\config.h" />
     <ClInclude Include="..\..\source\InputSystem.h" />
+    <ClInclude Include="..\..\source\PlayerComponent.h" />
     <ClInclude Include="..\..\source\PlayerTag.h" />
     <ClInclude Include="..\..\source\res\ani_expl.h" />
     <ClInclude Include="..\..\source\res\resources.h" />
@@ -147,6 +148,7 @@
     <ClCompile Include="..\..\helpers\vphys\vps.cpp" />
     <ClCompile Include="..\..\source\application.cpp" />
     <ClCompile Include="..\..\source\InputSystem.cpp" />
+    <ClCompile Include="..\..\source\PlayerComponent.cpp" />
     <ClCompile Include="..\..\source\PlayerTag.cpp" />
     <ClCompile Include="..\..\source\res\ani_expl.cpp" />
     <ClCompile Include="..\..\source\res\resources.cpp" />

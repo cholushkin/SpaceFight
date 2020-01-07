@@ -18,9 +18,9 @@ Application::Application() : m_rpool(64)
 bool Application::Init()
 {
     // console 
-    dlog::Log::GetInstance()->EnableLogger(0, new dlog::LoggerSysConsole("unit test info", 120, 1200));
+  /*  dlog::Log::GetInstance()->EnableLogger(0, new dlog::LoggerSysConsole("unit test info", 120, 1200));
     dlog::Log::GetInstance()->GetLogger(0)->SetLevelFilter(dlog::Log::PRIORITY_DEBUG);
-    NLOGI_COLOR("sf", "Space fight v.0.1. Initializing[c:ff0000].[c:00ff00].[c:0000ff].[c:ffffff]");
+    NLOGI_COLOR("sf", "Space fight v.0.1. Initializing[c:ff0000].[c:00ff00].[c:0000ff].[c:ffffff]");*/
 
     // renderer
     if (!m_render.Init())

@@ -2,6 +2,8 @@
 
 #include "config.h"
 #include "playertag.h"
+#include "PlayerComponent.h"
+
 //#include "balance.h"
 //#include "game.h"
 //#include <algorithm>
@@ -18,6 +20,8 @@
 //
 // --- res
 #include "res/resources.h"
+#include "res/sheet_gameplay.h"
+
 //#include "res/sheet_bactos.h"
 //#include "res/sheet_blocks.h"
 //#include "res/sheet_hud.h"
@@ -38,57 +42,24 @@ GameResources::GameResources(Application& app)
     : m_resPool(64)
     , m_app(app)
 {
-  //  m_fnt = GetFont(RES_COOPER32_L1R_BMFC_FNT, m_resPool, g.GetRender());
-  //  m_fntBase24 = GetFont(RES_COOPER24_L1R_BMFC_FNT, m_resPool, g.GetRender());
+    m_sheet = gameplay::GetSprite(app.GetRender(), app.GetRPool());
+    m_fnt = GetFont(RES_8BIT_FNT, app.GetRPool(), app.GetRender());
+    
+    // sounds
+    m_sfxExplode1 = m_app.GetSMGR().GetSound(RES_SFXEXPLODE1_WAV, m_resPool);
+    m_sfxExplode2 = m_app.GetSMGR().GetSound(RES_SFXEXPLODE2_WAV, m_resPool);
+    m_sfxExplode3 = m_app.GetSMGR().GetSound(RES_SFXEXPLODE3_WAV, m_resPool);
+    m_sfxHit = m_app.GetSMGR().GetSound(RES_SFXHIT_WAV, m_resPool);
+    m_sfxMenuApply = m_app.GetSMGR().GetSound(RES_SFXMENUAPPLY_WAV, m_resPool);
+    m_sfxMenuSelect = m_app.GetSMGR().GetSound(RES_SFXMENUSELECT_WAV, m_resPool);
+    m_sfxPlasmaHit = m_app.GetSMGR().GetSound(RES_SFXPLASMAHIT_WAV, m_resPool);
+    m_sfxRefillEnergyStep = m_app.GetSMGR().GetSound(RES_SFXREFILLENERGYSTEP_WAV, m_resPool);
+    m_sfxShoot = m_app.GetSMGR().GetSound(RES_SFXSHOOT_WAV, m_resPool);
 
-  //  m_gameTiles[sBacto] = bactos::GetSprite(g.GetRender(), m_resPool);
-  //  m_gameTiles[sBlock] = blocks::GetSprite(g.GetRender(), m_resPool);
-  //  m_gameTiles[sTiles] = tiles::GetSprite(g.GetRender(), m_resPool);
-  //  m_gameTiles[sSnake] = snake::GetSprite(g.GetRender(), m_resPool);
-
-  //  m_bactos = m_gameTiles[sBacto]; // somekind alias
-
-  ////  EASSERT(m_gameTiles[GameResources::sBacto]->GetNFrames() == m_gameTiles[GameResources::sEyes]->GetNFrames());
-
-  //  m_popupGo = popup_go::GetSprite(g.GetRender(), m_resPool);
-  //  m_hud = hud::GetSprite(g.GetRender(), m_resPool);
-  //  m_entIcos = entity_icon::GetSprite(g.GetRender(), m_resPool);
-  //  m_grayvin.m_pTexture = g.GetRender().GetTexture(RES_GRAYVIN_PNG, m_resPool);
-  //  m_soupSheet = soup::GetSprite(g.GetRender(), m_resPool);
-  //  m_gameTileset.SetSheet(m_gameTiles[sTiles]);
-  //  m_customMsg = new GoBravoMessage(m_popupGo, GoBravoMessage::GO);
-
-  //  // sounds
-
-  //  // gameplay
-  //  m_boom = g.GetSMGR().GetSound(RES_BOOM_MP3, m_resPool);
-  //  m_eat_food = g.GetSMGR().GetSound(RES_EAT_FOOD_MP3, m_resPool);
-  //  m_eater_feed_end = g.GetSMGR().GetSound(RES_EATER_FEED_END_MP3, m_resPool);
-  //  m_eater_feed_start = g.GetSMGR().GetSound(RES_EATER_FEED_START_MP3, m_resPool);
-  //  m_eater_feed_step = g.GetSMGR().GetSound(RES_EATER_FEED_STEP_MP3, m_resPool);
-  //  m_grow_step = g.GetSMGR().GetSound(RES_GROW_STEP_MP3, m_resPool);
-  //  m_move_eater_start = g.GetSMGR().GetSound(RES_MOVE_EATER_START_MP3, m_resPool);
-  //  m_move_eater_step = g.GetSMGR().GetSound(RES_MOVE_EATER_STEP_MP3, m_resPool);
-  //  m_move_stuff = g.GetSMGR().GetSound(RES_MOVE_STUFF_MP3, m_resPool);
-  //  m_snake_eat = g.GetSMGR().GetSound(RES_SNAKE_EAT_MP3, m_resPool);
-  //  m_button_click = g.GetSMGR().GetSound(RES_BUTTON_CLICK_MP3, m_resPool);
-
-  //  m_bacto_connect = g.GetSMGR().GetSound(RES_BACTO_CONNECT_MP3, m_resPool);
-  //  m_block_move = g.GetSMGR().GetSound(RES_BLOCK_MOVE_MP3, m_resPool);
-  //  m_snake_move = g.GetSMGR().GetSound(RES_SNAKE_MOVE_MP3, m_resPool);
-  //  m_eater_die = g.GetSMGR().GetSound(RES_EATER_DIE_MP3, m_resPool);
-  //  m_move_slimmed = g.GetSMGR().GetSound(RES_MOVE_SLIMMED_MP3, m_resPool);
-  //  m_tutor_start = g.GetSMGR().GetSound(RES_TUTOR_START_MP3, m_resPool);
-
-
-  //  // messages
-  //  m_snd_go = g.GetSMGR().GetSound(RES_GO_MP3, m_resPool);
-  //  m_snd_bravo = g.GetSMGR().GetSound(RES_BRAVO_MP3, m_resPool);
-
-  //  // UI
-  //  m_panel_show = g.GetSMGR().GetSound(RES_PANEL_SHOW_MP3, m_resPool);
-  //  m_panel_hide = g.GetSMGR().GetSound(RES_PANEL_HIDE_MP3, m_resPool);
-  //  LoadPS
+    // particles systems
+    LoadPS(m_particleSysExplosionA, RES_EXPLOSION1_PSI, RES_PARTICLES_PNG, app.GetRender(), m_resPool);
+    LoadPS(m_particleSysExplosionB, RES_EXPLOSION2_PSI, RES_PARTICLES_PNG, app.GetRender(), m_resPool);
+    LoadPS(m_particleSysTrail, RES_BURST_PSI, RES_PARTICLES_PNG, app.GetRender(), m_resPool);
 }
 
 
@@ -99,12 +70,13 @@ ScreenGameplay::ScreenGameplay(Application& app)
     , m_time(0.0f)
     , m_res(app)
     , m_gameState(Playing)
+    , m_player1Dashboard(m_registry, m_res)
+    , m_player2Dashboard(m_registry, m_res)
 {
     // create 2 players for now (hardcoded)
-    CreatePlayerEntity();
-    CreatePlayerEntity();
+    CreatePlayerEntity(0);
+    CreatePlayerEntity(1);
 
-    const auto player = m_registry.create();
     //m_registry.attach<PlayerTag>(player);
     /*m_registry.assign<SpriteComponent>(player, 12, 96, SDL_Colour{ 255, 255, 255, 255 });
     m_registry.assign<PositionComponent>(player, 20.0, 20.0);*/
@@ -119,17 +91,27 @@ void ScreenGameplay::Update(f32 dt)
 {
     m_time += dt;
 
+    // update logic
     m_inputSystem.Update(dt, m_registry);
 
+    // update gui
+    m_player1Dashboard.Update(dt);
+    m_player2Dashboard.Update(dt);
+
 }
 
-void ScreenGameplay::Draw(r::Render& /*r*/)
+void ScreenGameplay::Draw(r::Render& r)
 {
+    m_player1Dashboard.Draw(r, v2f(16, 16));
+    m_player2Dashboard.Draw(r, v2f(16, 64));
 }
 
-void ScreenGameplay::CreatePlayerEntity()
+void ScreenGameplay::CreatePlayerEntity(int playerID)
 {
     const auto player = m_registry.create();
-
+    auto playerComponent = m_registry.assign<PlayerComponent>(player, playerID);
+    if (playerID == 0)
+        m_player1Dashboard.SetPlayer(player);
+    if (playerID == 1)
+        m_player2Dashboard.SetPlayer(player);
 }
-
