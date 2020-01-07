@@ -10,6 +10,7 @@
 #define SHIP_ENERGY_MAX 100.0f
 
 // animations
-#define GUI_APPEAR_DURATION 2.0f
+#define GUI_APPEAR_DURATION 0.65f
+#define GUI_DISAPPEAR_DURATION 0.5f
 
 #endif

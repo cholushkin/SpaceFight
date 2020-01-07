@@ -48,9 +48,9 @@ WidgetPlayerDashboard::WidgetPlayerDashboard(entt::DefaultRegistry& registry, co
 }
 
 void WidgetPlayerDashboard::Update(f32 dt)
-{    
+{
     //m_text.SetFontScale(4);
-    
+
 
     m_time += dt;
     if (m_time > GUI_APPEAR_DURATION)
@@ -84,8 +84,74 @@ void WidgetPlayerDashboard::Draw(r::Render& r, const mt::v2f& origin)
     m_text.Draw(r, pivot + v2f(50, 10));
 
     // draw victories
+    for (int i = 0; i < playerComp.m_winCount; ++i)
+        m_res.m_sheet->Draw(r, gameplay::LabelVictory, pivot + v2f(34.0f + 22.0f*i, 0), COLOR_WHEAT);
 
     // draw player label
     m_res.m_sheet->Draw(r, GetPlayerLabelSprite(playerComp.m_playerID), pivot);
 }
 
+
+// WidgetPlayerDashboard
+// -------------------------------------------------------------
+WidgetModalMessage::WidgetModalMessage(entt::DefaultRegistry& registry, const GameResources& res)
+    : m_res(res)
+    , m_registry(registry)
+    , m_time(0.0f)
+{
+    m_textMain.SetAlign(BitmapText::tlCenter);
+    m_textSecondary.SetAlign(BitmapText::tlCenter);
+    SetState(VIEW_CLOSED);
+}
+
+void WidgetModalMessage::SetState(ViewMode mode)
+{
+    m_viewMode = mode;
+    m_viewSubstate = Appearing;
+    m_time = 0.0f;
+    m_progress = 0.0f;
+
+    if (mode == VIEW_FIGHT) // todo: state machine
+    {
+        m_textMain.SetText(m_res.m_fnt, L"Fight!");
+        m_stateDuration = 1;
+    }
+}
+
+void WidgetModalMessage::Update(f32 dt)
+{
+    if (m_viewMode == VIEW_CLOSED)
+        return;
+
+    m_time += dt;
+    if (m_viewSubstate == Appearing)
+        m_progress = Clamp(m_time / GUI_APPEAR_DURATION, 0.0f, 1.0f);
+    else if (m_viewSubstate == Disappering)
+        m_progress = Clamp(m_time / GUI_DISAPPEAR_DURATION, 0.0f, 1.0f);
+    else if (m_viewSubstate == Static)
+        m_progress = Clamp(m_time / m_stateDuration, 0.0f, 1.0f);
+
+    if (m_progress == 1.0f) // next substate
+    {
+        m_time = 0.0f;
+        m_viewSubstate = static_cast<ViewSubstate>(static_cast<int>(m_viewSubstate) + 1);
+        if (m_viewSubstate > Disappering) // second loop
+            SetState(VIEW_CLOSED);
+    }
+}
+
+void WidgetModalMessage::Draw(r::Render& r, const mt::v2f& /*origin*/)
+{
+    if (m_viewMode == VIEW_FIGHT)
+    {
+        DrawHelper dr(r);
+        dr.FillRect(Rectf(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT), 0xBB000000);
+        dr.FillRect(Rectf(0, SCREEN_WIDTH, 200, SCREEN_HEIGHT - 200), 0xBB000000);
+        if (m_viewSubstate == Appearing)
+            m_textMain.Draw(r, v2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) + v2f(ErpDecelerate2(m_progress) * 100, 0), 4);
+        else if (m_viewSubstate == Disappering)
+            m_textMain.Draw(r, v2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) + v2f(100 + ErpDecelerate2(m_progress) * 700, 0), 4);
+        else 
+            m_textMain.Draw(r, v2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) + v2f(100, 0), 4);
+    }
+}

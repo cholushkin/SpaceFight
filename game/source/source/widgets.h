@@ -15,7 +15,7 @@ class IWidget
 
 
 struct GameResources;
-class WidgetControllerSelector: public IWidget
+class WidgetControllerSelector : public IWidget
 {
     DENY_COPY(WidgetControllerSelector)
 public:
@@ -32,7 +32,7 @@ private:
     //std::vector<f32> mScales;
 };
 
-class WidgetPlayerDashboard: public IWidget
+class WidgetPlayerDashboard : public IWidget
 {
     DENY_COPY(WidgetPlayerDashboard)
 public:
@@ -48,6 +48,46 @@ private:
     float                       m_appearOffset;
     float                       m_appearProgress;
     uint32_t                    m_playerID;
+};
+
+class WidgetModalMessage : public IWidget
+{
+    DENY_COPY(WidgetModalMessage)
+public:
+    enum ViewMode
+    {
+        VIEW_CLOSED,
+        VIEW_FIGHT,
+        VIEW_ROUND_WIN,
+        VIEW_END_STATUS,
+        VIEW_PAUSE
+    };
+
+    enum ViewSubstate
+    {
+        Appearing = 0,
+        Static = 1,
+        Disappering = 2
+    };
+
+
+    WidgetModalMessage(entt::DefaultRegistry& registry, const GameResources& res);
+    virtual void Update(f32 dt);
+    virtual void Draw(r::Render& r, const mt::v2f& origin);
+    void SetState(ViewMode mode);
+    ViewMode GetState() const { return m_viewMode; }
+
+
+protected:
+    const GameResources&        m_res;
+    entt::DefaultRegistry&      m_registry;
+    r::BitmapText               m_textMain;
+    r::BitmapText               m_textSecondary;
+    float                       m_time;
+    float                       m_progress;
+    float                       m_stateDuration;
+    ViewMode                    m_viewMode;
+    ViewSubstate                m_viewSubstate;
 };
 
 #endif 

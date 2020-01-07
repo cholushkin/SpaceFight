@@ -3,6 +3,7 @@
 #include "config.h"
 #include "playertag.h"
 #include "PlayerComponent.h"
+#include "widgets.h"
 
 //#include "balance.h"
 //#include "game.h"
@@ -44,7 +45,7 @@ GameResources::GameResources(Application& app)
 {
     m_sheet = gameplay::GetSprite(app.GetRender(), app.GetRPool());
     m_fnt = GetFont(RES_8BIT_FNT, app.GetRPool(), app.GetRender());
-    
+
     // sounds
     m_sfxExplode1 = m_app.GetSMGR().GetSound(RES_SFXEXPLODE1_WAV, m_resPool);
     m_sfxExplode2 = m_app.GetSMGR().GetSound(RES_SFXEXPLODE2_WAV, m_resPool);
@@ -63,19 +64,41 @@ GameResources::GameResources(Application& app)
 }
 
 
+// LevelCreator
+// ---------------------------------------------------------------
+LevelCreator::LevelCreator(entt::DefaultRegistry& registry)
+    : m_registry(registry)
+{
+}
+
+void LevelCreator::CreateLevelRandom()
+{
+    // create 2 players for now (hardcoded)
+    CreatePlayerEntity(0);
+    CreatePlayerEntity(1);
+
+}
+
+
+void LevelCreator::CreatePlayerEntity(int playerID)
+{
+    const auto player = m_registry.create();
+    auto playerComponent = m_registry.assign<PlayerComponent>(player, playerID);
+}
 // ScreenGameplay 
 // ---------------------------------------------------------------
 ScreenGameplay::ScreenGameplay(Application& app)
     : m_app(app)
     , m_time(0.0f)
     , m_res(app)
-    , m_gameState(Playing)
+    , m_levelCreator(m_registry)
     , m_player1Dashboard(m_registry, m_res)
     , m_player2Dashboard(m_registry, m_res)
-{
-    // create 2 players for now (hardcoded)
-    CreatePlayerEntity(0);
-    CreatePlayerEntity(1);
+    , m_modalMessenger(m_registry, m_res)
+
+{    
+
+    SetState(Initialization);
 
     //m_registry.attach<PlayerTag>(player);
     /*m_registry.assign<SpriteComponent>(player, 12, 96, SDL_Colour{ 255, 255, 255, 255 });
@@ -87,31 +110,73 @@ ScreenGameplay::~ScreenGameplay()
 {
 }
 
-void ScreenGameplay::Update(f32 dt) 
-{
-    m_time += dt;
-
-    // update logic
-    m_inputSystem.Update(dt, m_registry);
-
-    // update gui
-    m_player1Dashboard.Update(dt);
-    m_player2Dashboard.Update(dt);
-
-}
-
 void ScreenGameplay::Draw(r::Render& r)
 {
     m_player1Dashboard.Draw(r, v2f(16, 16));
-    m_player2Dashboard.Draw(r, v2f(16, 64));
+    m_player2Dashboard.Draw(r, v2f(16, 64 + 16));
+    m_modalMessenger.Draw(r, v2f());
 }
 
-void ScreenGameplay::CreatePlayerEntity(int playerID)
+void ScreenGameplay::Update(f32 dt)
 {
-    const auto player = m_registry.create();
-    auto playerComponent = m_registry.assign<PlayerComponent>(player, playerID);
-    if (playerID == 0)
-        m_player1Dashboard.SetPlayer(player);
-    if (playerID == 1)
-        m_player2Dashboard.SetPlayer(player);
+    m_time += dt;
+
+    m_inputSystem.Update(dt, m_registry);
+
+    // ----- update state
+    if (m_gameState == Playing)
+    {
+        // update gameplay gui
+        m_player1Dashboard.Update(dt);
+        m_player2Dashboard.Update(dt);
+    }
+    else if (m_gameState == Message)
+    {
+    }
+    else if (m_gameState == Paused)
+    {
+    }
+
+    
+    m_modalMessenger.Update(dt);
+
+    // switch to the next state of the messenger
+    if (m_modalMessenger.GetState() == WidgetModalMessage::VIEW_CLOSED)
+    {
+        if (m_gameState == Initialization)
+            SetState(Playing);
+
+    }
 }
+
+void ScreenGameplay::SetState(EnGameStates state)
+{
+    m_gameState = state;
+
+    // ------ on enter state
+    if (m_gameState == Initialization)
+    {
+        m_modalMessenger.SetState(WidgetModalMessage::VIEW_FIGHT);
+
+        // create new level
+        m_levelCreator.CreateLevelRandom();
+
+        // assign widget to entity
+        auto view = m_registry.view<PlayerComponent>();
+        for (auto entity : view) 
+        {
+            auto& pc = view.get(entity);
+            if( pc.m_playerID == 0 )
+                m_player1Dashboard.SetPlayer(entity);
+            if (pc.m_playerID == 1)
+                m_player2Dashboard.SetPlayer(entity);
+        }
+
+       /* if (playerID == 0)
+            m_player1Dashboard.SetPlayer(player);
+        if (playerID == 1)
+            m_player2Dashboard.SetPlayer(player);*/
+    }
+
+}
+

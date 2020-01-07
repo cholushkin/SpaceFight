@@ -64,10 +64,14 @@ private:
     };
 
 public:
-    LevelCreator();
+    LevelCreator(entt::DefaultRegistry& registry);
+    void CreateLevelRandom();
 
 private:
-    GenerationOptions m_options;
+    entt::DefaultRegistry&      m_registry;
+    GenerationOptions           m_options;
+
+    void CreatePlayerEntity(int playerID);
 };
 
 class ScreenGameplay : public gui::BasicScreen
@@ -76,9 +80,10 @@ class ScreenGameplay : public gui::BasicScreen
 
     enum EnGameStates
     {
-        Playing = 0,
-        Message = 1,
-        Paused = 2,
+        Initialization = 0,
+        Playing = 1,
+        Message = 2,
+        Paused = 3,
     };
 
 public:
@@ -87,6 +92,7 @@ public:
 
     void Draw(r::Render& r);
     void Update(f32 /*dt*/);
+    void SetState(EnGameStates state);
 
 
 private:
@@ -95,13 +101,16 @@ private:
     EnGameStates            m_gameState;
     float                   m_time;
 
+    LevelCreator            m_levelCreator;
+
     InputSystem             m_inputSystem;
     entt::DefaultRegistry   m_registry;
 
     WidgetPlayerDashboard   m_player1Dashboard;
     WidgetPlayerDashboard   m_player2Dashboard;
+    WidgetModalMessage      m_modalMessenger;
 
-    void CreatePlayerEntity( int playerID );
+    
 };
 
 #endif // screengameplay_h__
