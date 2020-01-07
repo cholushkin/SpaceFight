@@ -25,7 +25,6 @@
 struct GameResources
 {
     GameResources(Application& app);
-    ~GameResources();
 
     r::SheetSprite*             m_sheet;
     const r::BitmapFont*        m_fnt;
@@ -43,7 +42,7 @@ private:
     res::ResourcesPool          m_resPool;
 };
 
-class ScreenGameplay
+class ScreenGameplay : public gui::BasicScreen
 {
     DENY_COPY(ScreenGameplay)
 

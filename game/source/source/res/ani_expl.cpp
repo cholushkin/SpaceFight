@@ -33,12 +33,12 @@ u32 ani_expl::GetFrame( eAnimations anim, f32 time, u8 dir ) {
 }
 
 
-const CharacterSprite*ani_expl::CreateSprite( r::Render& r, res::ResourcesPool& rpool ) { 
-  r::SheetSprite* spr = (r::SheetSprite*)rpool.Get(RES_EXPL_SPR);
+const CharacterSprite* ani_expl::CreateSprite( r::Render& r, res::ResourcesPool& rpool ) { 
+  const r::SheetSprite* spr = (r::SheetSprite*)rpool.Get(RES_EXPL_SPR);
   if (spr)
     return spr;
-  spr = new r::SheetSprite();
-  if (!Load(*spr, RES_EXPL_SPR, RES_EXPL_PNG, rpool, r))
+  spr = r::SheetSprite::Load(RES_EXPL_SPR, rpool, r);
+  if (!spr)
   {
     delete spr;
     return NULL;
