@@ -5,7 +5,7 @@
 #include "ext/gui/gui_base.h"
 #include "ext/primitives/r_primitives.h"
 #include "ext/primitives/r_sheet_sprite.h"
-//#include "gamelevel.h"
+#include "inputsystem.h"
 //#include "tileset.h"
 //#include "button.h"
 //#include "ingamemenu.h"
@@ -65,6 +65,9 @@ private:
     GameResources           m_res;
     EnGameStates            m_gameState;
     float                   m_time;
+
+    InputSystem             m_inputSystem;
+    entt::DefaultRegistry   m_registry;
 };
 
 #endif // screengameplay_h__

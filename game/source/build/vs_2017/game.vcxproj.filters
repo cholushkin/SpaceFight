@@ -29,6 +29,18 @@
     <Filter Include="Source\Game">
       <UniqueIdentifier>{1642cc7e-f39d-4c0f-b5ca-e58b84c6586b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{c45a8598-33e0-44e0-85c8-7486be4ac3a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\entt">
+      <UniqueIdentifier>{d76935ff-a4bb-4a7d-acea-40aa1b9929ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\Systems">
+      <UniqueIdentifier>{de6bea99-ca17-4cf8-9353-153460aa0e0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\Tags">
+      <UniqueIdentifier>{4a69f154-8bd6-4d14-8554-c427dcf9ba46}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\helpers\erps\erps.h">
@@ -67,6 +79,75 @@
     <ClInclude Include="..\..\source\res\sheet_mainmenu.h">
       <Filter>Source\res</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\libs\entt\core\family.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\core\hashed_string.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\core\ident.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\entity\actor.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\entity\entt_traits.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\entity\registry.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\entity\sparse_set.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\entity\view.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\entt.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\locator\locator.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\process\process.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\process\scheduler.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\resource\cache.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\resource\handle.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\resource\loader.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\signal\bus.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\signal\delegate.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\signal\dispatcher.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\signal\emitter.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\signal\sigh.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\signal\signal.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\InputSystem.h">
+      <Filter>Source\Game\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\PlayerTag.h">
+      <Filter>Source\Game\Tags</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\helpers\erps\erps.cpp">
@@ -98,6 +179,12 @@
     </ClCompile>
     <ClCompile Include="..\..\source\res\sheet_mainmenu.cpp">
       <Filter>Source\res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\InputSystem.cpp">
+      <Filter>Source\Game\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\PlayerTag.cpp">
+      <Filter>Source\Game\Tags</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

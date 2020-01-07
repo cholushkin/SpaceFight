@@ -14,17 +14,18 @@
     <ProjectGuid>{7F1954BE-948B-42CC-A899-626DE99FC938}</ProjectGuid>
     <RootNamespace>game</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -56,7 +57,7 @@
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\..\engine\shared;..\..\..\..\engine\;..\..\source;..\..\helpers;..\..\helpers\lua;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\engine\shared;..\..\..\..\engine\;..\..\source;..\..\helpers;..\..\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;WIN32_LANDSCAPE;RAPIDXML_NO_EXCEPTIONS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -82,7 +83,7 @@
       <Command />
     </PreBuildEvent>
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\..\..\engine\shared;..\..\..\..\engine\;..\..\source;..\..\helpers;..\..\helpers\lua;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\engine\shared;..\..\..\..\engine\;..\..\source;..\..\helpers;..\..\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader />
@@ -108,8 +109,31 @@
     <ClInclude Include="..\..\helpers\erps\erps.h" />
     <ClInclude Include="..\..\helpers\uid_generator\uidgenerator.h" />
     <ClInclude Include="..\..\helpers\vphys\vps.h" />
+    <ClInclude Include="..\..\libs\entt\core\family.hpp" />
+    <ClInclude Include="..\..\libs\entt\core\hashed_string.hpp" />
+    <ClInclude Include="..\..\libs\entt\core\ident.hpp" />
+    <ClInclude Include="..\..\libs\entt\entity\actor.hpp" />
+    <ClInclude Include="..\..\libs\entt\entity\entt_traits.hpp" />
+    <ClInclude Include="..\..\libs\entt\entity\registry.hpp" />
+    <ClInclude Include="..\..\libs\entt\entity\sparse_set.hpp" />
+    <ClInclude Include="..\..\libs\entt\entity\view.hpp" />
+    <ClInclude Include="..\..\libs\entt\entt.hpp" />
+    <ClInclude Include="..\..\libs\entt\locator\locator.hpp" />
+    <ClInclude Include="..\..\libs\entt\process\process.hpp" />
+    <ClInclude Include="..\..\libs\entt\process\scheduler.hpp" />
+    <ClInclude Include="..\..\libs\entt\resource\cache.hpp" />
+    <ClInclude Include="..\..\libs\entt\resource\handle.hpp" />
+    <ClInclude Include="..\..\libs\entt\resource\loader.hpp" />
+    <ClInclude Include="..\..\libs\entt\signal\bus.hpp" />
+    <ClInclude Include="..\..\libs\entt\signal\delegate.hpp" />
+    <ClInclude Include="..\..\libs\entt\signal\dispatcher.hpp" />
+    <ClInclude Include="..\..\libs\entt\signal\emitter.hpp" />
+    <ClInclude Include="..\..\libs\entt\signal\sigh.hpp" />
+    <ClInclude Include="..\..\libs\entt\signal\signal.hpp" />
     <ClInclude Include="..\..\source\application.h" />
     <ClInclude Include="..\..\source\config.h" />
+    <ClInclude Include="..\..\source\InputSystem.h" />
+    <ClInclude Include="..\..\source\PlayerTag.h" />
     <ClInclude Include="..\..\source\res\ani_expl.h" />
     <ClInclude Include="..\..\source\res\resources.h" />
     <ClInclude Include="..\..\source\res\sheet_gameplay.h" />
@@ -122,6 +146,8 @@
     <ClCompile Include="..\..\helpers\erps\erps.cpp" />
     <ClCompile Include="..\..\helpers\vphys\vps.cpp" />
     <ClCompile Include="..\..\source\application.cpp" />
+    <ClCompile Include="..\..\source\InputSystem.cpp" />
+    <ClCompile Include="..\..\source\PlayerTag.cpp" />
     <ClCompile Include="..\..\source\res\ani_expl.cpp" />
     <ClCompile Include="..\..\source\res\resources.cpp" />
     <ClCompile Include="..\..\source\res\sheet_gameplay.cpp" />

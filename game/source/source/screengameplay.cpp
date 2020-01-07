@@ -1,6 +1,7 @@
 #include "screengameplay.h"
 
 #include "config.h"
+#include "playertag.h"
 //#include "balance.h"
 //#include "game.h"
 //#include <algorithm>
@@ -99,6 +100,10 @@ ScreenGameplay::ScreenGameplay(Application& app)
     , m_res(app)
     , m_gameState(Playing)
 {
+    const auto player = m_registry.create();
+    m_registry.attach<PlayerTag>(player);
+    /*m_registry.assign<SpriteComponent>(player, 12, 96, SDL_Colour{ 255, 255, 255, 255 });
+    m_registry.assign<PositionComponent>(player, 20.0, 20.0);*/
 }
 
 ScreenGameplay::~ScreenGameplay()
@@ -108,6 +113,9 @@ ScreenGameplay::~ScreenGameplay()
 void ScreenGameplay::Update(f32 dt) 
 {
     m_time += dt;
+
+    m_inputSystem.Update(dt, m_registry);
+
 }
 
 void ScreenGameplay::Draw(r::Render& /*r*/)
