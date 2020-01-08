@@ -7,6 +7,10 @@
 #include "ext/primitives/r_sheet_sprite.h"
 #include "ext/primitives/r_particles.h"
 #include "inputsystem.h"
+#include "rendersystem.h"
+#include "physicssystem.h"
+#include "playercontrollersystem.h"
+
 #include "widgets.h"
 
 //#include "tileset.h"
@@ -64,11 +68,13 @@ private:
     };
 
 public:
-    LevelCreator(entt::DefaultRegistry& registry);
+    LevelCreator(entt::DefaultRegistry& registry, PhysicsSystem& psx);
     void CreateLevelRandom();
+    void DeleteEntity(uint32_t&);
 
 private:
     entt::DefaultRegistry&      m_registry;
+    PhysicsSystem&              m_physicsSystem;
     GenerationOptions           m_options;
 
     void CreatePlayerEntity(int playerID);
@@ -101,10 +107,13 @@ private:
     EnGameStates            m_gameState;
     float                   m_time;
 
-    LevelCreator            m_levelCreator;
-
-    InputSystem             m_inputSystem;
     entt::DefaultRegistry   m_registry;
+    LevelCreator            m_levelCreator;
+    InputSystem             m_inputSystem;
+    RenderSystem            m_renderSystem;
+    PhysicsSystem           m_physicsSystem;
+    PlayerControllerSystem  m_playerControllerSystem;
+    
 
     WidgetPlayerDashboard   m_player1Dashboard;
     WidgetPlayerDashboard   m_player2Dashboard;

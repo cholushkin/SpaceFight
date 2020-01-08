@@ -133,8 +133,12 @@
     <ClInclude Include="..\..\source\application.h" />
     <ClInclude Include="..\..\source\config.h" />
     <ClInclude Include="..\..\source\InputSystem.h" />
+    <ClInclude Include="..\..\source\PhysicsAgentComponent.h" />
+    <ClInclude Include="..\..\source\PhysicsSystem.h" />
     <ClInclude Include="..\..\source\PlayerComponent.h" />
+    <ClInclude Include="..\..\source\PlayerControllerSystem.h" />
     <ClInclude Include="..\..\source\PlayerTag.h" />
+    <ClInclude Include="..\..\source\RenderSystem.h" />
     <ClInclude Include="..\..\source\res\ani_expl.h" />
     <ClInclude Include="..\..\source\res\resources.h" />
     <ClInclude Include="..\..\source\res\sheet_gameplay.h" />
@@ -148,8 +152,12 @@
     <ClCompile Include="..\..\helpers\vphys\vps.cpp" />
     <ClCompile Include="..\..\source\application.cpp" />
     <ClCompile Include="..\..\source\InputSystem.cpp" />
+    <ClCompile Include="..\..\source\PhysicsAgentComponent.cpp" />
+    <ClCompile Include="..\..\source\PhysicsSystem.cpp" />
     <ClCompile Include="..\..\source\PlayerComponent.cpp" />
+    <ClCompile Include="..\..\source\PlayerControllerSystem.cpp" />
     <ClCompile Include="..\..\source\PlayerTag.cpp" />
+    <ClCompile Include="..\..\source\RenderSystem.cpp" />
     <ClCompile Include="..\..\source\res\ani_expl.cpp" />
     <ClCompile Include="..\..\source\res\resources.cpp" />
     <ClCompile Include="..\..\source\res\sheet_gameplay.cpp" />

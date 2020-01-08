@@ -2,6 +2,7 @@
 #define _INPUT_SYSTEM_H_
 
 #include "entt/entity/registry.hpp"
+#include "core/math/mt_base.h"
 
 // This class will take user input and pass it to appropriate controllers
 class InputSystem
@@ -31,6 +32,10 @@ public:
     InputSystem() = default;
     ~InputSystem() = default;
     void Update(float dt, entt::DefaultRegistry& registry);
+
+    mt::v2f GetVectorFromInput(int playerID);
+    bool GetShootButton(int playerID);
+
 private: 
     KeyStatusMap m_keyStatusMap;
 

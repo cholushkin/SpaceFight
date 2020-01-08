@@ -154,6 +154,18 @@
     <ClInclude Include="..\..\source\PlayerComponent.h">
       <Filter>Source\Game\Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\PhysicsSystem.h">
+      <Filter>Source\Game\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\PhysicsAgentComponent.h">
+      <Filter>Source\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\RenderSystem.h">
+      <Filter>Source\Game\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\PlayerControllerSystem.h">
+      <Filter>Source\Game\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\helpers\erps\erps.cpp">
@@ -194,6 +206,18 @@
     </ClCompile>
     <ClCompile Include="..\..\source\PlayerComponent.cpp">
       <Filter>Source\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\PhysicsSystem.cpp">
+      <Filter>Source\Game\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\PhysicsAgentComponent.cpp">
+      <Filter>Source\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\RenderSystem.cpp">
+      <Filter>Source\Game\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\PlayerControllerSystem.cpp">
+      <Filter>Source\Game\Systems</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@
 #include "config.h"
 #include "playertag.h"
 #include "PlayerComponent.h"
+#include "PhysicsAgentComponent.h"
 #include "widgets.h"
 
 //#include "balance.h"
@@ -66,8 +67,9 @@ GameResources::GameResources(Application& app)
 
 // LevelCreator
 // ---------------------------------------------------------------
-LevelCreator::LevelCreator(entt::DefaultRegistry& registry)
+LevelCreator::LevelCreator(entt::DefaultRegistry& registry, PhysicsSystem& psx)
     : m_registry(registry)
+    , m_physicsSystem(psx)
 {
 }
 
@@ -79,25 +81,39 @@ void LevelCreator::CreateLevelRandom()
 
 }
 
-
 void LevelCreator::CreatePlayerEntity(int playerID)
 {
     const auto player = m_registry.create();
     auto playerComponent = m_registry.assign<PlayerComponent>(player, playerID);
+    auto physicsAgentComponent = m_registry.assign<PhysicsAgentComponent>(
+        player,
+        m_physicsSystem.AddAgent(player, playerID == 0 ? v2f(-200.0f, 0.0f) : v2f(200.0f, 0.0f))
+    );
 }
+
+void LevelCreator::DeleteEntity(uint32_t& entt)
+{
+    if (m_registry.has<PhysicsAgentComponent>(entt))
+        m_physicsSystem.RemoveAgent(entt);
+    m_registry.destroy(entt);
+}
+
+
+
 // ScreenGameplay 
 // ---------------------------------------------------------------
 ScreenGameplay::ScreenGameplay(Application& app)
     : m_app(app)
     , m_time(0.0f)
     , m_res(app)
-    , m_levelCreator(m_registry)
+    , m_levelCreator(m_registry, m_physicsSystem)
     , m_player1Dashboard(m_registry, m_res)
     , m_player2Dashboard(m_registry, m_res)
     , m_modalMessenger(m_registry, m_res)
+    , m_playerControllerSystem(m_inputSystem)
+    , m_physicsSystem(m_registry)
 
-{    
-
+{
     SetState(Initialization);
 
     //m_registry.attach<PlayerTag>(player);
@@ -114,6 +130,9 @@ void ScreenGameplay::Draw(r::Render& r)
 {
     m_player1Dashboard.Draw(r, v2f(16, 16));
     m_player2Dashboard.Draw(r, v2f(16, 64 + 16));
+
+    m_renderSystem.Render(r, m_registry);
+
     m_modalMessenger.Draw(r, v2f());
 }
 
@@ -129,6 +148,11 @@ void ScreenGameplay::Update(f32 dt)
         // update gameplay gui
         m_player1Dashboard.Update(dt);
         m_player2Dashboard.Update(dt);
+
+        // update systems
+        m_playerControllerSystem.Update(dt, m_registry);
+        m_physicsSystem.Update(dt, m_registry);
+        
     }
     else if (m_gameState == Message)
     {
@@ -137,7 +161,7 @@ void ScreenGameplay::Update(f32 dt)
     {
     }
 
-    
+
     m_modalMessenger.Update(dt);
 
     // switch to the next state of the messenger
@@ -163,20 +187,19 @@ void ScreenGameplay::SetState(EnGameStates state)
 
         // assign widget to entity
         auto view = m_registry.view<PlayerComponent>();
-        for (auto entity : view) 
+        for (auto entity : view)
         {
             auto& pc = view.get(entity);
-            if( pc.m_playerID == 0 )
+            if (pc.m_playerID == 0)
                 m_player1Dashboard.SetPlayer(entity);
             if (pc.m_playerID == 1)
                 m_player2Dashboard.SetPlayer(entity);
         }
 
-       /* if (playerID == 0)
-            m_player1Dashboard.SetPlayer(player);
-        if (playerID == 1)
-            m_player2Dashboard.SetPlayer(player);*/
+        /* if (playerID == 0)
+             m_player1Dashboard.SetPlayer(player);
+         if (playerID == 1)
+             m_player2Dashboard.SetPlayer(player);*/
     }
-
 }
 

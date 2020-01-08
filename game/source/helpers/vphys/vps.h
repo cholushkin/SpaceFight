@@ -35,7 +35,7 @@ namespace vp
 
     struct VerletAgent
     {
-        DENY_COPY(VerletAgent);
+        //DENY_COPY(VerletAgent);
     public:
         struct Descriptor
         {
@@ -138,7 +138,7 @@ namespace vp
     {
     public:
         virtual ~ICollisionListener() {};
-        virtual void onCollide(const Collision& collision) = 0;
+        virtual void OnCollide(const Collision& collision) = 0;
     };
 
     class VerletPhysicsSystem
@@ -153,7 +153,7 @@ namespace vp
 
         void AddObstacle(const Obstacle* obst);
         void RemoveObstacle(const Obstacle* obst);
-        void setCollisionListener(ICollisionListener* colListener) { mCollListener = colListener; }
+        void SetCollisionListener(ICollisionListener* colListener) { mCollListener = colListener; }
         bool isCollidePossible(const VerletAgent& p1, const VerletAgent& p2) const; // using filters    
 
         static u32 getUid() { return sUidGenerator.getUid(); }

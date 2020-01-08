@@ -3,6 +3,8 @@
 
 #include "windows.h"
 
+using namespace mt;
+
 void InputSystem::Update(float /*dt*/, entt::DefaultRegistry& /*registry*/)
 {
     ProcessInput();
@@ -28,4 +30,40 @@ void InputSystem::ProcessInput()
     // keyboard system section
     m_keyStatusMap.Keyboard_Apply = GetKeyState(VK_RETURN) < 0; // ENTER key
     m_keyStatusMap.Keyboard_Cancel = GetKeyState(VK_ESCAPE) < 0; // ESCAPE key
+}
+
+v2f InputSystem::GetVectorFromInput(int playerID)
+{
+    if (playerID == 0)
+    {
+        v2f direction;
+        if (m_keyStatusMap.KeyboardP1_LEFT)
+            direction += v2f(-1.0f, 0.0f);
+        if (m_keyStatusMap.KeyboardP1_RIGHT)
+            direction += v2f(1.0f, 0.0f);
+        if (m_keyStatusMap.KeyboardP1_UP)
+            direction += v2f(0.0f, -1.0f);
+        if (m_keyStatusMap.KeyboardP1_DOWN)
+            direction += v2f(0.0f, 1.0f);
+        return direction;
+    }
+    if (playerID == 1)
+    {
+        v2f direction;
+        if (m_keyStatusMap.KeyboardP2_LEFT)
+            direction += v2f(-1.0f, 0.0f);
+        if (m_keyStatusMap.KeyboardP2_RIGHT)
+            direction += v2f(1.0f, 0.0f);
+        if (m_keyStatusMap.KeyboardP2_UP)
+            direction += v2f(0.0f, -1.0f);
+        if (m_keyStatusMap.KeyboardP2_DOWN)
+            direction += v2f(0.0f, 1.0f);
+        return direction;
+    }
+    return v2f();
+}
+
+bool InputSystem::GetShootButton(int /*playerID*/)
+{
+    return true;
 }

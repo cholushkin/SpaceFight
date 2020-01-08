@@ -161,7 +161,7 @@ namespace vp
         // collision callbacks
         if (mCollListener)
             for (std::set<Collision>::iterator i = mColls.begin(); i != mColls.end(); ++i)
-                mCollListener->onCollide(*i);
+                mCollListener->OnCollide(*i);
     }
 
     void VerletPhysicsSystem::AddObstacle(const Obstacle* obst)
