@@ -166,6 +166,12 @@
     <ClInclude Include="..\..\source\PlayerControllerSystem.h">
       <Filter>Source\Game\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\PhysicsObstacleComponent.h">
+      <Filter>Source\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\PlanetComponent.h">
+      <Filter>Source\Game\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\helpers\erps\erps.cpp">
@@ -218,6 +224,12 @@
     </ClCompile>
     <ClCompile Include="..\..\source\PlayerControllerSystem.cpp">
       <Filter>Source\Game\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\PhysicsObstacleComponent.cpp">
+      <Filter>Source\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\PlanetComponent.cpp">
+      <Filter>Source\Game\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

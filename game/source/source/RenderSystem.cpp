@@ -1,5 +1,7 @@
 #include "RenderSystem.h"
 #include "PhysicsAgentComponent.h"
+#include "PhysicsObstacleComponent.h"
+#include "PlanetComponent.h"
 #include "ext/draw2d/draw_helper.h"
 #include "ext/math/mt_colors.h"
 #include "config.h"
@@ -22,7 +24,7 @@ void RenderSystem::Render(r::Render& r, entt::DefaultRegistry& registry)
         static const v2f offset = v2f(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
         dr.SetTransform(offset);
 
-        dr.DrawCircle(v2f(), 10.0f, 16, COLOR_YELLOW);
+        dr.DrawStar(v2f(), 10.0f, 4, COLOR_YELLOW);
         dr.DrawCircle(psxComp.m_agent->pos, psxComp.m_agent->radius, 16, COLOR_WHITE);
         
 
@@ -44,5 +46,10 @@ void RenderSystem::Render(r::Render& r, entt::DefaultRegistry& registry)
         //}
     });
 #endif
+
+    //registry.view<PhysicsAgentComponent, PlanetComponent>().each([&](PhysicsAgentComponent& psxCop, PlanetComponent& planetComp)
+    //{
+    //   
+    //});
 }
 

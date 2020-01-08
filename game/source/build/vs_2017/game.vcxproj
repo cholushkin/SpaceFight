@@ -134,7 +134,9 @@
     <ClInclude Include="..\..\source\config.h" />
     <ClInclude Include="..\..\source\InputSystem.h" />
     <ClInclude Include="..\..\source\PhysicsAgentComponent.h" />
+    <ClInclude Include="..\..\source\PhysicsObstacleComponent.h" />
     <ClInclude Include="..\..\source\PhysicsSystem.h" />
+    <ClInclude Include="..\..\source\PlanetComponent.h" />
     <ClInclude Include="..\..\source\PlayerComponent.h" />
     <ClInclude Include="..\..\source\PlayerControllerSystem.h" />
     <ClInclude Include="..\..\source\PlayerTag.h" />
@@ -153,7 +155,9 @@
     <ClCompile Include="..\..\source\application.cpp" />
     <ClCompile Include="..\..\source\InputSystem.cpp" />
     <ClCompile Include="..\..\source\PhysicsAgentComponent.cpp" />
+    <ClCompile Include="..\..\source\PhysicsObstacleComponent.cpp" />
     <ClCompile Include="..\..\source\PhysicsSystem.cpp" />
+    <ClCompile Include="..\..\source\PlanetComponent.cpp" />
     <ClCompile Include="..\..\source\PlayerComponent.cpp" />
     <ClCompile Include="..\..\source\PlayerControllerSystem.cpp" />
     <ClCompile Include="..\..\source\PlayerTag.cpp" />

@@ -176,7 +176,7 @@ namespace vp
         static bool CollideBorder(const AABB&, VerletAgent& p);
         static bool CollideSolid(const AABB&, VerletAgent& p);
         static bool CollideSolid(const VerletAgent& p1, VerletAgent& p2);
-        static bool Collide(VerletAgent&       p1, VerletAgent& p2);
+        static bool Collide(VerletAgent& p1, VerletAgent& p2);
 
 
         std::set<Collision> mColls;

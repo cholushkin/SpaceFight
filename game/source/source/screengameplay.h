@@ -56,12 +56,10 @@ class LevelCreator final
 {
     DENY_COPY(LevelCreator)
 private:
-    class Entity
-    {
-    };
-
     class GenerationOptions
     {
+    public:
+        GenerationOptions();
         mt::v2i16 PlanetsAmmount;
         mt::v2i16 EnergyStationAmmount;
         mt::v2i16 AsteroidsAmmount;
@@ -76,8 +74,11 @@ private:
     entt::DefaultRegistry&      m_registry;
     PhysicsSystem&              m_physicsSystem;
     GenerationOptions           m_options;
+    std::vector<mt::v2f>        m_created;
 
-    void CreatePlayerEntity(int playerID);
+
+    void CreatePlayerEntity(int playerID, const mt::v2f& pos);
+    void CreatePlanet(const mt::v2f& pos);
 };
 
 class ScreenGameplay : public gui::BasicScreen

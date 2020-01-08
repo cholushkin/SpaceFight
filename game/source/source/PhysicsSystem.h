@@ -10,8 +10,12 @@ public:
     PhysicsSystem(entt::DefaultRegistry& registry);
     ~PhysicsSystem();
 
-    vp::VerletAgent* AddAgent(const uint32_t& ent, const mt::v2f pos);
+    vp::VerletAgent* AddAgent(const uint32_t& ent, const mt::v2f pos, bool isStatic);
+    vp::Obstacle* AddObstacle(const uint32_t& ent, const mt::v2f pos);
+
     void RemoveAgent(const uint32_t& ent);
+    void RemoveObstacle(const uint32_t& ent);
+
 
 
     void Update(float dt, entt::DefaultRegistry& registry);

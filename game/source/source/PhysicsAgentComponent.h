@@ -7,10 +7,6 @@ struct PhysicsAgentComponent final
 {
 public:
     PhysicsAgentComponent(vp::VerletAgent* agent);
-    //PhysicsAgentComponent(const PhysicsAgentComponent& pac);
-
-    //PhysicsAgentComponent() = default;
-    //~PhysicsAgentComponent() = default;
     vp::VerletAgent* m_agent;
 };
 

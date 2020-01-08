@@ -4,13 +4,8 @@
 using namespace mt;
 using namespace vp;
 
-PhysicsAgentComponent::PhysicsAgentComponent(vp::VerletAgent* agent )
+PhysicsAgentComponent::PhysicsAgentComponent( vp::VerletAgent* agent )
     : m_agent(agent)
 {    
+    EASSERT(agent != nullptr);
 }
-
-
-//PhysicsAgentComponent::PhysicsAgentComponent(const PhysicsAgentComponent& pac)
-//{
-//    m_agent = pac.m_agent;
-//}

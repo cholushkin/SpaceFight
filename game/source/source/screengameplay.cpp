@@ -3,9 +3,12 @@
 #include "config.h"
 #include "playertag.h"
 #include "PlayerComponent.h"
+#include "PlanetComponent.h"
 #include "PhysicsAgentComponent.h"
+#include "PhysicsObstacleComponent.h"
 #include "widgets.h"
-
+#include "ext/math/mt_random.h"
+#include <time.h> 
 //#include "balance.h"
 //#include "game.h"
 //#include <algorithm>
@@ -67,6 +70,25 @@ GameResources::GameResources(Application& app)
 
 // LevelCreator
 // ---------------------------------------------------------------
+mt::fast_random_generator g_rnd((u32)time(nullptr));
+inline int rndRange(int min, int max) // [min, max]
+{
+    return min + g_rnd.rand() % ((max + 1) - min);
+}
+//
+//v2f rndInRect(const v2f& center, float width, float height)
+//{
+//
+//}
+
+LevelCreator::GenerationOptions::GenerationOptions()
+    : PlanetsAmmount(2, 6)
+    , EnergyStationAmmount(1, 5)
+    , AsteroidsAmmount(10, 30)
+{
+}
+
+
 LevelCreator::LevelCreator(entt::DefaultRegistry& registry, PhysicsSystem& psx)
     : m_registry(registry)
     , m_physicsSystem(psx)
@@ -75,20 +97,40 @@ LevelCreator::LevelCreator(entt::DefaultRegistry& registry, PhysicsSystem& psx)
 
 void LevelCreator::CreateLevelRandom()
 {
-    // create 2 players for now (hardcoded)
-    CreatePlayerEntity(0);
-    CreatePlayerEntity(1);
+    // clear occupation array
+    m_created.clear();
 
+    // create 2 players for now (hardcoded)
+    CreatePlayerEntity(0, v2f(-200.0f, 0.0f));
+    CreatePlayerEntity(1, v2f(200.0f, 0.0f));
+
+    static auto IsHit = [&](const v2f& pos) {
+        for (auto&& c : m_created)
+            if ((c - pos).length() < 100)
+                return true;
+        return false;
+    };
+
+    auto planetMaxAmount = rndRange(m_options.PlanetsAmmount.x, m_options.PlanetsAmmount.y);
+    for (int i = 0; i < planetMaxAmount; ++i)
+    {
+        v2f rndPos((float)rndRange(100, SCREEN_WIDTH - 100), (float)rndRange(100, SCREEN_HEIGHT - 100));
+        rndPos -= v2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+        if (!IsHit(rndPos))
+        {
+            m_created.push_back(rndPos);
+            CreatePlanet(rndPos);
+        }
+    }
 }
 
-void LevelCreator::CreatePlayerEntity(int playerID)
+void LevelCreator::CreatePlayerEntity(int playerID, const mt::v2f& pos)
 {
     const auto player = m_registry.create();
     auto playerComponent = m_registry.assign<PlayerComponent>(player, playerID);
     auto physicsAgentComponent = m_registry.assign<PhysicsAgentComponent>(
-        player,
-        m_physicsSystem.AddAgent(player, playerID == 0 ? v2f(-200.0f, 0.0f) : v2f(200.0f, 0.0f))
-    );
+        player, m_physicsSystem.AddAgent(player, pos, false));
+    m_created.push_back(pos);
 }
 
 void LevelCreator::DeleteEntity(uint32_t& entt)
@@ -98,6 +140,20 @@ void LevelCreator::DeleteEntity(uint32_t& entt)
     m_registry.destroy(entt);
 }
 
+void LevelCreator::CreatePlanet(const v2f& pos)
+{
+    static const int planetType[] = { gameplay::Planet1, gameplay::Planet2, gameplay::Planet3,
+        gameplay::Planet4, gameplay::Planet5, gameplay::Planet6 };
+    
+    const auto planet = m_registry.create();
+    m_registry.assign<PlanetComponent>(planet, (int)planetType[g_rnd.rand() % ARRAY_SIZE(planetType)], 1.0f, 100.0f, 50.0f);
+    auto psxAgentComp = m_registry.assign<PhysicsAgentComponent>(
+        planet,
+        m_physicsSystem.AddAgent(planet, pos, true)
+        );
+    psxAgentComp.m_agent->radius = 50.0f;
+
+}
 
 
 // ScreenGameplay 
@@ -152,7 +208,7 @@ void ScreenGameplay::Update(f32 dt)
         // update systems
         m_playerControllerSystem.Update(dt, m_registry);
         m_physicsSystem.Update(dt, m_registry);
-        
+
     }
     else if (m_gameState == Message)
     {
