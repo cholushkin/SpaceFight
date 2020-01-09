@@ -7,21 +7,21 @@
 // This class will take user input and pass it to appropriate controllers
 class InputSystem
 {
+
+    struct Directions 
+    {
+        bool UP;
+        bool LEFT;
+        bool DOWN;
+        bool RIGHT;
+        bool SHOOT;
+    };
+
     struct KeyStatusMap
     {
         // keyboard section 1
-        bool KeyboardP1_UP;
-        bool KeyboardP1_LEFT;
-        bool KeyboardP1_DOWN;
-        bool KeyboardP1_RIGHT;
-        bool KeyboardP1_SHOOT;
-
-        // keyboard section 2
-        bool KeyboardP2_UP;
-        bool KeyboardP2_LEFT;
-        bool KeyboardP2_DOWN;
-        bool KeyboardP2_RIGHT;
-        bool KeyboardP2_SHOOT;
+        Directions P1;
+        Directions P2;
 
         // keyboard system section 
         bool Keyboard_Apply;
@@ -40,6 +40,8 @@ private:
     KeyStatusMap m_keyStatusMap;
 
     void ProcessInput();
+
+    static mt::v2f DirectionVec(const Directions& d);
 };
 
 #endif
