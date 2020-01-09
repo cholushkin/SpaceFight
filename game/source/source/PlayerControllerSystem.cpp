@@ -20,7 +20,7 @@ void PlayerControllerSystem::Update(float /*dt*/, entt::DefaultRegistry& registr
         //if (playerComp.m_playerID == 0)
         {
             auto input = m_inputSystem.GetVectorFromInput(playerComp.m_playerID);
-            psxComp.m_agent->Push(input);
+            psxComp.m_agent->ApplyAcceleration(2000.0f * input);
             //psxComp.m_agent->pos += input * 2.5f;
         }
 

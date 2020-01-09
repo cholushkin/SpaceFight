@@ -109,7 +109,7 @@ namespace vp
 
     void VerletPhysicsSystem::ProcessTime(float timeStep)
     {
-        const float maxVel = 10.0f;
+        const float maxVel = 1000.0f;
         const float maxVel_x_timeStep = maxVel * timeStep;
         for (int i = 0; i < mParticleCount; i++)
             if (!sapQueue[i]->m_isStatic)

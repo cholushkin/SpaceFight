@@ -56,7 +56,7 @@ void PhysicsSystem::RemoveObstacle(const uint32_t& entt)
     delete comp.m_obstacle;
 }
 
-static const float GravConst = 0.25f;
+static const float GravConst = 1000.25f;
 void PhysicsSystem::Update(float dt, entt::DefaultRegistry& /*registry*/)
 {
     m_vps.ProcessTime(dt);
@@ -69,7 +69,7 @@ void PhysicsSystem::Update(float dt, entt::DefaultRegistry& /*registry*/)
         {
             auto dDist = playerPsxComp.m_agent->pos - planetPsxComp.m_agent->pos;
             auto force = GravConst * planetComp.m_mass * planetComp.m_scale / dDist.lengthSq();
-            playerPsxComp.m_agent->Push(-dDist * force);
+            playerPsxComp.m_agent->ApplyAcceleration(-dDist * force);
         });
     });
 }
