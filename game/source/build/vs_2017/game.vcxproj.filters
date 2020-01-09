@@ -169,6 +169,12 @@
     <ClInclude Include="..\..\source\Level.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\EnergyResourceComponent.h">
+      <Filter>Source\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameRulesSystem.h">
+      <Filter>Source\Game\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\helpers\erps\erps.cpp">
@@ -227,6 +233,12 @@
     </ClCompile>
     <ClCompile Include="..\..\source\Level.cpp">
       <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\EnergyResourceComponent.cpp">
+      <Filter>Source\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameRulesSystem.cpp">
+      <Filter>Source\Game\Systems</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

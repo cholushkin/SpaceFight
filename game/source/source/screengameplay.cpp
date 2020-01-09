@@ -63,6 +63,20 @@ GameResources::GameResources(Application& app)
     LoadPS(m_particleSysTrail, RES_BURST_PSI, RES_PARTICLES_PNG, app.GetRender(), m_resPool);
 }
 
+//// GameContext
+//// ------------------------------------------------------------------
+//ScreenGameplay::GameContext::GameContext(ScreenGameplay* screenGameplay)
+//    : m_res(screenGameplay->m_res)
+//    , m_level(screenGameplay->m_level)
+//    , m_inputSystem(screenGameplay->m_inputSystem)
+//    , m_renderSystem(screenGameplay->m_renderSystem)
+//    , m_physicsSystem(screenGameplay->m_physicsSystem)
+//    , m_playerControllerSystem(screenGameplay->m_playerControllerSystem)
+//    , m_registry(screenGameplay->m_registry)
+//{
+//}
+
+
 
 // ScreenGameplay 
 // ---------------------------------------------------------------
@@ -70,25 +84,27 @@ ScreenGameplay::ScreenGameplay(Application& app)
     : m_app(app)
     , m_time(0.0f)
     , m_res(app)
-    , m_levelCreator(m_registry, m_physicsSystem)
+    , m_level(m_registry, m_physicsSystem)
     , m_player1Dashboard(m_registry, m_res)
     , m_player2Dashboard(m_registry, m_res)
     , m_modalMessenger(m_registry, m_res)
-    , m_playerControllerSystem(m_inputSystem)
+    , m_playerControllerSystem(m_inputSystem, m_level)
     , m_physicsSystem(m_registry)
-
+    //, m_gameContext(this)
 {
     SetState(Initialization);
-
-    //m_registry.attach<PlayerTag>(player);
-    /*m_registry.assign<SpriteComponent>(player, 12, 96, SDL_Colour{ 255, 255, 255, 255 });
-    m_registry.assign<PositionComponent>(player, 20.0, 20.0);*/
 }
 
 
 ScreenGameplay::~ScreenGameplay()
 {
 }
+
+//
+//ScreenGameplay::GameContext& ScreenGameplay::GetGameContext()
+//{
+//    return m_gameContext;
+//}
 
 void ScreenGameplay::Draw(r::Render& r)
 {
@@ -114,6 +130,7 @@ void ScreenGameplay::Update(f32 dt)
         m_player2Dashboard.Update(dt);
 
         // update systems
+        m_gameRuleSystem.Update(dt, m_registry);
         m_playerControllerSystem.Update(dt, m_registry);
         m_physicsSystem.Update(dt, m_registry);
 
@@ -147,7 +164,7 @@ void ScreenGameplay::SetState(EnGameStates state)
         m_modalMessenger.SetState(WidgetModalMessage::VIEW_FIGHT);
 
         // create new level
-        m_levelCreator.CreateLevelRandom();
+        m_level.CreateLevelRandom();
 
         // assign widget to entity
         auto view = m_registry.view<PlayerComponent>();

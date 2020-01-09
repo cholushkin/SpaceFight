@@ -5,7 +5,6 @@
 
 struct PhysicsObstacleComponent final
 {
-public:
     PhysicsObstacleComponent(vp::Obstacle* obstacle);
     vp::Obstacle* m_obstacle;
 };

@@ -1,6 +1,8 @@
 #include "RenderSystem.h"
 #include "PhysicsAgentComponent.h"
 #include "PhysicsObstacleComponent.h"
+#include "PlayerComponent.h"
+#include "EnergyResourceComponent.h"
 #include "PlanetComponent.h"
 #include "ext/draw2d/draw_helper.h"
 #include "ext/math/mt_colors.h"
@@ -16,34 +18,47 @@ void RenderSystem::Update(float /*dt*/, entt::DefaultRegistry& /*registry*/)
 
 void RenderSystem::Render(r::Render& r, entt::DefaultRegistry& registry)
 {
+    DrawHelper dr(r);
+    static const v2f offset = v2f(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
+
 #ifdef _DEBUG
+
+    // draw physics body wire
     registry.view<PhysicsAgentComponent>().each([&](auto /*entity*/, PhysicsAgentComponent& psxComp)
     {
-        DrawHelper dr(r);
-        
-        static const v2f offset = v2f(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
         dr.SetTransform(offset);
-
         dr.DrawStar(v2f(), 10.0f, 4, COLOR_YELLOW);
         dr.DrawCircle(psxComp.m_agent->pos, psxComp.m_agent->radius, 16, COLOR_WHITE);
-        
+    });
 
-        //if (sc.m_radius != 0)
-        //{
-        //    // We use SDL2_gfx to make drawing circles easier.
-        //    filledCircleRGBA(window->getRenderer(), static_cast<Sint16>(pc.m_x), static_cast<Sint16>(pc.m_y), sc.m_radius, sc.m_colour.r, sc.m_colour.g, sc.m_colour.b, sc.m_colour.a);
-        //}
-        //else
-        //{
-        //    // First we set the rectangle fill colour to that of the spritecomponents.
-        //    SDL_SetRenderDrawColor(window->getRenderer(), sc.m_colour.r, sc.m_colour.g, sc.m_colour.b, sc.m_colour.a);
+    // draw impact radius
+    registry.view<PhysicsAgentComponent, PlayerComponent>().each([&]
+    (auto /*entity*/, PhysicsAgentComponent& psxComp, PlayerComponent& /*player*/)
+    {
+        dr.DrawCircle(psxComp.m_agent->pos, SHIP_IMPACT_RADIUS, 16, COLOR_AQUA);
 
-        //    // Then we create the actual rectangle.
-        //    SDL_Rect rectToDraw{ static_cast<int>(pc.m_x), static_cast<int>(pc.m_y), sc.m_width, sc.m_height };
+        registry.view<EnergyResourceComponent>().each([&](auto ett, EnergyResourceComponent& /*erComp*/)
+        {
+            auto& psxEnergyRes = registry.get<PhysicsAgentComponent>(ett);
+            auto distance = (psxComp.m_agent->pos - psxEnergyRes.m_agent->pos).length();
+            if (distance < SHIP_IMPACT_RADIUS)
+            {
+                dr.DrawLine(psxComp.m_agent->pos, psxEnergyRes.m_agent->pos, COLOR_ORANGE);
+            }
+        });
+    });
 
-        //    // Now the rectangle gets renderered with the appropriate colours and position data to the window.
-        //    SDL_RenderFillRect(window->getRenderer(), &rectToDraw);
-        //}
+    // draw retrieve progression
+    registry.view<EnergyResourceComponent>().each([&](auto ett, EnergyResourceComponent& erComp)
+    {
+        auto& psx = registry.get<PhysicsAgentComponent>(ett);
+        dr.DrawLine(
+            psx.m_agent->pos, 
+            psx.m_agent->pos + v2f(erComp.m_retriveProgression[0]*10.0f,0.0f), COLOR_AQUA);
+
+        dr.DrawLine(
+            psx.m_agent->pos,
+            psx.m_agent->pos + v2f(erComp.m_retriveProgression[1] * 10.0f, 0.0f) + v2f(0.0, 1.0f), COLOR_AQUA);
     });
 #endif
 

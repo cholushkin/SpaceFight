@@ -5,7 +5,6 @@
 
 struct PhysicsAgentComponent final
 {
-public:
     PhysicsAgentComponent(vp::VerletAgent* agent);
     vp::VerletAgent* m_agent;
 };

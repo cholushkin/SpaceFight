@@ -3,13 +3,12 @@
 
 struct PlayerComponent final
 {
-public:
     PlayerComponent(int playerID);
 
-public:
     int m_playerID;
     int m_winCount;
     float m_energy;
+    float m_weaponStatus;
 };
 
 #endif

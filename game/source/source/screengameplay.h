@@ -1,6 +1,6 @@
 #ifndef screengameplay_h__
 #define screengameplay_h__
-//#include "config.h"
+
 #include "application.h"
 #include "ext/gui/gui_base.h"
 #include "ext/primitives/r_primitives.h"
@@ -9,25 +9,10 @@
 #include "inputsystem.h"
 #include "rendersystem.h"
 #include "physicssystem.h"
+#include "gamerulessystem.h"
 #include "playercontrollersystem.h"
 #include "level.h"
 #include "widgets.h"
-
-//#include "tileset.h"
-//#include "button.h"
-//#include "ingamemenu.h"
-//#include "screenstate.h"
-//#include "ext/input/in_touchtracker.h"
-//#include "decor.h"
-//#include "messenger.h"
-//#include "geffect.h"
-//#include "g_reporter.h"
-//
-//#include "rect_shader.h"
-//#include "gesturetracker.h"
-//#include "viewtransform.h"
-//#include "gfx_soup.h"
-//#include "screen_fader.h"
 
 struct GameResources
 {
@@ -67,6 +52,19 @@ class ScreenGameplay : public gui::BasicScreen
         Message = 2,
         Paused = 3,
     };
+public:
+    //class GameContext
+    //{ 
+    //public:
+    //    GameContext(ScreenGameplay* screenGameplay);
+    //    GameResources&           m_res;
+    //    Level&                   m_level;
+    //    InputSystem&             m_inputSystem;
+    //    RenderSystem&            m_renderSystem;
+    //    PhysicsSystem&           m_physicsSystem;
+    //    PlayerControllerSystem&  m_playerControllerSystem;
+    //    entt::DefaultRegistry&   m_registry;
+    //};
 
 public:
     ScreenGameplay(Application& app);
@@ -84,8 +82,9 @@ private:
     float                   m_time;
 
     entt::DefaultRegistry   m_registry;
-    Level                   m_levelCreator;
+    Level                   m_level;
     InputSystem             m_inputSystem;
+    GameRulesSystem         m_gameRuleSystem;
     RenderSystem            m_renderSystem;
     PhysicsSystem           m_physicsSystem;
     PlayerControllerSystem  m_playerControllerSystem;
@@ -94,7 +93,7 @@ private:
     WidgetPlayerDashboard   m_player1Dashboard;
     WidgetPlayerDashboard   m_player2Dashboard;
     WidgetModalMessage      m_modalMessenger;
-
+    //GameContext             m_gameContext;
     
 };
 

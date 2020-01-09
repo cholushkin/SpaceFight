@@ -3,13 +3,14 @@
 #include "PhysicsObstacleComponent.h"
 #include "PlayerComponent.h"
 #include "PlanetComponent.h"
-
+#include "EnergyResourceComponent.h"
+#include "config.h"
 
 
 using namespace vp;
 
 PhysicsSystem::PhysicsSystem(entt::DefaultRegistry& registry)
-    : m_vps(AABB())
+    : m_vps(AABB(-SCREEN_WIDTH/2.0f, SCREEN_WIDTH / 2.0f, -SCREEN_HEIGHT/ 2.0f, SCREEN_HEIGHT / 2.0f))
     , m_registry(registry)
 {
     m_vps.SetCollisionListener(this);
@@ -23,9 +24,9 @@ PhysicsSystem::~PhysicsSystem()
     });
 }
 
-vp::VerletAgent* PhysicsSystem::AddAgent(const uint32_t& /*ent*/, const mt::v2f pos, bool isStatic)
+vp::VerletAgent* PhysicsSystem::AddAgent(const uint32_t& /*ent*/, const mt::v2f pos, float friction, float radius, bool isStatic)
 {
-    auto vAgent = new VerletAgent(VerletAgent::Descriptor(pos, 10.0f, 0.1f));
+    auto vAgent = new VerletAgent(VerletAgent::Descriptor(pos, radius, friction));
     vAgent->m_isStatic = isStatic;
     m_vps.AddParticle(vAgent);
     return vAgent;
@@ -62,7 +63,6 @@ void PhysicsSystem::Update(float dt, entt::DefaultRegistry& /*registry*/)
     m_vps.ProcessTime(dt);
 
     // gravity only for players
-    
     m_registry.view<PlayerComponent, PhysicsAgentComponent>().each([&](auto /*playerEnt*/, PlayerComponent& /*playerComp*/, PhysicsAgentComponent& playerPsxComp)
     {
         m_registry.view<PlanetComponent, PhysicsAgentComponent>().each([&](auto /*planetEnt*/, PlanetComponent& planetComp, PhysicsAgentComponent& planetPsxComp)
@@ -72,10 +72,22 @@ void PhysicsSystem::Update(float dt, entt::DefaultRegistry& /*registry*/)
             playerPsxComp.m_agent->ApplyAcceleration(-dDist * force);
         });
     });
+
+    // retriever progression recover
+    m_registry.view<EnergyResourceComponent>().each(
+        [&](auto /*ent*/, EnergyResourceComponent& eRus)
+    {
+        for (int i = 0; i < MAX_PLAYERS; ++i)
+            eRus.m_retriveProgression[i] = mt::Clamp(eRus.m_retriveProgression[i] - dt * 0.25f, 0.0f, 3.0f);
+    });
 }
 
 void PhysicsSystem::OnCollide(const Collision& /*collision*/)
 {
+    // ship, bullet, station
+    // if (IsBulletToShipCollision(bullet, ship)
+    // if (IsShipToShipCollision(ship1, ship2)
 
+    //collision.mP1.
 }
 

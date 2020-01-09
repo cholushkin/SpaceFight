@@ -30,7 +30,7 @@ namespace vp
     class IActor {
     public:
         virtual ~IActor() {}
-        virtual void OnCollide(const VerletAgent* agent) = 0;
+        //virtual void OnCollide(const VerletAgent* agent) = 0;
     };
 
     struct VerletAgent

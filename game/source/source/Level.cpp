@@ -5,6 +5,7 @@
 #include "config.h"
 #include "PlayerComponent.h"
 #include "PlanetComponent.h"
+#include "EnergyResourceComponent.h"
 #include "PhysicsAgentComponent.h"
 #include "res/sheet_gameplay.h"
 #include <time.h> 
@@ -77,7 +78,7 @@ void Level::CreatePlayerEntity(int playerID, const mt::v2f& pos)
     const auto player = m_registry.create();
     auto playerComponent = m_registry.assign<PlayerComponent>(player, playerID);
     auto physicsAgentComponent = m_registry.assign<PhysicsAgentComponent>(
-        player, m_physicsSystem.AddAgent(player, pos, false));
+        player, m_physicsSystem.AddAgent(player, pos, 0.1f, 10.0f, false));
     m_created.push_back(pos);
 }
 
@@ -86,6 +87,18 @@ void Level::DeleteEntity(uint32_t& entt)
     if (m_registry.has<PhysicsAgentComponent>(entt))
         m_physicsSystem.RemoveAgent(entt);
     m_registry.destroy(entt);
+}
+
+
+void Level::CreatePlasmaBullet(const mt::v2f& pos, const mt::v2f& speed)
+{
+    const auto plasmaBullet = m_registry.create();
+    m_registry.assign<EnergyResourceComponent>(plasmaBullet);
+    auto& psx = m_registry.assign<PhysicsAgentComponent>(
+        plasmaBullet,
+        m_physicsSystem.AddAgent(plasmaBullet, pos, 0.0f, 4.0f, false)
+        );
+    psx.m_agent->Push(speed);
 }
 
 void Level::CreatePlanet(const v2f& pos)
@@ -97,7 +110,6 @@ void Level::CreatePlanet(const v2f& pos)
     m_registry.assign<PlanetComponent>(planet, (int)planetType[g_rnd.rand() % ARRAY_SIZE(planetType)], 1.0f, 100.0f, 50.0f);
     auto psxAgentComp = m_registry.assign<PhysicsAgentComponent>(
         planet,
-        m_physicsSystem.AddAgent(planet, pos, true)
+        m_physicsSystem.AddAgent(planet, pos, 0.0f, 50.0f, true)
         );
-    psxAgentComp.m_agent->radius = 50.0f;
 }

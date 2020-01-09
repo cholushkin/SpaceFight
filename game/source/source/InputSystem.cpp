@@ -41,6 +41,9 @@ v2f InputSystem::DirectionVec(const Actions& d) {
         direction += v2f(0.0f, -1.0f);
     if (d.DOWN)
         direction += v2f(0.0f, 1.0f);
+    if(direction.length() > 0.0f)
+        return direction.normal();
+    EASSERT(direction.x == 0.0f && direction.y == 0.0f);
     return direction;
 }
 

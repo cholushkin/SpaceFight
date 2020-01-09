@@ -132,6 +132,8 @@
     <ClInclude Include="..\..\libs\entt\signal\signal.hpp" />
     <ClInclude Include="..\..\source\application.h" />
     <ClInclude Include="..\..\source\config.h" />
+    <ClInclude Include="..\..\source\EnergyResourceComponent.h" />
+    <ClInclude Include="..\..\source\GameRulesSystem.h" />
     <ClInclude Include="..\..\source\InputSystem.h" />
     <ClInclude Include="..\..\source\Level.h" />
     <ClInclude Include="..\..\source\PhysicsAgentComponent.h" />
@@ -153,6 +155,8 @@
     <ClCompile Include="..\..\helpers\erps\erps.cpp" />
     <ClCompile Include="..\..\helpers\vphys\vps.cpp" />
     <ClCompile Include="..\..\source\application.cpp" />
+    <ClCompile Include="..\..\source\EnergyResourceComponent.cpp" />
+    <ClCompile Include="..\..\source\GameRulesSystem.cpp" />
     <ClCompile Include="..\..\source\InputSystem.cpp" />
     <ClCompile Include="..\..\source\Level.cpp" />
     <ClCompile Include="..\..\source\PhysicsAgentComponent.cpp" />

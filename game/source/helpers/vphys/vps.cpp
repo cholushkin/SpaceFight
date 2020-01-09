@@ -37,7 +37,7 @@ namespace vp
         if (m_isStatic)
             return;
         deltaPos += delta;
-        pos += delta;
+        //pos += delta;
     }
 
     void VerletAgent::Move(float /*timeStep*/, float hsqtimeStep, float maxVel_x_timeStep)
@@ -61,10 +61,12 @@ namespace vp
 
 
 
+    VerletAgent _aabbProxyVerletAgent;
     // -------------- VerletParticleSystem
     VerletPhysicsSystem::VerletPhysicsSystem(const AABB& _bounds)
     {
         bounds = _bounds;
+
         mParticleCount = 0;
         prevTimeStep = 1e7f;
         mCollListener = NULL;
@@ -109,7 +111,7 @@ namespace vp
 
     void VerletPhysicsSystem::ProcessTime(float timeStep)
     {
-        const float maxVel = 1000.0f;
+        const float maxVel = 600.0f;
         const float maxVel_x_timeStep = maxVel * timeStep;
         for (int i = 0; i < mParticleCount; i++)
             if (!sapQueue[i]->m_isStatic)
@@ -138,7 +140,7 @@ namespace vp
             if (bounds.isValid())
                 for (int i = 0; i < mParticleCount; ++i)
                     if (CollideBorder(bounds, *sapQueue[i]))
-                        mColls.insert(Collision(NULL, sapQueue[i]));
+                        mColls.insert(Collision(&_aabbProxyVerletAgent, sapQueue[i]));
 
             // Obstacles
             for (vObstacles::const_iterator it = m_vObstacles.begin(); m_vObstacles.end() != it; ++it) {
