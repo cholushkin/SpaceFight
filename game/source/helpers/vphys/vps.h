@@ -25,13 +25,7 @@ namespace vp
         i16 groupIndex;       // Collision groups allow a certain group of objects to never collide (negative) or always collide (positive). Zero means no collision group. Non-zero group filtering always wins against the mask bits.
     };
 
-
     struct VerletAgent;
-    class IActor {
-    public:
-        virtual ~IActor() {}
-        //virtual void OnCollide(const VerletAgent* agent) = 0;
-    };
 
     struct VerletAgent
     {
@@ -84,7 +78,7 @@ namespace vp
         bool m_isStatic;
         bool m_isSensor;
         Filter m_Filter;
-        IActor* m_actor;
+        uint32_t m_entity;
         bool isValid() const { return radius > 0.0f; }
     };
 

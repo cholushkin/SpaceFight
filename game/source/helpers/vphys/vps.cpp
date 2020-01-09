@@ -16,14 +16,14 @@ namespace vp
         m_isSensor = desc.m_isSensor;
         friction = desc.friction;
         mUid = VerletPhysicsSystem::getUid();
-        m_actor = NULL;
+        m_entity = 0;
     }
 
     VerletAgent::VerletAgent()
     {
         deltaPos = zero_v2f;
         acceleration = zero_v2f;
-        m_actor = NULL;
+        m_entity = 0;
         mUid = VerletPhysicsSystem::getUid();
     }
 

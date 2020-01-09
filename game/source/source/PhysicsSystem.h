@@ -25,6 +25,7 @@ private:
 
 
     void OnCollide(const vp::Collision& collision);
+    bool IsBulletToShipCollision(const vp::Collision& collision, uint32_t& bullet, uint32_t& ship);
 };
 
 #endif

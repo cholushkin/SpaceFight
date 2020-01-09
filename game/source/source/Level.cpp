@@ -5,6 +5,7 @@
 #include "config.h"
 #include "PlayerComponent.h"
 #include "PlanetComponent.h"
+#include "EntityTypeComponent.h"
 #include "EnergyResourceComponent.h"
 #include "PhysicsAgentComponent.h"
 #include "res/sheet_gameplay.h"
@@ -19,11 +20,6 @@ inline int rndRange(int min, int max) // [min, max]
 {
     return min + g_rnd.rand() % ((max + 1) - min);
 }
-//
-//v2f rndInRect(const v2f& center, float width, float height)
-//{
-//
-//}
 
 Level::GenerationOptions::GenerationOptions()
     : PlanetsAmmount(2, 6)
@@ -36,8 +32,6 @@ Level::GenerationOptions::GenerationOptions()
 
 // Level
 // ---------------------------------------------------------------
-
-
 Level::Level(entt::DefaultRegistry& registry, PhysicsSystem& psx)
     : m_registry(registry)
     , m_physicsSystem(psx)
@@ -76,8 +70,9 @@ void Level::CreateLevelRandom()
 void Level::CreatePlayerEntity(int playerID, const mt::v2f& pos)
 {
     const auto player = m_registry.create();
-    auto playerComponent = m_registry.assign<PlayerComponent>(player, playerID);
-    auto physicsAgentComponent = m_registry.assign<PhysicsAgentComponent>(
+    m_registry.assign<EntityTypeComponent>(player, EntityTypeComponent::Ship);
+    m_registry.assign<PlayerComponent>(player, playerID);
+    m_registry.assign<PhysicsAgentComponent>(
         player, m_physicsSystem.AddAgent(player, pos, 0.1f, 10.0f, false));
     m_created.push_back(pos);
 }
@@ -93,6 +88,7 @@ void Level::DeleteEntity(uint32_t& entt)
 void Level::CreatePlasmaBullet(const mt::v2f& pos, const mt::v2f& speed)
 {
     const auto plasmaBullet = m_registry.create();
+    m_registry.assign<EntityTypeComponent>(plasmaBullet, EntityTypeComponent::PlasmaBullet);
     m_registry.assign<EnergyResourceComponent>(plasmaBullet);
     auto& psx = m_registry.assign<PhysicsAgentComponent>(
         plasmaBullet,
@@ -107,6 +103,7 @@ void Level::CreatePlanet(const v2f& pos)
         gameplay::Planet4, gameplay::Planet5, gameplay::Planet6 };
 
     const auto planet = m_registry.create();
+    m_registry.assign<EntityTypeComponent>(planet, EntityTypeComponent::Planet);
     m_registry.assign<PlanetComponent>(planet, (int)planetType[g_rnd.rand() % ARRAY_SIZE(planetType)], 1.0f, 100.0f, 50.0f);
     auto psxAgentComp = m_registry.assign<PhysicsAgentComponent>(
         planet,

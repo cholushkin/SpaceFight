@@ -136,6 +136,7 @@
     <ClInclude Include="..\..\source\GameRulesSystem.h" />
     <ClInclude Include="..\..\source\InputSystem.h" />
     <ClInclude Include="..\..\source\Level.h" />
+    <ClInclude Include="..\..\source\EntityTypeComponent.h" />
     <ClInclude Include="..\..\source\PhysicsAgentComponent.h" />
     <ClInclude Include="..\..\source\PhysicsObstacleComponent.h" />
     <ClInclude Include="..\..\source\PhysicsSystem.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="..\..\helpers\vphys\vps.cpp" />
     <ClCompile Include="..\..\source\application.cpp" />
     <ClCompile Include="..\..\source\EnergyResourceComponent.cpp" />
+    <ClCompile Include="..\..\source\EntityTypeComponent.cpp" />
     <ClCompile Include="..\..\source\GameRulesSystem.cpp" />
     <ClCompile Include="..\..\source\InputSystem.cpp" />
     <ClCompile Include="..\..\source\Level.cpp" />

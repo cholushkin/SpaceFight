@@ -24,9 +24,10 @@ PhysicsSystem::~PhysicsSystem()
     });
 }
 
-vp::VerletAgent* PhysicsSystem::AddAgent(const uint32_t& /*ent*/, const mt::v2f pos, float friction, float radius, bool isStatic)
+vp::VerletAgent* PhysicsSystem::AddAgent(const uint32_t& ent, const mt::v2f pos, float friction, float radius, bool isStatic)
 {
     auto vAgent = new VerletAgent(VerletAgent::Descriptor(pos, radius, friction));
+    vAgent->m_entity = ent;
     vAgent->m_isStatic = isStatic;
     m_vps.AddParticle(vAgent);
     return vAgent;
@@ -62,7 +63,7 @@ void PhysicsSystem::Update(float dt, entt::DefaultRegistry& /*registry*/)
 {
     m_vps.ProcessTime(dt);
 
-    // gravity only for players
+    // apply gravity only for the players
     m_registry.view<PlayerComponent, PhysicsAgentComponent>().each([&](auto /*playerEnt*/, PlayerComponent& /*playerComp*/, PhysicsAgentComponent& playerPsxComp)
     {
         m_registry.view<PlanetComponent, PhysicsAgentComponent>().each([&](auto /*planetEnt*/, PlanetComponent& planetComp, PhysicsAgentComponent& planetPsxComp)
@@ -82,12 +83,25 @@ void PhysicsSystem::Update(float dt, entt::DefaultRegistry& /*registry*/)
     });
 }
 
-void PhysicsSystem::OnCollide(const Collision& /*collision*/)
+void PhysicsSystem::OnCollide(const Collision& collision)
 {
-    // ship, bullet, station
-    // if (IsBulletToShipCollision(bullet, ship)
-    // if (IsShipToShipCollision(ship1, ship2)
+    uint32_t bullet, ship;
+    if (IsBulletToShipCollision(collision, bullet, ship))
+    {
+    }
+}
 
-    //collision.mP1.
+bool PhysicsSystem::IsBulletToShipCollision(const Collision& /*collision*/, uint32_t& /*bullet*/, uint32_t& /*ship*/)
+{
+    return false;
+    //EASSERT(collision.mP1 != nullptr);
+    //EASSERT(collision.mP2 != nullptr);
+
+    //m_registry.has<PhysicsAgentComponent>()
+
+    //auto& psxComp = m_registry.get<PhysicsAgentComponent>(collision.mP1->m_entity);
+
+
+    //m_registry.get<> collision.mP1->m_entity
 }
 

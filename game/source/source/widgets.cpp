@@ -49,9 +49,6 @@ WidgetPlayerDashboard::WidgetPlayerDashboard(entt::DefaultRegistry& registry, co
 
 void WidgetPlayerDashboard::Update(f32 dt)
 {
-    //m_text.SetFontScale(4);
-
-
     m_time += dt;
     if (m_time > GUI_APPEAR_DURATION)
         return;
@@ -123,12 +120,12 @@ void WidgetModalMessage::Update(f32 dt)
 
     m_time += dt;
 
-    auto diration = 
+    auto duration = 
         m_viewSubstate == Appearing
         ? GUI_APPEAR_DURATION
         : m_viewSubstate == Disappering ? GUI_DISAPPEAR_DURATION : m_stateDuration;
 
-    m_progress = Clamp(m_time / diration, 0.0f, 1.0f);
+    m_progress = Clamp(m_time / duration, 0.0f, 1.0f);
 
     if (m_progress >= 1.0f) // next substate
     {
