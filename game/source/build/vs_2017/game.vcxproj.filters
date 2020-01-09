@@ -38,9 +38,6 @@
     <Filter Include="Source\Game\Systems">
       <UniqueIdentifier>{de6bea99-ca17-4cf8-9353-153460aa0e0f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Game\Tags">
-      <UniqueIdentifier>{4a69f154-8bd6-4d14-8554-c427dcf9ba46}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Game\Components">
       <UniqueIdentifier>{8253798a-7cb9-40f7-a380-3ba60cc8efb6}</UniqueIdentifier>
     </Filter>
@@ -148,9 +145,6 @@
     <ClInclude Include="..\..\source\InputSystem.h">
       <Filter>Source\Game\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\PlayerTag.h">
-      <Filter>Source\Game\Tags</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\source\PlayerComponent.h">
       <Filter>Source\Game\Components</Filter>
     </ClInclude>
@@ -171,6 +165,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\PlanetComponent.h">
       <Filter>Source\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Level.h">
+      <Filter>Source\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -207,9 +204,6 @@
     <ClCompile Include="..\..\source\InputSystem.cpp">
       <Filter>Source\Game\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\PlayerTag.cpp">
-      <Filter>Source\Game\Tags</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\PlayerComponent.cpp">
       <Filter>Source\Game\Components</Filter>
     </ClCompile>
@@ -230,6 +224,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\PlanetComponent.cpp">
       <Filter>Source\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Level.cpp">
+      <Filter>Source\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -8,7 +8,7 @@
 class InputSystem
 {
 
-    struct Directions 
+    struct Actions 
     {
         bool UP;
         bool LEFT;
@@ -20,8 +20,8 @@ class InputSystem
     struct KeyStatusMap
     {
         // keyboard section 1
-        Directions P1;
-        Directions P2;
+        Actions P1;
+        Actions P2;
 
         // keyboard system section 
         bool Keyboard_Apply;
@@ -41,7 +41,7 @@ private:
 
     void ProcessInput();
 
-    static mt::v2f DirectionVec(const Directions& d);
+    static mt::v2f DirectionVec(const Actions& d);
 };
 
 #endif

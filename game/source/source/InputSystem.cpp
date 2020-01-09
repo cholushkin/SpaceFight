@@ -1,4 +1,3 @@
-#include "PlayerTag.h"
 #include "InputSystem.h"
 
 #include "windows.h"
@@ -32,7 +31,7 @@ void InputSystem::ProcessInput()
     m_keyStatusMap.Keyboard_Cancel = GetKeyState(VK_ESCAPE) < 0; // ESCAPE key
 }
 
-v2f InputSystem::DirectionVec(const Directions& d) {
+v2f InputSystem::DirectionVec(const Actions& d) {
     v2f direction;
     if (d.LEFT)
         direction += v2f(-1.0f, 0.0f);
@@ -48,17 +47,17 @@ v2f InputSystem::DirectionVec(const Directions& d) {
 v2f InputSystem::GetVectorFromInput(int playerID)
 {
     if (playerID == 0)
-    {
         return DirectionVec(m_keyStatusMap.P1);
-    }
     if (playerID == 1)
-    {
         return DirectionVec(m_keyStatusMap.P2);
-    }
     return v2f();
 }
 
-bool InputSystem::GetShootButton(int /*playerID*/)
+bool InputSystem::GetShootButton(int playerID)
 {
-    return true;
+    if (playerID == 0)
+        return m_keyStatusMap.P1.SHOOT;
+    if (playerID == 1)
+        return m_keyStatusMap.P2.SHOOT;
+    return false;
 }

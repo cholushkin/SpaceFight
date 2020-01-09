@@ -10,7 +10,7 @@
 #include "rendersystem.h"
 #include "physicssystem.h"
 #include "playercontrollersystem.h"
-
+#include "level.h"
 #include "widgets.h"
 
 //#include "tileset.h"
@@ -48,42 +48,12 @@ struct GameResources
     r::ParticleSystemInfo       m_particleSysExplosionB;
     r::ParticleSystemInfo       m_particleSysTrail;
 protected:
-    // can be moved to ase class
     snd::Sound* Sound(int resId) {
         return m_app.GetSMGR().GetSound(resId, m_resPool);
     }
 private:
     Application&                m_app;
     res::ResourcesPool          m_resPool;
-};
-
-class LevelCreator final
-{
-    DENY_COPY(LevelCreator)
-private:
-    class GenerationOptions
-    {
-    public:
-        GenerationOptions();
-        mt::v2i16 PlanetsAmmount;
-        mt::v2i16 EnergyStationAmmount;
-        mt::v2i16 AsteroidsAmmount;
-    };
-
-public:
-    LevelCreator(entt::DefaultRegistry& registry, PhysicsSystem& psx);
-    void CreateLevelRandom();
-    void DeleteEntity(uint32_t&);
-
-private:
-    entt::DefaultRegistry&      m_registry;
-    PhysicsSystem&              m_physicsSystem;
-    GenerationOptions           m_options;
-    std::vector<mt::v2f>        m_created;
-
-
-    void CreatePlayerEntity(int playerID, const mt::v2f& pos);
-    void CreatePlanet(const mt::v2f& pos);
 };
 
 class ScreenGameplay : public gui::BasicScreen
@@ -114,7 +84,7 @@ private:
     float                   m_time;
 
     entt::DefaultRegistry   m_registry;
-    LevelCreator            m_levelCreator;
+    Level                   m_levelCreator;
     InputSystem             m_inputSystem;
     RenderSystem            m_renderSystem;
     PhysicsSystem           m_physicsSystem;
