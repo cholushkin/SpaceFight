@@ -47,6 +47,11 @@ struct GameResources
     r::ParticleSystemInfo       m_particleSysExplosionA;
     r::ParticleSystemInfo       m_particleSysExplosionB;
     r::ParticleSystemInfo       m_particleSysTrail;
+protected:
+    // can be moved to ase class
+    snd::Sound* Sound(int resId) {
+        return m_app.GetSMGR().GetSound(resId, m_resPool);
+    }
 private:
     Application&                m_app;
     res::ResourcesPool          m_resPool;

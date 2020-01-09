@@ -51,15 +51,15 @@ GameResources::GameResources(Application& app)
     m_fnt = GetFont(RES_8BIT_FNT, app.GetRPool(), app.GetRender());
 
     // sounds
-    m_sfxExplode1 = m_app.GetSMGR().GetSound(RES_SFXEXPLODE1_WAV, m_resPool);
-    m_sfxExplode2 = m_app.GetSMGR().GetSound(RES_SFXEXPLODE2_WAV, m_resPool);
-    m_sfxExplode3 = m_app.GetSMGR().GetSound(RES_SFXEXPLODE3_WAV, m_resPool);
-    m_sfxHit = m_app.GetSMGR().GetSound(RES_SFXHIT_WAV, m_resPool);
-    m_sfxMenuApply = m_app.GetSMGR().GetSound(RES_SFXMENUAPPLY_WAV, m_resPool);
-    m_sfxMenuSelect = m_app.GetSMGR().GetSound(RES_SFXMENUSELECT_WAV, m_resPool);
-    m_sfxPlasmaHit = m_app.GetSMGR().GetSound(RES_SFXPLASMAHIT_WAV, m_resPool);
-    m_sfxRefillEnergyStep = m_app.GetSMGR().GetSound(RES_SFXREFILLENERGYSTEP_WAV, m_resPool);
-    m_sfxShoot = m_app.GetSMGR().GetSound(RES_SFXSHOOT_WAV, m_resPool);
+    m_sfxHit = Sound(RES_SFXHIT_WAV);
+    m_sfxShoot = Sound(RES_SFXSHOOT_WAV);
+    m_sfxExplode1 = Sound(RES_SFXEXPLODE1_WAV);
+    m_sfxExplode2 = Sound(RES_SFXEXPLODE2_WAV);
+    m_sfxExplode3 = Sound(RES_SFXEXPLODE3_WAV);
+    m_sfxPlasmaHit = Sound(RES_SFXPLASMAHIT_WAV);
+    m_sfxMenuApply  = Sound(RES_SFXMENUAPPLY_WAV);
+    m_sfxMenuSelect = Sound(RES_SFXMENUSELECT_WAV);
+    m_sfxRefillEnergyStep = Sound(RES_SFXREFILLENERGYSTEP_WAV);
 
     // particles systems
     LoadPS(m_particleSysExplosionA, RES_EXPLOSION1_PSI, RES_PARTICLES_PNG, app.GetRender(), m_resPool);
