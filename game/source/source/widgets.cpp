@@ -66,8 +66,6 @@ void WidgetPlayerDashboard::SetPlayer(const uint32_t& ent)
 
 void WidgetPlayerDashboard::Draw(r::Render& r, const mt::v2f& origin)
 {
-    static auto GetPlayerLabelSprite = [](auto playerID) { return playerID == 0 ? gameplay::LabelP1 : gameplay::LabelP2; };
-
     DrawHelper dr(r);
 
     auto pivot = origin;
@@ -79,7 +77,7 @@ void WidgetPlayerDashboard::Draw(r::Render& r, const mt::v2f& origin)
 
     // draw energy
     auto length = playerComp.m_energy / SHIP_ENERGY_MAX;
-    m_text.SetText(m_res.m_fnt, str::StringBuilderW()(L"energy:%0", static_cast<int>(playerComp.m_energy)));
+    m_text.SetText(m_res.m_fnt, str::StringBuilderW()(L"energy: %0", (int)playerComp.m_energy));
     dr.FillRect(Rectf(pivot.x, pivot.x + 100 * length, pivot.y + 10, pivot.y + 20 + 10), COLOR_ORANGE);
     m_text.Draw(r, pivot + v2f(50, 10));
 
@@ -88,7 +86,7 @@ void WidgetPlayerDashboard::Draw(r::Render& r, const mt::v2f& origin)
         m_res.m_sheet->Draw(r, gameplay::LabelVictory, pivot + v2f(34.0f + 22.0f*i, 0), COLOR_WHEAT);
 
     // draw player label
-    m_res.m_sheet->Draw(r, GetPlayerLabelSprite(playerComp.m_playerID), pivot);
+    m_res.m_sheet->Draw(r, playerComp.m_playerID == 0 ? gameplay::LabelP1 : gameplay::LabelP2, pivot);
 }
 
 
@@ -124,17 +122,18 @@ void WidgetModalMessage::Update(f32 dt)
         return;
 
     m_time += dt;
-    if (m_viewSubstate == Appearing)
-        m_progress = Clamp(m_time / GUI_APPEAR_DURATION, 0.0f, 1.0f);
-    else if (m_viewSubstate == Disappering)
-        m_progress = Clamp(m_time / GUI_DISAPPEAR_DURATION, 0.0f, 1.0f);
-    else if (m_viewSubstate == Static)
-        m_progress = Clamp(m_time / m_stateDuration, 0.0f, 1.0f);
 
-    if (m_progress == 1.0f) // next substate
+    auto diration = 
+        m_viewSubstate == Appearing
+        ? GUI_APPEAR_DURATION
+        : m_viewSubstate == Disappering ? GUI_DISAPPEAR_DURATION : m_stateDuration;
+
+    m_progress = Clamp(m_time / diration, 0.0f, 1.0f);
+
+    if (m_progress >= 1.0f) // next substate
     {
         m_time = 0.0f;
-        m_viewSubstate = static_cast<ViewSubstate>(static_cast<int>(m_viewSubstate) + 1);
+        m_viewSubstate = static_cast<ViewSubstate>(m_viewSubstate + 1);
         if (m_viewSubstate > Disappering) // second loop
             SetState(VIEW_CLOSED);
     }
@@ -147,11 +146,11 @@ void WidgetModalMessage::Draw(r::Render& r, const mt::v2f& /*origin*/)
         DrawHelper dr(r);
         dr.FillRect(Rectf(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT), 0xBB000000);
         dr.FillRect(Rectf(0, SCREEN_WIDTH, 200, SCREEN_HEIGHT - 200), 0xBB000000);
-        if (m_viewSubstate == Appearing)
-            m_textMain.Draw(r, v2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) + v2f(ErpDecelerate2(m_progress) * 100, 0), 4);
-        else if (m_viewSubstate == Disappering)
-            m_textMain.Draw(r, v2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) + v2f(100 + ErpDecelerate2(m_progress) * 700, 0), 4);
-        else 
-            m_textMain.Draw(r, v2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) + v2f(100, 0), 4);
+
+        auto offset = m_viewSubstate == Appearing
+            ? ErpDecelerate2(m_progress) * 100
+            : m_viewSubstate == Disappering ? 100 + ErpDecelerate2(m_progress) * 700 : 100;
+
+        m_textMain.Draw(r, v2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) + v2f(offset, 0), 4);
     }
 }

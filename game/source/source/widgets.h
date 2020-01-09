@@ -67,7 +67,8 @@ public:
     {
         Appearing = 0,
         Static = 1,
-        Disappering = 2
+        Disappering = 2,
+        Max
     };
 
 
