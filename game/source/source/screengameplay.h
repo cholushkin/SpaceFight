@@ -13,6 +13,7 @@
 #include "playercontrollersystem.h"
 #include "level.h"
 #include "widgets.h"
+#include "config.h"
 
 struct GameResources
 {
@@ -48,41 +49,37 @@ class ScreenGameplay : public gui::BasicScreen
     enum EnGameStates
     {
         Initialization = 0,
-        Playing = 1,
-        Message = 2,
-        Paused = 3,
+        MessageFight,
+        Playing,
+        MessagePause,
+        MessageWin,
     };
 public:
-    //class GameContext
-    //{ 
-    //public:
-    //    GameContext(ScreenGameplay* screenGameplay);
-    //    GameResources&           m_res;
-    //    Level&                   m_level;
-    //    InputSystem&             m_inputSystem;
-    //    RenderSystem&            m_renderSystem;
-    //    PhysicsSystem&           m_physicsSystem;
-    //    PlayerControllerSystem&  m_playerControllerSystem;
-    //    entt::DefaultRegistry&   m_registry;
-    //};
+    struct SessionContext
+    { 
+        int m_round;
+        int m_winCount[MAX_PLAYERS];
+    };
 
 public:
-    ScreenGameplay(Application& app);
+    ScreenGameplay(Application& app, SessionContext sessionState);
     ~ScreenGameplay();
 
     void Draw(r::Render& r);
     void Update(f32 /*dt*/);
     void SetState(EnGameStates state);
 
+    void ReturnToMainMenu();
+    void StartNextRound();
+    
 
 private:
-    Application&            m_app;
     GameResources           m_res;
-    EnGameStates            m_gameState;
-    float                   m_time;
-
-    entt::DefaultRegistry   m_registry;
     Level                   m_level;
+    Application&            m_app;    
+    EnGameStates            m_gameState;
+    float                   m_time;    
+    entt::DefaultRegistry   m_registry;    
     InputSystem             m_inputSystem;
     GameRulesSystem         m_gameRuleSystem;
     RenderSystem            m_renderSystem;
@@ -93,8 +90,7 @@ private:
     WidgetPlayerDashboard   m_player1Dashboard;
     WidgetPlayerDashboard   m_player2Dashboard;
     WidgetModalMessage      m_modalMessenger;
-    //GameContext             m_gameContext;
-    
+    SessionContext          m_sessionContext;    
 };
 
 #endif // screengameplay_h__

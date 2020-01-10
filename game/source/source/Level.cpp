@@ -1,6 +1,4 @@
 #include "Level.h"
-
-
 #include "ext/math/mt_random.h"
 #include "config.h"
 #include "PlayerComponent.h"
@@ -47,13 +45,6 @@ void Level::CreateLevelRandom()
     CreatePlayerEntity(0, v2f(-200.0f, 0.0f));
     CreatePlayerEntity(1, v2f(200.0f, 0.0f));
 
-    static auto IsHit = [&](const v2f& pos) {
-        for (auto&& c : m_created)
-            if ((c - pos).length() < 100)
-                return true;
-        return false;
-    };
-
     auto planetMaxAmount = rndRange(m_options.PlanetsAmmount.x, m_options.PlanetsAmmount.y);
     for (int i = 0; i < planetMaxAmount; ++i)
     {
@@ -71,7 +62,7 @@ void Level::CreatePlayerEntity(int playerID, const mt::v2f& pos)
 {
     const auto player = m_registry.create();
     m_registry.assign<EntityTypeComponent>(player, EntityTypeComponent::Ship);
-    m_registry.assign<PlayerComponent>(player, playerID);
+    m_registry.assign<PlayerComponent>(player, playerID, 1/*m_sessionContext.m_winCount[playerID]*/);
     m_registry.assign<PhysicsAgentComponent>(
         player, m_physicsSystem.AddAgent(player, pos, 0.1f, 10.0f, false));
     m_created.push_back(pos);
@@ -110,3 +101,12 @@ void Level::CreatePlanet(const v2f& pos)
         m_physicsSystem.AddAgent(planet, pos, 0.0f, 50.0f, true)
         );
 }
+
+
+bool Level::IsHit(const v2f& pos)
+{
+    for (const v2f& c : m_created)
+        if ((c - pos).length() < 100.0f)
+            return true;
+    return false;
+};

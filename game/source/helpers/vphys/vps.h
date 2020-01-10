@@ -29,7 +29,7 @@ namespace vp
 
     struct VerletAgent
     {
-        //DENY_COPY(VerletAgent);
+        DENY_COPY(VerletAgent);
     public:
         struct Descriptor
         {
@@ -69,6 +69,10 @@ namespace vp
 
         void ApplyAcceleration(const mt::v2f& acc);
 
+        bool isValid() const { return radius > 0.0f; }
+
+        bool HasEntity() const { return m_entity != s_invalidEntity; }
+
         f32  radius;
         f32  friction;
         mt::v2f  pos;
@@ -79,7 +83,8 @@ namespace vp
         bool m_isSensor;
         Filter m_Filter;
         uint32_t m_entity;
-        bool isValid() const { return radius > 0.0f; }
+    private:
+         static const uint32_t s_invalidEntity;
     };
 
     typedef mt::Rectf AABB;

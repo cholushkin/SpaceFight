@@ -7,6 +7,7 @@ struct PhysicsAgentComponent final
 {
     PhysicsAgentComponent(vp::VerletAgent* agent);
     vp::VerletAgent* m_agent;
+    float m_hitImpact;
 };
 
 #endif

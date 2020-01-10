@@ -4,7 +4,7 @@
 namespace vp
 {
     UidGenerator VerletPhysicsSystem::sUidGenerator;
-
+    const uint32_t VerletAgent::s_invalidEntity = 0xffffffff;
 
     VerletAgent::VerletAgent(const Descriptor &desc)
     {
@@ -16,14 +16,14 @@ namespace vp
         m_isSensor = desc.m_isSensor;
         friction = desc.friction;
         mUid = VerletPhysicsSystem::getUid();
-        m_entity = 0;
+        m_entity = s_invalidEntity;
     }
 
     VerletAgent::VerletAgent()
     {
         deltaPos = zero_v2f;
         acceleration = zero_v2f;
-        m_entity = 0;
+        m_entity = s_invalidEntity;
         mUid = VerletPhysicsSystem::getUid();
     }
 

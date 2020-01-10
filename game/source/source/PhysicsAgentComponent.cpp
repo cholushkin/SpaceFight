@@ -6,6 +6,7 @@ using namespace vp;
 
 PhysicsAgentComponent::PhysicsAgentComponent( vp::VerletAgent* agent )
     : m_agent(agent)
+    , m_hitImpact(0.0f)
 {    
     EASSERT(agent != nullptr);
 }

@@ -1,17 +1,19 @@
 #include "PhysicsSystem.h"
 #include "PhysicsAgentComponent.h"
 #include "PhysicsObstacleComponent.h"
+#include "EntityTypeComponent.h"
 #include "PlayerComponent.h"
 #include "PlanetComponent.h"
 #include "EnergyResourceComponent.h"
 #include "config.h"
-
+#include "level.h"
 
 using namespace vp;
 
-PhysicsSystem::PhysicsSystem(entt::DefaultRegistry& registry)
+PhysicsSystem::PhysicsSystem(entt::DefaultRegistry& registry, Level& level)
     : m_vps(AABB(-SCREEN_WIDTH/2.0f, SCREEN_WIDTH / 2.0f, -SCREEN_HEIGHT/ 2.0f, SCREEN_HEIGHT / 2.0f))
     , m_registry(registry)
+    , m_level(level)
 {
     m_vps.SetCollisionListener(this);
 }
@@ -20,7 +22,7 @@ PhysicsSystem::~PhysicsSystem()
 {
     m_registry.view<PhysicsAgentComponent>().each([&](auto /*entity*/, PhysicsAgentComponent& psx)
     {
-        m_vps.RemoveParticle(psx.m_agent);
+        delete psx.m_agent;
     });
 }
 
@@ -74,6 +76,21 @@ void PhysicsSystem::Update(float dt, entt::DefaultRegistry& /*registry*/)
         });
     });
 
+    // physical damage to the ships
+    m_registry.view<PhysicsAgentComponent>().each(
+        [&](auto psxEnt, PhysicsAgentComponent& psxComp)
+    {
+        if (m_registry.has<PlayerComponent>(psxEnt) && psxComp.m_hitImpact > 0.0f)
+        {
+            auto& playerComp = m_registry.get<PlayerComponent>(psxEnt);
+            playerComp.EnergyDamage(psxComp.m_hitImpact);
+            psxComp.m_hitImpact = 0.0f;
+            auto isShipDead = playerComp.m_energy < 0.0f;
+            if (isShipDead)
+                m_level.DeleteEntity(psxEnt);
+        }        
+    });
+
     // retriever progression recover
     m_registry.view<EnergyResourceComponent>().each(
         [&](auto /*ent*/, EnergyResourceComponent& eRus)
@@ -85,23 +102,46 @@ void PhysicsSystem::Update(float dt, entt::DefaultRegistry& /*registry*/)
 
 void PhysicsSystem::OnCollide(const Collision& collision)
 {
-    uint32_t bullet, ship;
-    if (IsBulletToShipCollision(collision, bullet, ship))
-    {
-    }
+    //quick fix
+    if (!collision.mP1->HasEntity() || !collision.mP2->HasEntity())
+        return;
+
+    auto& psx1 = m_registry.get<PhysicsAgentComponent>(collision.mP1->m_entity);
+    auto& psx2 = m_registry.get<PhysicsAgentComponent>(collision.mP2->m_entity);
+    psx1.m_hitImpact += 5.0f;
+    psx2.m_hitImpact += 5.0f;
+
+    //uint32_t bullet, ship;
+    //if (IsAtoBCollision(collision, EntityTypeComponent::PlasmaBullet, EntityTypeComponent::Ship, bullet, ship))
+    //{
+    //}
 }
 
-bool PhysicsSystem::IsBulletToShipCollision(const Collision& /*collision*/, uint32_t& /*bullet*/, uint32_t& /*ship*/)
-{
-    return false;
-    //EASSERT(collision.mP1 != nullptr);
-    //EASSERT(collision.mP2 != nullptr);
-
-    //m_registry.has<PhysicsAgentComponent>()
-
-    //auto& psxComp = m_registry.get<PhysicsAgentComponent>(collision.mP1->m_entity);
-
-
-    //m_registry.get<> collision.mP1->m_entity
-}
+//bool PhysicsSystem::IsAtoBCollision(const vp::Collision& collision,
+//    EntityTypeComponent::EntityType typeA,
+//    EntityTypeComponent::EntityType typeB,
+//    uint32_t& a,
+//    uint32_t& b)
+//{
+//    EASSERT(collision.mP1 != nullptr);
+//    EASSERT(collision.mP2 != nullptr);
+//
+//    if( !(m_registry.has<EntityTypeComponent>(collision.mP1->m_entity) &&
+//        m_registry.has<EntityTypeComponent>(collision.mP2->m_entity)))
+//        return false;
+//
+//    auto et1 = m_registry.get<EntityTypeComponent>(collision.mP1->m_entity).m_entityType;
+//    if (et1 == typeA)
+//        a = collision.mP1->m_entity;
+//    if (et1 == typeB)
+//        b = collision.mP1->m_entity;
+//
+//    auto et2 = m_registry.get<EntityTypeComponent>(collision.mP2->m_entity).m_entityType;
+//    if (et2 == typeA)
+//        a = collision.mP2->m_entity;
+//    if (et2 == typeB)
+//        b = collision.mP2->m_entity;
+//
+//    return (et1 == typeA && et2 == typeB) || (et1 == typeB && et2 == typeA);
+//}
 

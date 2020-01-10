@@ -2,9 +2,9 @@
 
 
 
-PlayerComponent::PlayerComponent(int playerID)
+PlayerComponent::PlayerComponent(int playerID, int winCount)
     : m_playerID(playerID)
-    , m_winCount(0)
+    , m_winCount(winCount)
     , m_energy(100.0f)
     , m_weaponStatus(1.0f)
 {    

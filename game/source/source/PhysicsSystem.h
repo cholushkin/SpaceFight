@@ -2,12 +2,17 @@
 #define _PHYSICS_SYSTEM_H_
 
 #include "entt/entity/registry.hpp"
+#include "EntityTypeComponent.h"
 #include "vphys/vps.h"
+//#include "Level.h"
+
+
+class Level;
 
 class PhysicsSystem : public vp::ICollisionListener
 {
 public:
-    PhysicsSystem(entt::DefaultRegistry& registry);
+    PhysicsSystem(entt::DefaultRegistry& registry, Level& level);
     ~PhysicsSystem();
 
     vp::VerletAgent* AddAgent(const uint32_t& ent, const mt::v2f pos, float friction, float radius, bool isStatic);
@@ -22,10 +27,16 @@ public:
 private: 
     vp::VerletPhysicsSystem  m_vps; // verlet physics simulation system
     entt::DefaultRegistry&   m_registry;
+    Level&                   m_level;
 
 
     void OnCollide(const vp::Collision& collision);
-    bool IsBulletToShipCollision(const vp::Collision& collision, uint32_t& bullet, uint32_t& ship);
+
+    //bool IsAtoBCollision(const vp::Collision& collision, 
+    //    EntityTypeComponent::EntityType typeA,  
+    //    EntityTypeComponent::EntityType typeB,
+    //    uint32_t& a, 
+    //    uint32_t& b);
 };
 
 #endif

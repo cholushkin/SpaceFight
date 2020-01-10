@@ -20,39 +20,49 @@ void PlayerControllerSystem::Update(float dt, entt::DefaultRegistry& registry)
             PlayerComponent& playerComp,
             PhysicsAgentComponent& psxComp)
     {
-        // update engines
-        auto input = m_inputSystem.GetVectorFromInput(playerComp.m_playerID);
-        psxComp.m_agent->ApplyAcceleration(ENGINE_ACCELERATION * input);
-        playerComp.m_energy -= input.length()* 0.1f;
+        auto isInPower = playerComp.m_energy > 0.0f;
 
-        // update retriever
+        if (isInPower)
         {
-            registry.view<EnergyResourceComponent>().each(
-                [&](auto ent, EnergyResourceComponent& eRus)
+            // update engines
+            auto input = m_inputSystem.GetVectorFromInput(playerComp.m_playerID);
+            if (playerComp.EnergySpend(input.length()* 0.1f))
+                psxComp.m_agent->ApplyAcceleration(ENGINE_ACCELERATION * input);
+            else
+                playerComp.m_energy = 0.f;
+
+
+            // update retriever
             {
-                //auto& tst = registry.get<PhysicsAgentComponent>(ent);
-                //EASSERT(tst.m_agent != nullptr);
-                auto distance = (psxComp.m_agent->pos - registry.get<PhysicsAgentComponent>(ent).m_agent->pos).length();
-                if (distance < SHIP_IMPACT_RADIUS)
+                registry.view<EnergyResourceComponent>().each(
+                    [&](auto ent, EnergyResourceComponent& eRus)
                 {
-                    eRus.m_retriveProgression[playerComp.m_playerID] += dt;
-                    if (eRus.m_retriveProgression[playerComp.m_playerID] > RETRIEVE_IMPACT_MAX)
+                    //auto& tst = registry.get<PhysicsAgentComponent>(ent);
+                    //EASSERT(tst.m_agent != nullptr);
+                    auto distance = (psxComp.m_agent->pos - registry.get<PhysicsAgentComponent>(ent).m_agent->pos).length();
+                    if (distance < SHIP_IMPACT_RADIUS)
                     {
-                        m_level.DeleteEntity(ent);
-                        playerComp.m_energy += ENERGY_REWARD_PLASMA_COLLECTED;
+                        eRus.m_retriveProgression[playerComp.m_playerID] += dt;
+                        if (eRus.m_retriveProgression[playerComp.m_playerID] > RETRIEVE_IMPACT_MAX)
+                        {
+                            m_level.DeleteEntity(ent);
+                            playerComp.m_energy += ENERGY_REWARD_PLASMA_COLLECTED;
+                        }
                     }
-                }
-            });
-        }
+                });
+            }
 
-        // update guns
-        playerComp.m_weaponStatus += dt;
-        if (m_inputSystem.GetShootButton(playerComp.m_playerID) && playerComp.m_weaponStatus >= 0.5f) // shoot plasma
-        {
-            playerComp.m_weaponStatus = 0.0f;            
-            v2f enemyDirection = GetDistanceToClosestEnemy(entity, registry); // get direction to enemy            
-            m_level.CreatePlasmaBullet(psxComp.m_agent->pos, enemyDirection);
-            playerComp.m_energy -= SHIP_SHOOT_COST;
+            // update guns
+            playerComp.m_weaponStatus += dt;
+            if (m_inputSystem.GetShootButton(playerComp.m_playerID) && playerComp.m_weaponStatus >= 0.5f) // shoot plasma
+            {
+                v2f enemyDirection = GetDistanceToClosestEnemy(entity, registry); // get direction to enemy            
+                if (enemyDirection.length() != 0.0f && playerComp.EnergySpend(SHIP_SHOOT_COST))
+                {
+                    playerComp.m_weaponStatus = 0.0f;
+                    m_level.CreatePlasmaBullet(psxComp.m_agent->pos, enemyDirection);
+                }
+            }
         }
     });
 }

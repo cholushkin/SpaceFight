@@ -9,6 +9,10 @@ public:
     GameRulesSystem();
     ~GameRulesSystem() = default;
     void Update(float dt, entt::DefaultRegistry& registry);
+    bool HasWinner() const;
+    bool GetWinnerID() const;
+private:
+    int m_winnerID;
 };
 
 #endif

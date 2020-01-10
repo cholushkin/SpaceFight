@@ -64,3 +64,13 @@ bool InputSystem::GetShootButton(int playerID)
         return m_keyStatusMap.P2.SHOOT;
     return false;
 }
+
+bool InputSystem::GetApplyAction()
+{
+    return m_keyStatusMap.Keyboard_Apply;
+}
+
+bool InputSystem::GetCancelAction()
+{
+    return m_keyStatusMap.Keyboard_Cancel;
+}

@@ -4,33 +4,13 @@
 #include "PhysicsAgentComponent.h"
 #include "PhysicsObstacleComponent.h"
 #include "widgets.h"
+#include "ext/strings/str_base.h"
+#include "screenmainmenu.h"
 
-//#include "balance.h"
-//#include "game.h"
-//#include <algorithm>
-//
-//#include "core/io/io_base.h"
-//#include "core/common/com_misc.h"
-//#include "core/render/r_render.h"
-//#include "str_helper.h"
-//#include "ext/draw2d/draw_helper.h"
-//#include "ext/math/mt_random.h"
-//#include "screenmainmenu.h"
-//#include "screenlevelselect.h"
-//#include "music.h"
-//
 // --- res
 #include "res/resources.h"
 #include "res/sheet_gameplay.h"
 
-//#include "res/sheet_bactos.h"
-//#include "res/sheet_blocks.h"
-//#include "res/sheet_hud.h"
-//#include "res/sheet_snake.h"
-//#include "res/sheet_popup_go.h"
-//#include "res/sheet_soup.h"
-//#include "res/sheet_entity_icon.h"
-//#include "res/g_strings.h"
 
 using namespace mt;
 using namespace in;
@@ -53,7 +33,7 @@ GameResources::GameResources(Application& app)
     m_sfxExplode2 = Sound(RES_SFXEXPLODE2_WAV);
     m_sfxExplode3 = Sound(RES_SFXEXPLODE3_WAV);
     m_sfxPlasmaHit = Sound(RES_SFXPLASMAHIT_WAV);
-    m_sfxMenuApply  = Sound(RES_SFXMENUAPPLY_WAV);
+    m_sfxMenuApply = Sound(RES_SFXMENUAPPLY_WAV);
     m_sfxMenuSelect = Sound(RES_SFXMENUSELECT_WAV);
     m_sfxRefillEnergyStep = Sound(RES_SFXREFILLENERGYSTEP_WAV);
 
@@ -63,24 +43,9 @@ GameResources::GameResources(Application& app)
     LoadPS(m_particleSysTrail, RES_BURST_PSI, RES_PARTICLES_PNG, app.GetRender(), m_resPool);
 }
 
-//// GameContext
-//// ------------------------------------------------------------------
-//ScreenGameplay::GameContext::GameContext(ScreenGameplay* screenGameplay)
-//    : m_res(screenGameplay->m_res)
-//    , m_level(screenGameplay->m_level)
-//    , m_inputSystem(screenGameplay->m_inputSystem)
-//    , m_renderSystem(screenGameplay->m_renderSystem)
-//    , m_physicsSystem(screenGameplay->m_physicsSystem)
-//    , m_playerControllerSystem(screenGameplay->m_playerControllerSystem)
-//    , m_registry(screenGameplay->m_registry)
-//{
-//}
-
-
-
 // ScreenGameplay 
 // ---------------------------------------------------------------
-ScreenGameplay::ScreenGameplay(Application& app)
+ScreenGameplay::ScreenGameplay(Application& app, SessionContext sessionState)
     : m_app(app)
     , m_time(0.0f)
     , m_res(app)
@@ -89,22 +54,15 @@ ScreenGameplay::ScreenGameplay(Application& app)
     , m_player2Dashboard(m_registry, m_res)
     , m_modalMessenger(m_registry, m_res)
     , m_playerControllerSystem(m_inputSystem, m_level)
-    , m_physicsSystem(m_registry)
-    //, m_gameContext(this)
+    , m_physicsSystem(m_registry, m_level)
+    , m_sessionContext(sessionState)
 {
     SetState(Initialization);
 }
 
-
 ScreenGameplay::~ScreenGameplay()
 {
 }
-
-//
-//ScreenGameplay::GameContext& ScreenGameplay::GetGameContext()
-//{
-//    return m_gameContext;
-//}
 
 void ScreenGameplay::Draw(r::Render& r)
 {
@@ -123,34 +81,48 @@ void ScreenGameplay::Update(f32 dt)
     m_inputSystem.Update(dt, m_registry);
 
     // ----- update state
+    if (m_gameState == MessageFight)
+    {
+        m_modalMessenger.Update(dt);
+        if (m_modalMessenger.GetState() == WidgetModalMessage::Closed)
+            SetState(Playing);
+    }
     if (m_gameState == Playing)
     {
         // update gameplay gui
         m_player1Dashboard.Update(dt);
         m_player2Dashboard.Update(dt);
 
-        // update systems
-        m_gameRuleSystem.Update(dt, m_registry);
+        // update systems        
         m_playerControllerSystem.Update(dt, m_registry);
         m_physicsSystem.Update(dt, m_registry);
-
+        m_gameRuleSystem.Update(dt, m_registry);
+        if (m_gameRuleSystem.HasWinner())
+        {
+            ++m_sessionContext.m_winCount[m_gameRuleSystem.GetWinnerID()];
+            SetState(MessageWin);
+        }
+        else
+        {
+            if( m_inputSystem.GetCancelAction() )
+                SetState(MessagePause);
+        }
     }
-    else if (m_gameState == Message)
+    else if (m_gameState == MessageWin)
     {
+        m_modalMessenger.Update(dt);
+        if (m_modalMessenger.GetState() == WidgetModalMessage::Closed)
+            StartNextRound();
     }
-    else if (m_gameState == Paused)
+    else if (m_gameState == MessagePause)
     {
-    }
-
-
-    m_modalMessenger.Update(dt);
-
-    // switch to the next state of the messenger
-    if (m_modalMessenger.GetState() == WidgetModalMessage::VIEW_CLOSED)
-    {
-        if (m_gameState == Initialization)
+        m_modalMessenger.Update(dt);
+        if (m_inputSystem.GetApplyAction())
+            m_modalMessenger.Close();
+        /*else if (m_inputSystem.GetCancelAction())
+            ReturnToMainMenu();*/
+        if (m_modalMessenger.GetState() == WidgetModalMessage::Closed)
             SetState(Playing);
-
     }
 }
 
@@ -158,29 +130,51 @@ void ScreenGameplay::SetState(EnGameStates state)
 {
     m_gameState = state;
 
-    // ------ on enter state
+    // ------ on enter state // todo: OnEnterState
     if (m_gameState == Initialization)
     {
-        m_modalMessenger.SetState(WidgetModalMessage::VIEW_FIGHT);
-
         // create new level
         m_level.CreateLevelRandom();
 
         // assign widget to entity
-        auto view = m_registry.view<PlayerComponent>();
-        for (auto entity : view)
-        {
-            auto& pc = view.get(entity);
-            if (pc.m_playerID == 0)
-                m_player1Dashboard.SetPlayer(entity);
-            if (pc.m_playerID == 1)
-                m_player2Dashboard.SetPlayer(entity);
-        }
+        m_player1Dashboard.SetPlayer(0);
+        m_player2Dashboard.SetPlayer(1);
 
-        /* if (playerID == 0)
-             m_player1Dashboard.SetPlayer(player);
-         if (playerID == 1)
-             m_player2Dashboard.SetPlayer(player);*/
+        m_modalMessenger.Show(
+            L"Fight!", 
+            str::StringBuilderW()(L"Round: %0", m_sessionContext.m_round + 1), GUI_STD_SHOW_DURATION);
+
+        SetState(MessageFight);
+    }
+
+    if (m_gameState == MessageWin)
+    {
+        m_modalMessenger.Show(            
+            str::StringBuilderW()(L"Player %0 wins", m_gameRuleSystem.GetWinnerID() + 1),
+            L"",
+            GUI_STD_SHOW_DURATION
+        );
+    }
+
+    if (m_gameState == MessagePause)
+    {
+        m_modalMessenger.Show(
+            L"Pause",
+            L"Press <enter> to resume or <esc> to quit"
+        );
     }
 }
 
+void ScreenGameplay::ReturnToMainMenu()
+{
+    m_app.GetScreenManager().Pop();
+    m_app.GetScreenManager().Push(new ScreenMainMenu(m_app));
+}
+
+void ScreenGameplay::StartNextRound()
+{
+    m_sessionContext.m_round++;
+    m_app.GetScreenManager().Pop();
+    auto screen = new ScreenGameplay(m_app, m_sessionContext);
+    m_app.GetScreenManager().Push(screen);
+}

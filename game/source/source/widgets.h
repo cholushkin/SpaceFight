@@ -39,7 +39,7 @@ public:
     WidgetPlayerDashboard(entt::DefaultRegistry& registry, const GameResources& res);
     void Update(f32 dt);
     void Draw(r::Render& r, const mt::v2f& origin);
-    void SetPlayer(const uint32_t& ent);
+    void SetPlayer(int playerID);
 private:
     const GameResources&        m_res;
     entt::DefaultRegistry&      m_registry;
@@ -47,36 +47,28 @@ private:
     float                       m_time;
     float                       m_appearOffset;
     float                       m_appearProgress;
-    uint32_t                    m_playerID;
+    int                         m_playerID;
 };
 
 class WidgetModalMessage : public IWidget
 {
     DENY_COPY(WidgetModalMessage)
 public:
-    enum ViewMode
-    {
-        VIEW_CLOSED,
-        VIEW_FIGHT,
-        VIEW_ROUND_WIN,
-        VIEW_END_STATUS,
-        VIEW_PAUSE
-    };
-
-    enum ViewSubstate
+    enum State
     {
         Appearing = 0,
         Static = 1,
         Disappering = 2,
-        Max
+        Closed = 3,
     };
 
 
     WidgetModalMessage(entt::DefaultRegistry& registry, const GameResources& res);
     virtual void Update(f32 dt);
     virtual void Draw(r::Render& r, const mt::v2f& origin);
-    void SetState(ViewMode mode);
-    ViewMode GetState() const { return m_viewMode; }
+    void Show(const wchar_t* mainText, const wchar_t* secondaryText, float duration = std::numeric_limits<float>::max());
+    void Close();
+    State GetState() const { return m_state; }
 
 
 protected:
@@ -87,8 +79,7 @@ protected:
     float                       m_time;
     float                       m_progress;
     float                       m_stateDuration;
-    ViewMode                    m_viewMode;
-    ViewSubstate                m_viewSubstate;
+    State                       m_state;
 };
 
 #endif 

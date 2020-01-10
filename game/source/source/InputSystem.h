@@ -35,6 +35,8 @@ public:
 
     mt::v2f GetVectorFromInput(int playerID);
     bool GetShootButton(int playerID);
+    bool GetApplyAction();
+    bool GetCancelAction();
 
 private: 
     KeyStatusMap m_keyStatusMap;

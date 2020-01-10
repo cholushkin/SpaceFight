@@ -24,14 +24,15 @@ public:
     void CreatePlasmaBullet(const mt::v2f& pos, const mt::v2f& speed);
 
 private:
-    entt::DefaultRegistry&      m_registry;
-    PhysicsSystem&              m_physicsSystem;
-    GenerationOptions           m_options;
-    std::vector<mt::v2f>        m_created;
-
+    entt::DefaultRegistry&                      m_registry;
+    PhysicsSystem&                              m_physicsSystem;
+    GenerationOptions                           m_options;
+    std::vector<mt::v2f>                        m_created;
+    //ScreenGameplay::SessionContext              m_sessionContext;
 
     void CreatePlayerEntity(int playerID, const mt::v2f& pos);
     void CreatePlanet(const mt::v2f& pos);
+    bool IsHit(const mt::v2f& pos);
 };
 
 
