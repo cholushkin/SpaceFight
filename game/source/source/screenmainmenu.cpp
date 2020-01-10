@@ -55,7 +55,7 @@ void ScreenMainMenu::Update(f32 /*dt*/)
     if (GetKeyState(VK_RETURN) < 0)
     {
         m_app.GetScreenManager().Pop();
-        m_app.GetScreenManager().Push(new ScreenGameplay(m_app, ScreenGameplay::SessionContext()));
+        m_app.GetScreenManager().Push(new ScreenGameplay(m_app, SessionContext()));
     }
 }
 

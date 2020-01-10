@@ -7,6 +7,7 @@
 #include "EnergyResourceComponent.h"
 #include "PhysicsAgentComponent.h"
 #include "res/sheet_gameplay.h"
+#include "screengameplay.h"
 #include <time.h> 
 
 using namespace mt;
@@ -30,9 +31,10 @@ Level::GenerationOptions::GenerationOptions()
 
 // Level
 // ---------------------------------------------------------------
-Level::Level(entt::DefaultRegistry& registry, PhysicsSystem& psx)
+Level::Level(entt::DefaultRegistry& registry, PhysicsSystem& psx, const SessionContext& sessionContext)
     : m_registry(registry)
     , m_physicsSystem(psx)
+    , m_sessionContext(sessionContext)
 {
 }
 
@@ -62,7 +64,7 @@ void Level::CreatePlayerEntity(int playerID, const mt::v2f& pos)
 {
     const auto player = m_registry.create();
     m_registry.assign<EntityTypeComponent>(player, EntityTypeComponent::Ship);
-    m_registry.assign<PlayerComponent>(player, playerID, 1/*m_sessionContext.m_winCount[playerID]*/);
+    m_registry.assign<PlayerComponent>(player, playerID, m_sessionContext.m_winCount[playerID]);
     m_registry.assign<PhysicsAgentComponent>(
         player, m_physicsSystem.AddAgent(player, pos, 0.1f, 10.0f, false));
     m_created.push_back(pos);

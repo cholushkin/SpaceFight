@@ -3,6 +3,9 @@
 #include "core/common/com_types.h"
 #include "physicssystem.h"
 
+
+struct SessionContext;
+
 class Level final
 {
     DENY_COPY(Level)
@@ -17,7 +20,7 @@ private:
     };
 
 public:
-    Level(entt::DefaultRegistry& registry, PhysicsSystem& psx);
+    Level(entt::DefaultRegistry& registry, PhysicsSystem& psx, const SessionContext& sessionContext);
     void CreateLevelRandom();
     void DeleteEntity(uint32_t&);
 
@@ -28,7 +31,7 @@ private:
     PhysicsSystem&                              m_physicsSystem;
     GenerationOptions                           m_options;
     std::vector<mt::v2f>                        m_created;
-    //ScreenGameplay::SessionContext              m_sessionContext;
+    const SessionContext&                             m_sessionContext;
 
     void CreatePlayerEntity(int playerID, const mt::v2f& pos);
     void CreatePlanet(const mt::v2f& pos);

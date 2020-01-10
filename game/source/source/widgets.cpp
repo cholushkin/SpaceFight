@@ -158,6 +158,6 @@ void WidgetModalMessage::Draw(r::Render& r, const mt::v2f& /*origin*/)
         ? 100 - ErpDecelerate2(m_progress) * 100
         : m_state == Disappering ? ErpDecelerate2(m_progress) * 1000 : 0;
 
-    m_textMain.Draw(r, v2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) + v2f(offset, 0), 4);
-    m_textSecondary.Draw(r, v2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) + v2f(offset, 64), 2);
+    m_textMain.Draw(r, v2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) + v2f(offset, 0), 3);
+    m_textSecondary.Draw(r, v2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) + v2f(offset, 64), 1);
 }

@@ -49,7 +49,7 @@ ScreenGameplay::ScreenGameplay(Application& app, SessionContext sessionState)
     : m_app(app)
     , m_time(0.0f)
     , m_res(app)
-    , m_level(m_registry, m_physicsSystem)
+    , m_level(m_registry, m_physicsSystem, m_sessionContext)
     , m_player1Dashboard(m_registry, m_res)
     , m_player2Dashboard(m_registry, m_res)
     , m_modalMessenger(m_registry, m_res)
@@ -100,7 +100,10 @@ void ScreenGameplay::Update(f32 dt)
         if (m_gameRuleSystem.HasWinner())
         {
             ++m_sessionContext.m_winCount[m_gameRuleSystem.GetWinnerID()];
-            SetState(MessageWin);
+            if (m_sessionContext.m_winCount[m_gameRuleSystem.GetWinnerID()] >= WIN_COUNT)
+                SetState(MessageFinalWin);
+            else
+                SetState(MessageWin);
         }
         else
         {
@@ -114,13 +117,19 @@ void ScreenGameplay::Update(f32 dt)
         if (m_modalMessenger.GetState() == WidgetModalMessage::Closed)
             StartNextRound();
     }
+    else if (m_gameState == MessageFinalWin)
+    {
+        m_modalMessenger.Update(dt);
+        if (m_inputSystem.GetCancelAction() && m_modalMessenger.GetState() == WidgetModalMessage::Static)
+            ReturnToMainMenu();
+    }
     else if (m_gameState == MessagePause)
     {
         m_modalMessenger.Update(dt);
         if (m_inputSystem.GetApplyAction())
             m_modalMessenger.Close();
-        /*else if (m_inputSystem.GetCancelAction())
-            ReturnToMainMenu();*/
+        else if (m_inputSystem.GetCancelAction() && m_modalMessenger.GetState()== WidgetModalMessage::Static)
+            ReturnToMainMenu();
         if (m_modalMessenger.GetState() == WidgetModalMessage::Closed)
             SetState(Playing);
     }
@@ -146,8 +155,7 @@ void ScreenGameplay::SetState(EnGameStates state)
 
         SetState(MessageFight);
     }
-
-    if (m_gameState == MessageWin)
+    else if (m_gameState == MessageWin)
     {
         m_modalMessenger.Show(            
             str::StringBuilderW()(L"Player %0 wins", m_gameRuleSystem.GetWinnerID() + 1),
@@ -155,8 +163,14 @@ void ScreenGameplay::SetState(EnGameStates state)
             GUI_STD_SHOW_DURATION
         );
     }
-
-    if (m_gameState == MessagePause)
+    else if (m_gameState == MessageFinalWin)
+    {
+        m_modalMessenger.Show(
+            str::StringBuilderW()(L"Player %0 wins in %1 rounds", m_gameRuleSystem.GetWinnerID() + 1, m_sessionContext.m_round + 1),
+            L"Press <esc> to finish the battle"
+        );
+    }
+    else if (m_gameState == MessagePause)
     {
         m_modalMessenger.Show(
             L"Pause",

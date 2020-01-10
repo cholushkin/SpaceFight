@@ -42,6 +42,13 @@ private:
     res::ResourcesPool          m_resPool;
 };
 
+
+struct SessionContext
+{
+    int m_round;
+    int m_winCount[MAX_PLAYERS];
+};
+
 class ScreenGameplay : public gui::BasicScreen
 {
     DENY_COPY(ScreenGameplay)
@@ -53,14 +60,8 @@ class ScreenGameplay : public gui::BasicScreen
         Playing,
         MessagePause,
         MessageWin,
+        MessageFinalWin,
     };
-public:
-    struct SessionContext
-    { 
-        int m_round;
-        int m_winCount[MAX_PLAYERS];
-    };
-
 public:
     ScreenGameplay(Application& app, SessionContext sessionState);
     ~ScreenGameplay();
