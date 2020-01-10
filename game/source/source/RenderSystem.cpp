@@ -48,6 +48,7 @@ void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegist
 
     // background
     gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk1, v2f() + offset, COLOR_WHITE, 8.0f);
+    gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk3, v2f(333,333) + offset, COLOR_WHITE, 8.0f);
 
     // planets
     registry.view<PhysicsAgentComponent, PlanetComponent>().each(
