@@ -66,11 +66,9 @@ ScreenGameplay::~ScreenGameplay()
 
 void ScreenGameplay::Draw(r::Render& r)
 {
+    m_renderSystem.Render(r, m_res, m_registry);
     m_player1Dashboard.Draw(r, v2f(16, 16));
-    m_player2Dashboard.Draw(r, v2f(16, 64 + 16));
-
-    m_renderSystem.Render(r, m_registry);
-
+    m_player2Dashboard.Draw(r, v2f(16, 64 + 16));    
     m_modalMessenger.Draw(r, v2f());
 }
 

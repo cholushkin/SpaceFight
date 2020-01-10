@@ -29,7 +29,7 @@ namespace vp
 
     struct VerletAgent
     {
-        DENY_COPY(VerletAgent);
+        DENY_COPY(VerletAgent)
     public:
         struct Descriptor
         {
@@ -91,7 +91,7 @@ namespace vp
 
     struct Obstacle
     {
-        DENY_COPY(Obstacle);
+        DENY_COPY(Obstacle)
     public:
         Obstacle()
             : m_particle(VerletAgent::Descriptor(zero_v2f, 0.0f))

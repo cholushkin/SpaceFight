@@ -6,20 +6,59 @@
 #include "PlanetComponent.h"
 #include "ext/draw2d/draw_helper.h"
 #include "ext/math/mt_colors.h"
+#include "screengameplay.h"
 #include "config.h"
+#include "res/sheet_gameplay.h"
+#include "ext/math/mt_random.h"
 
 using namespace mt;
 using namespace r;
+
+
+u32 planetSprites[] = { gameplay::Planet1, gameplay::Planet2, gameplay::Planet3,
+gameplay::Planet4, gameplay::Planet5, gameplay::Planet6 };
+float m_planetRotations[6];
+float m_planetRotationSpeed[6];
+float m_bgRotations[4];
+
+extern mt::fast_random_generator g_rnd;
+
+RenderSystem::RenderSystem()
+{
+    for (int i = 0; i < ARRAY_SIZE(m_planetRotations); ++i)
+    {
+        m_planetRotations[i] = g_rnd.frand() * (float)M_PI;
+        m_planetRotationSpeed[i] = g_rnd.frand() - 0.5f;
+    }
+
+    for (int i = 0; i < ARRAY_SIZE(m_bgRotations); ++i)
+        m_bgRotations[i] = g_rnd.frand() * (float)M_PI;
+}
 
 void RenderSystem::Update(float /*dt*/, entt::DefaultRegistry& /*registry*/)
 {
 
 }
 
-void RenderSystem::Render(r::Render& r, entt::DefaultRegistry& registry)
+void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegistry& registry)
 {
     DrawHelper dr(r);
     static const v2f offset = v2f(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
+
+    // background
+    gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk1, v2f() + offset, COLOR_WHITE, 8.0f);
+
+    // planets
+    registry.view<PhysicsAgentComponent, PlanetComponent>().each(
+        [&](auto /*entity*/, PhysicsAgentComponent& psxComp, PlanetComponent& planetComp)
+    {
+        gRes.m_sheet->Draw(
+            r,
+            planetSprites[planetComp.m_planetType],
+            psxComp.m_agent->pos + offset,
+            COLOR_WHITE, 1.0f,
+            m_planetRotations[planetComp.m_planetType], false);
+    });
 
 #ifdef _DEBUG
 
@@ -53,18 +92,13 @@ void RenderSystem::Render(r::Render& r, entt::DefaultRegistry& registry)
     {
         auto& psx = registry.get<PhysicsAgentComponent>(ett);
         dr.DrawLine(
-            psx.m_agent->pos, 
-            psx.m_agent->pos + v2f(erComp.m_retriveProgression[0]*10.0f,0.0f), COLOR_AQUA);
+            psx.m_agent->pos,
+            psx.m_agent->pos + v2f(erComp.m_retriveProgression[0] * 10.0f, 0.0f), COLOR_AQUA);
 
         dr.DrawLine(
             psx.m_agent->pos,
             psx.m_agent->pos + v2f(erComp.m_retriveProgression[1] * 10.0f, 0.0f) + v2f(0.0, 1.0f), COLOR_AQUA);
     });
 #endif
-
-    //registry.view<PhysicsAgentComponent, PlanetComponent>().each([&](PhysicsAgentComponent& psxCop, PlanetComponent& planetComp)
-    //{
-    //   
-    //});
 }
 

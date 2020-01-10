@@ -23,8 +23,8 @@ ScreenMainMenu::ScreenMainMenu(Application& g)
 
     m_promtText.SetText(m_fnt, L"Hit <ENTER> to start the fight");
     m_promtText.SetAlign(BitmapText::tlCenter);
-    m_promtText.SetPosition(v2f(0,700));    
-    
+    m_promtText.SetPosition(v2f(0, 700));
+
     //m_app.GetSMGR().StartMusic(RES_MUSMAINMENU_MP3);
 }
 
@@ -36,10 +36,10 @@ ScreenMainMenu::~ScreenMainMenu()
 void ScreenMainMenu::Draw(r::Render& r)
 {
     // draw background
-    const auto logoTextPos = v2f(r.GetScreenSize().x/2.0f, 0.0f);
-    m_sheetMainMenu->Draw(r, mainmenu::MainMenuBackground, r.GetScreenSize()/2, COLOR_WHITE);
+    const auto logoTextPos = v2f(r.GetScreenSize().x / 2.0f, 0.0f);
+    m_sheetMainMenu->Draw(r, mainmenu::MainMenuBackground, r.GetScreenSize() / 2, COLOR_WHITE);
 
-    // draw wifget
+    // draw widget
     m_controllerSelector.Draw(r, v2f());
 
     // draw logo text
@@ -47,7 +47,7 @@ void ScreenMainMenu::Draw(r::Render& r)
 
     // draw promttext
     m_promtText.Draw(r, logoTextPos);
-    
+
 }
 
 void ScreenMainMenu::Update(f32 /*dt*/)

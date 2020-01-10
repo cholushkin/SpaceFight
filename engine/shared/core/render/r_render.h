@@ -168,9 +168,9 @@ struct Material
   StencilState   m_stencil;
 
   Material()
-    : m_pTexture(NULL), m_blend(bmAlpha), m_wrap(wmRepeat), m_filter(fmLinear) {}
+    : m_pTexture(NULL), m_blend(bmAlpha), m_wrap(wmRepeat), m_filter(fmNearest) {}
 
-  explicit Material(const Texture* pTexture, eBlendMode blend = bmAlpha, eWrapMode wrap = wmRepeat, eFilterMode filter = fmLinear)
+  explicit Material(const Texture* pTexture, eBlendMode blend = bmAlpha, eWrapMode wrap = wmRepeat, eFilterMode filter = fmNearest)
     : m_pTexture(pTexture),  m_blend(blend), m_wrap(wrap), m_filter(filter) {}
 
   bool operator !=(const Material& r) const {

@@ -40,9 +40,6 @@ Level::Level(entt::DefaultRegistry& registry, PhysicsSystem& psx, const SessionC
 
 void Level::CreateLevelRandom()
 {
-    // clear occupation array
-    m_created.clear();
-
     // create 2 players for now (hardcoded)
     CreatePlayerEntity(0, v2f(-200.0f, 0.0f));
     CreatePlayerEntity(1, v2f(200.0f, 0.0f));
@@ -92,12 +89,9 @@ void Level::CreatePlasmaBullet(const mt::v2f& pos, const mt::v2f& speed)
 
 void Level::CreatePlanet(const v2f& pos)
 {
-    static const int planetType[] = { gameplay::Planet1, gameplay::Planet2, gameplay::Planet3,
-        gameplay::Planet4, gameplay::Planet5, gameplay::Planet6 };
-
     const auto planet = m_registry.create();
     m_registry.assign<EntityTypeComponent>(planet, EntityTypeComponent::Planet);
-    m_registry.assign<PlanetComponent>(planet, (int)planetType[g_rnd.rand() % ARRAY_SIZE(planetType)], 1.0f, 100.0f, 50.0f);
+    m_registry.assign<PlanetComponent>(planet, g_rnd.rand() % 6, 1.0f, 100.0f, 50.0f);
     auto psxAgentComp = m_registry.assign<PhysicsAgentComponent>(
         planet,
         m_physicsSystem.AddAgent(planet, pos, 0.0f, 50.0f, true)
