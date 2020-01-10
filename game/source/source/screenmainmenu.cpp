@@ -19,6 +19,7 @@ ScreenMainMenu::ScreenMainMenu(Application& g)
     g.GetRender().SetClearColor(COLOR_BLACK);
     m_logoText.SetText(m_fnt, L"Space Fight");
     m_logoText.SetFontScale(4);
+    m_logoText.SetFilter(Material::fmNearest); // ???
     m_logoText.SetAlign(BitmapText::tlCenter);
 
     m_promtText.SetText(m_fnt, L"Hit <ENTER> to start the fight");

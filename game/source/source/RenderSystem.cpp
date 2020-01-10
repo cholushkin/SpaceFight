@@ -28,16 +28,17 @@ RenderSystem::RenderSystem()
     for (int i = 0; i < ARRAY_SIZE(m_planetRotations); ++i)
     {
         m_planetRotations[i] = g_rnd.frand() * (float)M_PI;
-        m_planetRotationSpeed[i] = g_rnd.frand() - 0.5f;
+        m_planetRotationSpeed[i] = (g_rnd.frand() - 0.5f) * 0.5f;
     }
 
     for (int i = 0; i < ARRAY_SIZE(m_bgRotations); ++i)
         m_bgRotations[i] = g_rnd.frand() * (float)M_PI;
 }
 
-void RenderSystem::Update(float /*dt*/, entt::DefaultRegistry& /*registry*/)
+void RenderSystem::Update(float dt, entt::DefaultRegistry& /*registry*/)
 {
-
+    for (int i = 0; i < ARRAY_SIZE(m_planetRotations); ++i)
+        m_planetRotations[i] += m_planetRotationSpeed[i] * dt;
 }
 
 void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegistry& registry)
@@ -57,7 +58,7 @@ void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegist
             planetSprites[planetComp.m_planetType],
             psxComp.m_agent->pos + offset,
             COLOR_WHITE, 1.0f,
-            m_planetRotations[planetComp.m_planetType], false);
+            m_planetRotations[planetComp.m_planetType], true);
     });
 
 #ifdef _DEBUG

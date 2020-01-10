@@ -76,7 +76,7 @@ void ScreenGameplay::Update(f32 dt)
 {
     m_time += dt;
 
-    m_inputSystem.Update(dt, m_registry);
+    m_inputSystem.Update(dt, m_registry);    
 
     // ----- update state
     if (m_gameState == MessageFight)
@@ -87,6 +87,8 @@ void ScreenGameplay::Update(f32 dt)
     }
     if (m_gameState == Playing)
     {
+        m_renderSystem.Update(dt, m_registry);
+
         // update gameplay gui
         m_player1Dashboard.Update(dt);
         m_player2Dashboard.Update(dt);
