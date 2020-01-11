@@ -59,7 +59,7 @@ void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegist
     dr.SetTransform(offset);
 
     // background
-    //gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk1, v2f() + offset, 0x44ffffff, 8.0f, m_bgAlphas[0],true);
+    gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk1, v2f() + offset, 0x44ffffff, 8.0f, m_bgAlphas[0],true);
     //gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk3, v2f(333,333) + offset, COLOR_WHITE, 8.0f);
 
     registry.view<PhysicsAgentComponent, EntityTypeComponent>().each(
@@ -108,52 +108,81 @@ void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegist
                 stationComp.HasEnergy() ? gameplay::StationFull : gameplay::StationEmpty,
                 psxComp.m_agent->pos + offset,
                 COLOR_WHITE, 1.0f);
-
-
-
             //dr.DrawLine(
             //    psxComp.m_agent->pos + v2f(-50.0f, 20.0f),
             //    psxComp.m_agent->pos + v2f(-50.0f, 20.0f) + v2f(stationComp.m_energy,0.0f), 
             //    COLOR_YELLOW);
 
-            if(stationComp.HasEnergy())
-                registry.view<PlayerComponent,PhysicsAgentComponent>().each([&](auto /*playerEnt*/, PlayerComponent& /*playerComp*/, PhysicsAgentComponent& playerPsxComp)
+            if (stationComp.HasEnergy())
+                registry.view<PlayerComponent, PhysicsAgentComponent>().each([&](auto /*playerEnt*/, PlayerComponent& /*playerComp*/, PhysicsAgentComponent& playerPsxComp)
+            {
+                auto distance = (playerPsxComp.m_agent->pos - psxComp.m_agent->pos).length();
+                if (distance < SHIP_IMPACT_RADIUS)
                 {
-                    auto distance = (playerPsxComp.m_agent->pos - psxComp.m_agent->pos).length();
-                    if (distance < SHIP_IMPACT_RADIUS)
-                    {
-                        dr.DrawLine(playerPsxComp.m_agent->pos, psxComp.m_agent->pos, COLOR_ORANGE);
-                    }
-                });
+                    dr.DrawLine(playerPsxComp.m_agent->pos, psxComp.m_agent->pos, COLOR_ORANGE);
+                }
+            });
+        }
+
+        if (entTypeComp.m_entityType == EntityTypeComponent::Ship)
+        {
+            const auto& playerComp = registry.get<PlayerComponent>(entity);
+            gRes.m_sheet->Draw(
+                r,
+                playerComp.m_playerID == 0 ? gameplay::Ship1 : gameplay::Ship2,
+                psxComp.m_agent->pos + offset,
+                COLOR_WHITE, 1.0f, 
+                atan2(psxComp.m_agent->deltaPos.y, psxComp.m_agent->deltaPos.x) + (float)M_PI_2,
+                true
+            );
+           
+            gRes.m_sheet->Draw(
+                r,
+                gameplay::ShipImpactCircle,
+                psxComp.m_agent->pos + offset,
+                COLOR_WHITE, 1.25f);
+            
+            //gRes.m_sheet->Draw(
+            //    r,
+            //    gameplay::Gun,
+            //    psxComp.m_agent->pos + offset,
+            //    COLOR_WHITE, 1.6f);
+
+            if (playerComp.m_energy > 0.0f)
+                gRes.m_sheet->Draw(
+                    r,
+                    gameplay::ShipShield,
+                    psxComp.m_agent->pos + offset,
+                    0x55ffffff, 1.6f);
         }
     });
 
 #ifdef _DEBUG
 
+    //    dr.DrawStar(v2f(), 10.0f, 4, COLOR_YELLOW);
     // draw physics body wire
-    registry.view<PhysicsAgentComponent>().each([&](auto /*entity*/, PhysicsAgentComponent& psxComp)
-    {        
-        dr.DrawStar(v2f(), 10.0f, 4, COLOR_YELLOW);
-        dr.DrawCircle(psxComp.m_agent->pos, psxComp.m_agent->radius, 16, COLOR_WHITE);
-    });
+    //registry.view<PhysicsAgentComponent>().each([&](auto /*entity*/, PhysicsAgentComponent& psxComp)
+    //{    
+    //    dr.DrawCircle(psxComp.m_agent->pos, psxComp.m_agent->radius, 16, COLOR_WHITE);
+    //});
 
     // draw impact radius
     registry.view<PhysicsAgentComponent, PlayerComponent>().each([&]
     (auto /*entity*/, PhysicsAgentComponent& psxComp, PlayerComponent& playerComp)
     {
-        dr.DrawCircle(psxComp.m_agent->pos, SHIP_IMPACT_RADIUS, 16, COLOR_AQUA);
-        
+        //dr.DrawCircle(psxComp.m_agent->pos, SHIP_IMPACT_RADIUS, 16, COLOR_AQUA);
+
         bool isInPower = playerComp.m_energy > 0.0f;
-        if(isInPower)
+        if (isInPower)
             registry.view<EnergyResourceComponent>().each([&](auto ett, EnergyResourceComponent& /*erComp*/)
+        {
+            auto& psxEnergyRes = registry.get<PhysicsAgentComponent>(ett);
+            auto distance = (psxComp.m_agent->pos - psxEnergyRes.m_agent->pos).length();
+            if (distance < SHIP_IMPACT_RADIUS)
             {
-                auto& psxEnergyRes = registry.get<PhysicsAgentComponent>(ett);
-                auto distance = (psxComp.m_agent->pos - psxEnergyRes.m_agent->pos).length();
-                if (distance < SHIP_IMPACT_RADIUS)
-                {
-                    dr.DrawLine(psxComp.m_agent->pos, psxEnergyRes.m_agent->pos, COLOR_ORANGE);
-                }
-            });
+                dr.DrawLine(psxComp.m_agent->pos, psxEnergyRes.m_agent->pos, COLOR_ORANGE);
+            }
+        });
     });
 
     // draw retrieve progression
