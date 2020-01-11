@@ -33,5 +33,5 @@ SpaceBackgroundChunk1.png,CENTER,CENTER
 SpaceBackgroundChunk2.png,CENTER,CENTER
 SpaceBackgroundChunk3.png,CENTER,CENTER
 SpaceBackgroundChunk4.png,CENTER,CENTER
-StationEmpty.png,CENTER,CENTER
-StationFull.png,CENTER,CENTER
+StationEmpty.png,23,9
+StationFull.png,23,15

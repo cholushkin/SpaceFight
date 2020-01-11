@@ -3,6 +3,7 @@
 #include "PhysicsObstacleComponent.h"
 #include "PlayerComponent.h"
 #include "EnergyResourceComponent.h"
+#include "EnergyStationComponent.h"
 #include "PlanetComponent.h"
 #include "ext/draw2d/draw_helper.h"
 #include "ext/math/mt_colors.h"
@@ -49,13 +50,13 @@ void RenderSystem::Update(float dt, entt::DefaultRegistry& /*registry*/)
 
     for (int i = 0; i < ARRAY_SIZE(m_bgAlphas); ++i)
         m_bgAlphas[i] += dt * 0.02f;
-    
 }
 
 void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegistry& registry)
 {
     DrawHelper dr(r);
     static const v2f offset = v2f(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
+    dr.SetTransform(offset);
 
     // background
     //gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk1, v2f() + offset, 0x44ffffff, 8.0f, m_bgAlphas[0],true);
@@ -70,7 +71,7 @@ void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegist
         {
             EASSERT(registry.has<PlanetComponent>(entity));
             const auto& planetComp = registry.get<PlanetComponent>(entity);
-            
+
             gRes.m_sheet->Draw(
                 r,
                 planetSprites[planetComp.m_planetType],
@@ -98,14 +99,41 @@ void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegist
                 psxComp.m_agent->pos + offset,
                 COLOR_WHITE, 2.0f);
         }
+
+        // station
+        if (entTypeComp.m_entityType == EntityTypeComponent::EnergyStation)
+        {
+            const auto& stationComp = registry.get<EnergyStationComponent>(entity);
+            gRes.m_sheet->Draw(
+                r,
+                stationComp.HasEnergy() ? gameplay::StationFull : gameplay::StationEmpty,
+                psxComp.m_agent->pos + offset,
+                COLOR_WHITE, 1.0f);
+
+
+
+            //dr.DrawLine(
+            //    psxComp.m_agent->pos + v2f(-50.0f, 20.0f),
+            //    psxComp.m_agent->pos + v2f(-50.0f, 20.0f) + v2f(stationComp.m_energy,0.0f), 
+            //    COLOR_YELLOW);
+
+            if(stationComp.HasEnergy())
+                registry.view<PlayerComponent,PhysicsAgentComponent>().each([&](auto /*playerEnt*/, PlayerComponent& /*playerComp*/, PhysicsAgentComponent& playerPsxComp)
+                {
+                    auto distance = (playerPsxComp.m_agent->pos - psxComp.m_agent->pos).length();
+                    if (distance < SHIP_IMPACT_RADIUS)
+                    {
+                        dr.DrawLine(playerPsxComp.m_agent->pos, psxComp.m_agent->pos, COLOR_ORANGE);
+                    }
+                });
+        }
     });
 
 #ifdef _DEBUG
 
     // draw physics body wire
     registry.view<PhysicsAgentComponent>().each([&](auto /*entity*/, PhysicsAgentComponent& psxComp)
-    {
-        dr.SetTransform(offset);
+    {        
         dr.DrawStar(v2f(), 10.0f, 4, COLOR_YELLOW);
         dr.DrawCircle(psxComp.m_agent->pos, psxComp.m_agent->radius, 16, COLOR_WHITE);
     });

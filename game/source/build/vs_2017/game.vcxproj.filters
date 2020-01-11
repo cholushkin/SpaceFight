@@ -178,6 +178,9 @@
     <ClInclude Include="..\..\source\EntityTypeComponent.h">
       <Filter>Source\Game\Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\EnergyStationComponent.h">
+      <Filter>Source\Game\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\helpers\erps\erps.cpp">
@@ -244,6 +247,9 @@
       <Filter>Source\Game\Systems</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\EntityTypeComponent.cpp">
+      <Filter>Source\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\EnergyStationComponent.cpp">
       <Filter>Source\Game\Components</Filter>
     </ClCompile>
   </ItemGroup>

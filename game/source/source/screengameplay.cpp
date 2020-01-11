@@ -54,6 +54,7 @@ ScreenGameplay::ScreenGameplay(Application& app, SessionContext sessionState)
     , m_player2Dashboard(m_registry, m_res)
     , m_modalMessenger(m_registry, m_res)
     , m_playerControllerSystem(m_inputSystem, m_level)
+    , m_gameRuleSystem(m_level)
     , m_physicsSystem(m_registry, m_level)
     , m_sessionContext(sessionState)
 {

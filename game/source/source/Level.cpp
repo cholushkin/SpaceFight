@@ -4,6 +4,7 @@
 #include "PlanetComponent.h"
 #include "EntityTypeComponent.h"
 #include "EnergyResourceComponent.h"
+#include "EnergyStationComponent.h"
 #include "PhysicsAgentComponent.h"
 #include "res/sheet_gameplay.h"
 #include "screengameplay.h"
@@ -16,7 +17,7 @@ using namespace mt;
 // ---------------------------------------------------------------
 Level::GenerationOptions::GenerationOptions()
     : PlanetsAmmount(2, 6)
-    , EnergyStationAmmount(1, 5)
+    , EnergyStationAmmount(1, 3)
     , AsteroidsAmmount(10, 30)
     , EnergyPickupsAmmount(10,20)
 {
@@ -49,6 +50,19 @@ void Level::CreateLevelRandom()
         {
             m_created.push_back(rndPos);
             CreatePlanet(rndPos);
+        }
+    }
+
+    // create energy stations
+    auto stationsMaxAmount = RandomHelper::RndRange(m_options.EnergyStationAmmount);
+    float radius = static_cast<float>(RandomHelper::RndRange(250, 350));
+    for (int i = 0; i < stationsMaxAmount; ++i)
+    {
+        v2f rndPos = RandomHelper::RndPointOnCircle(v2f(), radius);
+        if (!IsHit(rndPos))
+        {
+            m_created.push_back(rndPos);
+            CreateEnergyStation(rndPos);
         }
     }
 
@@ -117,6 +131,17 @@ void Level::CreatePlanet(const v2f& pos)
     auto psxAgentComp = m_registry.assign<PhysicsAgentComponent>(
         planet,
         m_physicsSystem.AddAgent(planet, pos, 0.0f, 50.0f, true)
+        );
+}
+
+void Level::CreateEnergyStation(const mt::v2f& pos)
+{
+    const auto station = m_registry.create();
+    m_registry.assign<EntityTypeComponent>(station, EntityTypeComponent::EnergyStation);
+    m_registry.assign<EnergyStationComponent>(station, ENERGY_STATION_CAPACITY);
+    auto psxAgentComp = m_registry.assign<PhysicsAgentComponent>(
+        station,
+        m_physicsSystem.AddAgent(station, pos, 0.0f, 10.0f, true)
         );
 }
 

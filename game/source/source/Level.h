@@ -64,6 +64,7 @@ private:
 
     void CreatePlayerEntity(int playerID, const mt::v2f& pos);
     void CreatePlanet(const mt::v2f& pos);
+    void CreateEnergyStation(const mt::v2f& pos);
     bool IsHit(const mt::v2f& pos);
 };
 

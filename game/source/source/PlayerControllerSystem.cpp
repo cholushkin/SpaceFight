@@ -3,6 +3,7 @@
 #include "PhysicsAgentComponent.h"
 #include "PlayerComponent.h"
 #include "EnergyResourceComponent.h"
+#include "EnergyStationComponent.h"
 #include "config.h"
 
 using namespace mt;
@@ -35,19 +36,25 @@ void PlayerControllerSystem::Update(float dt, entt::DefaultRegistry& registry)
             // update retriever
             {
                 registry.view<EnergyResourceComponent>().each(
-                    [&](auto ent, EnergyResourceComponent& eRus)
-                {
-                    //auto& tst = registry.get<PhysicsAgentComponent>(ent);
-                    //EASSERT(tst.m_agent != nullptr);
+                    [&](auto ent, EnergyResourceComponent& energyRes)
+                {                    
                     auto distance = (psxComp.m_agent->pos - registry.get<PhysicsAgentComponent>(ent).m_agent->pos).length();
                     if (distance < SHIP_IMPACT_RADIUS)
+                        energyRes.m_retriveProgression[playerComp.m_playerID] += dt;
+                });
+
+                registry.view<EnergyStationComponent>().each(
+                    [&](auto stationEnt, EnergyStationComponent& stationComp)
+                {
+                    auto distance = (psxComp.m_agent->pos - registry.get<PhysicsAgentComponent>(stationEnt).m_agent->pos).length();
+                    if (distance < SHIP_IMPACT_RADIUS)
                     {
-                        eRus.m_retriveProgression[playerComp.m_playerID] += dt;
-                        if (eRus.m_retriveProgression[playerComp.m_playerID] > RETRIEVE_IMPACT_MAX)
+                        auto energyDelta = ENERGY_STATION_CHARGE_SPEED * dt;
+                        if (stationComp.m_energy >= energyDelta)
                         {
-                            m_level.DeleteEntity(ent);
-                            playerComp.m_energy += ENERGY_REWARD_PLASMA_COLLECTED;
-                        }
+                            stationComp.m_energy -= energyDelta;
+                            playerComp.EnergyRecieve(energyDelta);
+                        }                        
                     }
                 });
             }

@@ -1,6 +1,8 @@
 #ifndef _PLAYER_COMPONENT_H
 #define _PLAYER_COMPONENT_H
 
+#include "config.h"
+
 struct PlayerComponent final
 {
     PlayerComponent(int playerID, int winCount);
@@ -23,6 +25,13 @@ struct PlayerComponent final
             return true;
         }
         return false;
+    }
+
+    void EnergyRecieve(float points)
+    {
+        m_energy += points;
+        if (m_energy  >= SHIP_ENERGY_MAX)
+            m_energy = SHIP_ENERGY_MAX;
     }
 };
 
