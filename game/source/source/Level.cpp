@@ -12,7 +12,6 @@
 
 using namespace mt;
 
-
 // GenerationOptions
 // ---------------------------------------------------------------
 Level::GenerationOptions::GenerationOptions()
@@ -68,7 +67,6 @@ void Level::CreateLevelRandom()
 
     // create energy pickups
     auto energyPickupsMaxAmount = RandomHelper::RndRange(m_options.EnergyPickupsAmmount);
-    //float radius = static_cast<float>(RandomHelper::RndRange(250, 350));
     for (int i = 0; i < energyPickupsMaxAmount; ++i)
     {
         v2f rndPos((float)RandomHelper::RndRange(10, SCREEN_WIDTH - 10), (float)RandomHelper::RndRange(10, SCREEN_HEIGHT - 10));
@@ -99,7 +97,7 @@ void Level::DeleteEntity(uint32_t& entt)
 }
 
 
-void Level::CreatePlasmaBullet(const mt::v2f& pos, const mt::v2f& speed)
+void Level::CreatePlasmaBullet(const mt::v2f& pos, const mt::v2f& direction)
 {
     const auto plasmaBullet = m_registry.create();
     m_registry.assign<EntityTypeComponent>(plasmaBullet, EntityTypeComponent::PlasmaBullet);
@@ -108,7 +106,7 @@ void Level::CreatePlasmaBullet(const mt::v2f& pos, const mt::v2f& speed)
         plasmaBullet,
         m_physicsSystem.AddAgent(plasmaBullet, pos, 0.0f, 6.0f, false)
         );
-    psx.m_agent->Push(speed);
+    psx.m_agent->Push(direction * 15.0f);
 }
 
 void Level::CreateEnergyPickup(const mt::v2f& pos, const mt::v2f& speed)

@@ -32,7 +32,6 @@ public:
     }
 };
 
-
 class Level final
 {
     DENY_COPY(Level)
@@ -52,7 +51,7 @@ public:
     void CreateLevelRandom();
     void DeleteEntity(uint32_t&);
 
-    void CreatePlasmaBullet(const mt::v2f& pos, const mt::v2f& speed);
+    void CreatePlasmaBullet(const mt::v2f& pos, const mt::v2f& direction);
     void CreateEnergyPickup(const mt::v2f& pos, const mt::v2f& speed);
 
 private:

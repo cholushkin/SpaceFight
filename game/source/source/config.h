@@ -8,7 +8,7 @@
 // gameplay
 #define WIN_COUNT 3 // ammount of rounds to win
 #define SHIP_ENERGY_MAX 100.0f
-#define SHIP_SHOOT_COST 1.0f
+#define SHIP_SHOOT_COST 4.0f
 #define SHIP_IMPACT_RADIUS 80.0f
 #define RETRIEVE_IMPACT_MAX 0.5f 
 #define ENERGY_REWARD_PLASMA_COLLECTED 10.0f

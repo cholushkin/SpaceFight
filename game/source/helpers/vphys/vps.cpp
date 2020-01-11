@@ -37,7 +37,7 @@ namespace vp
         if (m_isStatic)
             return;
         deltaPos += delta;
-        //pos += delta;
+        pos += delta;
     }
 
     void VerletAgent::Move(float /*timeStep*/, float hsqtimeStep, float maxVel_x_timeStep)

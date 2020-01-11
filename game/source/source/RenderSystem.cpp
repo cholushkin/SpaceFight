@@ -62,7 +62,6 @@ void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegist
     //gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk1, v2f() + offset, 0x44ffffff, 8.0f, m_bgAlphas[0],true);
     //gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk3, v2f(333,333) + offset, COLOR_WHITE, 8.0f);
 
-    // planets, plasma balls
     registry.view<PhysicsAgentComponent, EntityTypeComponent>().each(
         [&](auto entity, PhysicsAgentComponent& psxComp, EntityTypeComponent& entTypeComp)
     {
@@ -140,19 +139,21 @@ void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegist
 
     // draw impact radius
     registry.view<PhysicsAgentComponent, PlayerComponent>().each([&]
-    (auto /*entity*/, PhysicsAgentComponent& psxComp, PlayerComponent& /*player*/)
+    (auto /*entity*/, PhysicsAgentComponent& psxComp, PlayerComponent& playerComp)
     {
         dr.DrawCircle(psxComp.m_agent->pos, SHIP_IMPACT_RADIUS, 16, COLOR_AQUA);
-
-        registry.view<EnergyResourceComponent>().each([&](auto ett, EnergyResourceComponent& /*erComp*/)
-        {
-            auto& psxEnergyRes = registry.get<PhysicsAgentComponent>(ett);
-            auto distance = (psxComp.m_agent->pos - psxEnergyRes.m_agent->pos).length();
-            if (distance < SHIP_IMPACT_RADIUS)
+        
+        bool isInPower = playerComp.m_energy > 0.0f;
+        if(isInPower)
+            registry.view<EnergyResourceComponent>().each([&](auto ett, EnergyResourceComponent& /*erComp*/)
             {
-                dr.DrawLine(psxComp.m_agent->pos, psxEnergyRes.m_agent->pos, COLOR_ORANGE);
-            }
-        });
+                auto& psxEnergyRes = registry.get<PhysicsAgentComponent>(ett);
+                auto distance = (psxComp.m_agent->pos - psxEnergyRes.m_agent->pos).length();
+                if (distance < SHIP_IMPACT_RADIUS)
+                {
+                    dr.DrawLine(psxComp.m_agent->pos, psxEnergyRes.m_agent->pos, COLOR_ORANGE);
+                }
+            });
     });
 
     // draw retrieve progression

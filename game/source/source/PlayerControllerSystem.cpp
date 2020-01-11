@@ -63,7 +63,8 @@ void PlayerControllerSystem::Update(float dt, entt::DefaultRegistry& registry)
             playerComp.m_weaponStatus += dt;
             if (m_inputSystem.GetShootButton(playerComp.m_playerID) && playerComp.m_weaponStatus >= 0.5f) // shoot plasma
             {
-                v2f enemyDirection = GetDistanceToClosestEnemy(entity, registry); // get direction to enemy            
+                v2f enemyDirection = GetDistanceToClosestEnemy(entity, registry); // get direction to enemy         
+                enemyDirection.normalize();
                 if (enemyDirection.length() != 0.0f && playerComp.EnergySpend(SHIP_SHOOT_COST))
                 {
                     playerComp.m_weaponStatus = 0.0f;
