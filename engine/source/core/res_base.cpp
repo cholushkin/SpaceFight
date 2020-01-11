@@ -29,6 +29,7 @@ const void* ResourcesPool::Get(const ResID ID) {
 
 void ResourcesPool::Put(ResID ID, const void* p, FreeResourceFunct f) {
   EASSERT(m_count < m_max);
+  EASSERT(nullptr == Get(ID));
   m_resources[m_count] = Resource(ID, p, f);
   ++m_count;
 }
