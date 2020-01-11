@@ -147,18 +147,20 @@ void DeviceImpl::SetMaterial(const Material& m)
       glDisable(GL_TEXTURE_2D);
     else
     {
+      bool texChanged = false;
       if(m.m_pTexture != m_setmtl.m_pTexture)
       {
         glEnable(GL_TEXTURE_2D);
         m.m_pTexture->Set(0);
+        texChanged = true;
       }
-      if(m.m_filter != m_setmtl.m_filter)
+      if(texChanged || m.m_filter != m_setmtl.m_filter)
       {
         const GLint filt = (Material::fmNearest == m.m_filter) ? GL_NEAREST : GL_LINEAR;
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filt);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filt);
       }
-      if(m.m_wrap != m_setmtl.m_wrap)
+      if(texChanged || m.m_wrap != m_setmtl.m_wrap)
       {
         const GLint wrap = (Material::wmClamp   == m.m_wrap  ) ? GL_CLAMP   : GL_REPEAT;
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,     wrap);
