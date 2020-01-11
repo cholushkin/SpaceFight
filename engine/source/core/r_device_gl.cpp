@@ -147,12 +147,11 @@ void DeviceImpl::SetMaterial(const Material& m)
       glDisable(GL_TEXTURE_2D);
     else
     {
-      bool texChanged = false;
-      if(m.m_pTexture != m_setmtl.m_pTexture)
+      bool texChanged = m.m_pTexture != m_setmtl.m_pTexture;
+      if(texChanged)
       {
         glEnable(GL_TEXTURE_2D);
         m.m_pTexture->Set(0);
-        texChanged = true;
       }
       if(texChanged || m.m_filter != m_setmtl.m_filter)
       {
