@@ -50,16 +50,43 @@ void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegist
     gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk1, v2f() + offset, COLOR_WHITE, 8.0f);
     gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk3, v2f(333,333) + offset, COLOR_WHITE, 8.0f);
 
-    // planets
-    registry.view<PhysicsAgentComponent, PlanetComponent>().each(
-        [&](auto /*entity*/, PhysicsAgentComponent& psxComp, PlanetComponent& planetComp)
+    // planets, plasma balls
+    registry.view<PhysicsAgentComponent, EntityTypeComponent>().each(
+        [&](auto entity, PhysicsAgentComponent& psxComp, EntityTypeComponent& entTypeComp)
     {
-        gRes.m_sheet->Draw(
-            r,
-            planetSprites[planetComp.m_planetType],
-            psxComp.m_agent->pos + offset,
-            COLOR_WHITE, 1.0f,
-            m_planetRotations[planetComp.m_planetType], true);
+        // planets
+        if (entTypeComp.m_entityType == EntityTypeComponent::Planet)
+        {
+            EASSERT(registry.has<PlanetComponent>(entity));
+            const auto& planetComp = registry.get<PlanetComponent>(entity);
+            
+            gRes.m_sheet->Draw(
+                r,
+                planetSprites[planetComp.m_planetType],
+                psxComp.m_agent->pos + offset,
+                COLOR_WHITE, 1.0f,
+                m_planetRotations[planetComp.m_planetType], true);
+        }
+
+        // plasma bullets
+        if (entTypeComp.m_entityType == EntityTypeComponent::PlasmaBullet)
+        {
+            gRes.m_sheet->Draw(
+                r,
+                gameplay::PlasmaBullet,
+                psxComp.m_agent->pos + offset,
+                COLOR_WHITE, 2.0f);
+        }
+
+        // energy pickups
+        if (entTypeComp.m_entityType == EntityTypeComponent::EnergyPickup)
+        {
+            gRes.m_sheet->Draw(
+                r,
+                gameplay::PickupEnergy,
+                psxComp.m_agent->pos + offset,
+                COLOR_WHITE, 2.0f);
+        }
     });
 
 #ifdef _DEBUG

@@ -7,6 +7,7 @@ struct EntityTypeComponent final
     {
         Ship,
         PlasmaBullet,
+        EnergyPickup,
         Asteroid,
         EnergyStation,
         Planet,

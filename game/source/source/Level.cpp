@@ -19,11 +19,16 @@ inline int rndRange(int min, int max) // [min, max]
 {
     return min + g_rnd.rand() % ((max + 1) - min);
 }
+inline int rndRange(const Range& range)
+{
+    return rndRange(range.x, range.y);
+}
 
 Level::GenerationOptions::GenerationOptions()
     : PlanetsAmmount(2, 6)
     , EnergyStationAmmount(1, 5)
     , AsteroidsAmmount(10, 30)
+    , EnergyPickupsAmmount(10,20)
 {
 }
 
@@ -44,7 +49,8 @@ void Level::CreateLevelRandom()
     CreatePlayerEntity(0, v2f(-200.0f, 0.0f));
     CreatePlayerEntity(1, v2f(200.0f, 0.0f));
 
-    auto planetMaxAmount = rndRange(m_options.PlanetsAmmount.x, m_options.PlanetsAmmount.y);
+    // create planets
+    auto planetMaxAmount = rndRange(m_options.PlanetsAmmount);
     for (int i = 0; i < planetMaxAmount; ++i)
     {
         v2f rndPos((float)rndRange(100, SCREEN_WIDTH - 100), (float)rndRange(100, SCREEN_HEIGHT - 100));
@@ -53,6 +59,19 @@ void Level::CreateLevelRandom()
         {
             m_created.push_back(rndPos);
             CreatePlanet(rndPos);
+        }
+    }
+
+    // create energy pickups
+    auto energyPickupsMaxAmount = rndRange(m_options.EnergyPickupsAmmount);
+    for (int i = 0; i < energyPickupsMaxAmount; ++i)
+    {
+        v2f rndPos((float)rndRange(10, SCREEN_WIDTH - 10), (float)rndRange(10, SCREEN_HEIGHT - 10));
+        rndPos -= v2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+        if (!IsHit(rndPos))
+        {
+            m_created.push_back(rndPos);
+            CreateEnergyPickup(rndPos, v2f(g_rnd.frand(), g_rnd.frand()));
         }
     }
 }
@@ -82,7 +101,19 @@ void Level::CreatePlasmaBullet(const mt::v2f& pos, const mt::v2f& speed)
     m_registry.assign<EnergyResourceComponent>(plasmaBullet);
     auto& psx = m_registry.assign<PhysicsAgentComponent>(
         plasmaBullet,
-        m_physicsSystem.AddAgent(plasmaBullet, pos, 0.0f, 4.0f, false)
+        m_physicsSystem.AddAgent(plasmaBullet, pos, 0.0f, 6.0f, false)
+        );
+    psx.m_agent->Push(speed);
+}
+
+void Level::CreateEnergyPickup(const mt::v2f& pos, const mt::v2f& speed)
+{
+    const auto energyPickup = m_registry.create();
+    m_registry.assign<EntityTypeComponent>(energyPickup, EntityTypeComponent::EnergyPickup);
+    m_registry.assign<EnergyResourceComponent>(energyPickup);
+    auto& psx = m_registry.assign<PhysicsAgentComponent>(
+        energyPickup,
+        m_physicsSystem.AddAgent(energyPickup, pos, 0.0f, 6.0f, false)
         );
     psx.m_agent->Push(speed);
 }

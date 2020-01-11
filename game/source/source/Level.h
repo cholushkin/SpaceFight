@@ -6,6 +6,9 @@
 
 struct SessionContext;
 
+
+typedef mt::v2i16 Range;
+
 class Level final
 {
     DENY_COPY(Level)
@@ -14,9 +17,10 @@ private:
     {
     public:
         GenerationOptions();
-        mt::v2i16 PlanetsAmmount;
-        mt::v2i16 EnergyStationAmmount;
-        mt::v2i16 AsteroidsAmmount;
+        Range PlanetsAmmount;
+        Range EnergyStationAmmount;
+        Range EnergyPickupsAmmount;
+        Range AsteroidsAmmount;
     };
 
 public:
@@ -25,6 +29,7 @@ public:
     void DeleteEntity(uint32_t&);
 
     void CreatePlasmaBullet(const mt::v2f& pos, const mt::v2f& speed);
+    void CreateEnergyPickup(const mt::v2f& pos, const mt::v2f& speed);
 
 private:
     entt::DefaultRegistry&                      m_registry;
