@@ -43,7 +43,7 @@ void GameRulesSystem::Update(float dt, entt::DefaultRegistry& registry)
     // energy stations
     registry.view<EnergyStationComponent>().each([&](auto /*stationEnt*/, EnergyStationComponent& stationComp)
     {        
-        stationComp.m_energy += ENERGY_STATION_RECOVER_SPEED * dt; // recover
+        stationComp.m_energy += ENERGY_STATION_RECOVER_SPEED * dt; 
         stationComp.m_energy = Clamp(stationComp.m_energy, 0.0f, ENERGY_STATION_CAPACITY);
     });
 

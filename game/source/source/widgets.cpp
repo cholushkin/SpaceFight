@@ -74,14 +74,14 @@ void WidgetPlayerDashboard::Draw(r::Render& r, const mt::v2f& origin)
         if (playerComp.m_playerID == m_playerID)
         {
             // draw background panel
-            dr.FillRect(Rectf(pivot.x, pivot.x + 100, pivot.y, pivot.y + 40), COLOR_BEIGE);
+            dr.FillRect(Rectf(pivot.x, pivot.x + 100, pivot.y, pivot.y + 40), 0xff3f3630);
 
             // draw energy
             auto energyValue = Clamp(playerComp.m_energy, 0.0f, 100.0f);
             auto length = energyValue / SHIP_ENERGY_MAX;
             m_text.SetText(m_res.m_fnt, str::StringBuilderW()(L"energy: %0", (int)energyValue));
-            dr.FillRect(Rectf(pivot.x, pivot.x + 100 * length, pivot.y + 10, pivot.y + 20 + 10), COLOR_ORANGE);
-            m_text.Draw(r, pivot + v2f(50, 10));
+            dr.FillRect(Rectf(pivot.x, pivot.x + 100 * length, pivot.y + 12, pivot.y + 20 + 10), COLOR_ORANGE);
+            m_text.Draw(r, pivot + v2f(50, 12));
 
             // draw victories
             for (int i = 0; i < playerComp.m_winCount; ++i)
@@ -151,8 +151,8 @@ void WidgetModalMessage::Draw(r::Render& r, const mt::v2f& /*origin*/)
         return;
 
     DrawHelper dr(r);
-    dr.FillRect(Rectf(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT), 0x11000000);
-    dr.FillRect(Rectf(0, SCREEN_WIDTH, 200, SCREEN_HEIGHT - 200), 0xBB000000);
+    dr.FillRect(Rectf(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT), 0x22000000);
+    dr.FillRect(Rectf(0, SCREEN_WIDTH, 200, SCREEN_HEIGHT - 200), 0x33B3DEF5);
 
     auto offset = m_state == Appearing
         ? 100 - ErpDecelerate2(m_progress) * 100

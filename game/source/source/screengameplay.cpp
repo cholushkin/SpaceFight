@@ -24,6 +24,7 @@ GameResources::GameResources(Application& app)
     , m_app(app)
 {
     m_sheet = gameplay::GetSprite(app.GetRender(), app.GetRPool());
+    m_explSprite = ani_expl::CreateSprite(app.GetRender(), app.GetRPool());
     m_fnt = GetFont(RES_8BIT_FNT, app.GetRPool(), app.GetRender());
 
     // sounds
@@ -41,6 +42,7 @@ GameResources::GameResources(Application& app)
     LoadPS(m_particleSysExplosionA, RES_EXPLOSION1_PSI, RES_PARTICLES_PNG, app.GetRender(), m_resPool);
     LoadPS(m_particleSysExplosionB, RES_EXPLOSION2_PSI, RES_PARTICLES_PNG, app.GetRender(), m_resPool);
     LoadPS(m_particleSysTrail, RES_BURST_PSI, RES_PARTICLES_PNG, app.GetRender(), m_resPool);
+    
 }
 
 // ScreenGameplay 
@@ -57,6 +59,7 @@ ScreenGameplay::ScreenGameplay(Application& app, SessionContext sessionState)
     , m_gameRuleSystem(m_level)
     , m_physicsSystem(m_registry, m_level)
     , m_sessionContext(sessionState)
+    , m_winConditionDelay(WIN_CONDITION_DELAY)
 {
     SetState(Initialization);
 }
@@ -100,11 +103,15 @@ void ScreenGameplay::Update(f32 dt)
         m_gameRuleSystem.Update(dt, m_registry);
         if (m_gameRuleSystem.HasWinner())
         {
-            ++m_sessionContext.m_winCount[m_gameRuleSystem.GetWinnerID()];
-            if (m_sessionContext.m_winCount[m_gameRuleSystem.GetWinnerID()] >= WIN_COUNT)
-                SetState(MessageFinalWin);
-            else
-                SetState(MessageWin);
+            m_winConditionDelay -= dt;
+            if (m_winConditionDelay < 0.0f)
+            {
+                ++m_sessionContext.m_winCount[m_gameRuleSystem.GetWinnerID()];
+                if (m_sessionContext.m_winCount[m_gameRuleSystem.GetWinnerID()] >= WIN_COUNT)
+                    SetState(MessageFinalWin);
+                else
+                    SetState(MessageWin);
+            }
         }
         else
         {

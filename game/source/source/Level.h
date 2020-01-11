@@ -32,6 +32,8 @@ public:
     }
 };
 
+
+// todo: as system
 class Level final
 {
     DENY_COPY(Level)
@@ -59,7 +61,7 @@ private:
     PhysicsSystem&                              m_physicsSystem;
     GenerationOptions                           m_options;
     std::vector<mt::v2f>                        m_created;
-    const SessionContext&                             m_sessionContext;
+    const SessionContext&                       m_sessionContext;
 
     void CreatePlayerEntity(int playerID, const mt::v2f& pos);
     void CreatePlanet(const mt::v2f& pos);

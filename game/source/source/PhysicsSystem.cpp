@@ -1,6 +1,7 @@
 #include "PhysicsSystem.h"
 #include "PhysicsAgentComponent.h"
 #include "PhysicsObstacleComponent.h"
+#include "ExplosionEffectComponent.h"
 #include "EntityTypeComponent.h"
 #include "PlayerComponent.h"
 #include "PlanetComponent.h"
@@ -61,7 +62,7 @@ void PhysicsSystem::RemoveObstacle(const uint32_t& entt)
 }
 
 static const float GravConst = 1000.25f;
-void PhysicsSystem::Update(float dt, entt::DefaultRegistry& /*registry*/)
+void PhysicsSystem::Update(float dt, entt::DefaultRegistry& registry)
 {
     m_vps.ProcessTime(dt);
 
@@ -87,7 +88,10 @@ void PhysicsSystem::Update(float dt, entt::DefaultRegistry& /*registry*/)
             psxComp.m_hitImpact = 0.0f;
             auto isShipDead = playerComp.m_energy < 0.0f;
             if (isShipDead)
+            {
+                registry.assign<ExplosionEffectComponent>(registry.create(), psxComp.m_agent->pos);
                 m_level.DeleteEntity(psxEnt);
+            }
         }        
     });
 

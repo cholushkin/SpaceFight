@@ -6,6 +6,7 @@
 #include "ext/primitives/r_primitives.h"
 #include "ext/primitives/r_sheet_sprite.h"
 #include "ext/primitives/r_particles.h"
+#include "res/ani_expl.h"
 #include "inputsystem.h"
 #include "rendersystem.h"
 #include "physicssystem.h"
@@ -20,7 +21,8 @@ struct GameResources
     GameResources(Application& app);
 
     const r::SheetSprite*       m_sheet;
-    const r::BitmapFont*        m_fnt;
+    const CharacterSprite*      m_explSprite;
+    const r::BitmapFont*        m_fnt;    
     snd::Sound*                 m_sfxExplode1;
     snd::Sound*                 m_sfxExplode2;
     snd::Sound*                 m_sfxExplode3;
@@ -75,6 +77,7 @@ public:
     
 
 private:
+    float                   m_winConditionDelay;
     GameResources           m_res;
     Level                   m_level;
     Application&            m_app;    

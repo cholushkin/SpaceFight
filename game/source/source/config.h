@@ -22,6 +22,8 @@
 // animations
 #define GUI_APPEAR_DURATION 0.65f
 #define GUI_DISAPPEAR_DURATION 0.5f
-#define GUI_STD_SHOW_DURATION 1.0f
+#define GUI_STD_SHOW_DURATION 1.5f
+#define WIN_CONDITION_DELAY 2.0f
+
 
 #endif

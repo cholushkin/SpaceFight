@@ -3,6 +3,7 @@
 #include "PhysicsObstacleComponent.h"
 #include "PlayerComponent.h"
 #include "EnergyResourceComponent.h"
+#include "ExplosionEffectComponent.h"
 #include "EnergyStationComponent.h"
 #include "PlanetComponent.h"
 #include "ext/draw2d/draw_helper.h"
@@ -10,6 +11,7 @@
 #include "screengameplay.h"
 #include "config.h"
 #include "res/sheet_gameplay.h"
+#include "res/ani_expl.h"
 #include "ext/math/mt_random.h"
 #include "Level.h"
 
@@ -43,13 +45,20 @@ RenderSystem::RenderSystem()
     }
 }
 
-void RenderSystem::Update(float dt, entt::DefaultRegistry& /*registry*/)
+void RenderSystem::Update(float dt, entt::DefaultRegistry& registry)
 {
     for (int i = 0; i < ARRAY_SIZE(m_planetRotations); ++i)
         m_planetRotations[i] += m_planetRotationSpeed[i] * dt;
 
     for (int i = 0; i < ARRAY_SIZE(m_bgAlphas); ++i)
         m_bgAlphas[i] += dt * 0.02f;
+
+    // update effects
+    registry.view<ExplosionEffectComponent>().each(
+        [&](auto /*ent*/, ExplosionEffectComponent& explComp)
+    {
+        explComp.m_progress += dt;
+    });
 }
 
 void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegistry& registry)
@@ -155,6 +164,13 @@ void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegist
                     psxComp.m_agent->pos + offset,
                     0x55ffffff, 1.6f);
         }
+    });
+
+    // draw effects
+    registry.view<ExplosionEffectComponent>().each(
+        [&](auto /*ent*/, ExplosionEffectComponent& explComp)
+    {
+        gRes.m_explSprite->Draw(r, 3, explComp.m_pos + offset);
     });
 
 #ifdef _DEBUG

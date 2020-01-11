@@ -64,11 +64,14 @@ void PlayerControllerSystem::Update(float dt, entt::DefaultRegistry& registry)
             if (m_inputSystem.GetShootButton(playerComp.m_playerID) && playerComp.m_weaponStatus >= 0.5f) // shoot plasma
             {
                 v2f enemyDirection = GetDistanceToClosestEnemy(entity, registry); // get direction to enemy         
-                enemyDirection.normalize();
-                if (enemyDirection.length() != 0.0f && playerComp.EnergySpend(SHIP_SHOOT_COST))
+                if (enemyDirection != v2f())
                 {
-                    playerComp.m_weaponStatus = 0.0f;
-                    m_level.CreatePlasmaBullet(psxComp.m_agent->pos, enemyDirection);
+                    enemyDirection.normalize();
+                    if (enemyDirection.length() != 0.0f && playerComp.EnergySpend(SHIP_SHOOT_COST))
+                    {
+                        playerComp.m_weaponStatus = 0.0f;
+                        m_level.CreatePlasmaBullet(psxComp.m_agent->pos, enemyDirection);
+                    }
                 }
             }
         }
