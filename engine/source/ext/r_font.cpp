@@ -239,11 +239,11 @@ void BitmapText::Draw(Render& r) const
     return;
 
   Material m;
+  m.m_filter = m_filter;
   for(u32 c = 0; m_length != c; ++c)
   {
     const u32 color[4] = {m_cache[c].color, m_cache[c].color, m_cache[c].color, m_cache[c].color};
     m.m_pTexture = m_pFont->m_pTextures[m_cache[c].page];
-    m.m_filter = m_filter;
     r.PostQuad(m_cache[c].coords, m_pFont->m_uvcache[m_cache[c].id].m_uv,color, m);
   }
 }
@@ -254,12 +254,12 @@ void BitmapText::Draw(Render& r, const v2f& pos) const
     return;
 
   Material m;
+  m.m_filter = m_filter;
   v2f coords[4];
   for(u32 c = 0; m_length != c; ++c)
   {
     const u32 color[4] = {m_cache[c].color, m_cache[c].color, m_cache[c].color, m_cache[c].color};
     m.m_pTexture = m_pFont->m_pTextures[m_cache[c].page];
-    m.m_filter = m_filter;
     coords[0] = m_cache[c].coords[0] + pos;
     coords[1] = m_cache[c].coords[1] + pos;
     coords[2] = m_cache[c].coords[2] + pos;
@@ -274,12 +274,12 @@ void BitmapText::Draw(Render& r, const mt::v2f& pos, f32 scale) const
     return;
 
   Material m;
+  m.m_filter = m_filter;
   v2f coords[4];
   for(u32 c = 0; m_length != c; ++c)
   {
     const u32 color[4] = {m_cache[c].color, m_cache[c].color, m_cache[c].color, m_cache[c].color};
     m.m_pTexture = m_pFont->m_pTextures[m_cache[c].page];
-    m.m_filter = m_filter;
     coords[0] = m_cache[c].coords[0] * scale + pos;
     coords[1] = m_cache[c].coords[1] * scale + pos;
     coords[2] = m_cache[c].coords[2] * scale + pos;
@@ -294,12 +294,12 @@ void BitmapText::Draw(Render& r, const mt::Matrix3f& m) const
     return;
 
   Material mt;
+  mt.m_filter = m_filter;
   v2f coords[4];
   for(u32 c = 0; m_length != c; ++c)
   {
     const u32 color[4] = {m_cache[c].color, m_cache[c].color, m_cache[c].color, m_cache[c].color};
     mt.m_pTexture = m_pFont->m_pTextures[m_cache[c].page];
-    mt.m_filter = m_filter;
     TransformCoord(coords[0], m_cache[c].coords[0], m);
     TransformCoord(coords[1], m_cache[c].coords[1], m);
     TransformCoord(coords[2], m_cache[c].coords[2], m);
