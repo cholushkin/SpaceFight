@@ -3,6 +3,8 @@
 
 #include <string>
 #include "ext/strings/str_base.h"
+#include <locale>
+#include <codecvt>
 
 #pragma warning(push)
 #pragma warning(disable:4244) // 'argument' : conversion from 'utf8::uint32_t' to 'const wchar_t'
@@ -11,16 +13,16 @@
 
 NAMESPACE_BEGIN(str)
 
+typedef std::wstring_convert<std::codecvt<wchar_t, char, mbstate_t>> ascii_conv;
+
 inline std::wstring A2W( const std::string &s)
 {
-  std::wstring wsTmp(s.begin(), s.end());
-  return wsTmp;
+  return ascii_conv().from_bytes(s);
 }
 
 inline std::string W2A( const std::wstring &s)
 {
-  std::string sTmp(s.begin(), s.end());
-  return sTmp;
+  return ascii_conv().to_bytes(s);
 }
 
 template<size_t> StringW fromUTF8(const StringA& utf8);
