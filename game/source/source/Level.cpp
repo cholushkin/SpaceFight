@@ -1,5 +1,4 @@
 #include "Level.h"
-#include "ext/math/mt_random.h"
 #include "config.h"
 #include "PlayerComponent.h"
 #include "PlanetComponent.h"
@@ -12,18 +11,9 @@
 
 using namespace mt;
 
+
 // GenerationOptions
 // ---------------------------------------------------------------
-mt::fast_random_generator g_rnd((u32)time(nullptr));
-inline int rndRange(int min, int max) // [min, max]
-{
-    return min + g_rnd.rand() % ((max + 1) - min);
-}
-inline int rndRange(const Range& range)
-{
-    return rndRange(range.x, range.y);
-}
-
 Level::GenerationOptions::GenerationOptions()
     : PlanetsAmmount(2, 6)
     , EnergyStationAmmount(1, 5)
@@ -50,10 +40,10 @@ void Level::CreateLevelRandom()
     CreatePlayerEntity(1, v2f(200.0f, 0.0f));
 
     // create planets
-    auto planetMaxAmount = rndRange(m_options.PlanetsAmmount);
+    auto planetMaxAmount = RandomHelper::RndRange(m_options.PlanetsAmmount);
     for (int i = 0; i < planetMaxAmount; ++i)
     {
-        v2f rndPos((float)rndRange(100, SCREEN_WIDTH - 100), (float)rndRange(100, SCREEN_HEIGHT - 100));
+        v2f rndPos((float)RandomHelper::RndRange(100, SCREEN_WIDTH - 100), (float)RandomHelper::RndRange(100, SCREEN_HEIGHT - 100));
         rndPos -= v2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         if (!IsHit(rndPos))
         {
@@ -63,15 +53,16 @@ void Level::CreateLevelRandom()
     }
 
     // create energy pickups
-    auto energyPickupsMaxAmount = rndRange(m_options.EnergyPickupsAmmount);
+    auto energyPickupsMaxAmount = RandomHelper::RndRange(m_options.EnergyPickupsAmmount);
+    //float radius = static_cast<float>(RandomHelper::RndRange(250, 350));
     for (int i = 0; i < energyPickupsMaxAmount; ++i)
     {
-        v2f rndPos((float)rndRange(10, SCREEN_WIDTH - 10), (float)rndRange(10, SCREEN_HEIGHT - 10));
+        v2f rndPos((float)RandomHelper::RndRange(10, SCREEN_WIDTH - 10), (float)RandomHelper::RndRange(10, SCREEN_HEIGHT - 10));
         rndPos -= v2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         if (!IsHit(rndPos))
         {
             m_created.push_back(rndPos);
-            CreateEnergyPickup(rndPos, v2f(g_rnd.frand(), g_rnd.frand()));
+            CreateEnergyPickup(rndPos, v2f(RandomHelper::s_rnd.frand(), RandomHelper::s_rnd.frand()));
         }
     }
 }
@@ -122,7 +113,7 @@ void Level::CreatePlanet(const v2f& pos)
 {
     const auto planet = m_registry.create();
     m_registry.assign<EntityTypeComponent>(planet, EntityTypeComponent::Planet);
-    m_registry.assign<PlanetComponent>(planet, g_rnd.rand() % 6, 1.0f, 100.0f, 50.0f);
+    m_registry.assign<PlanetComponent>(planet, RandomHelper::s_rnd.rand() % 6, 1.0f, 100.0f, 50.0f);
     auto psxAgentComp = m_registry.assign<PhysicsAgentComponent>(
         planet,
         m_physicsSystem.AddAgent(planet, pos, 0.0f, 50.0f, true)
@@ -137,3 +128,8 @@ bool Level::IsHit(const v2f& pos)
             return true;
     return false;
 };
+
+
+// RandomHelper
+// --------------------------------------
+mt::fast_random_generator RandomHelper::s_rnd((u32)time(nullptr));

@@ -2,12 +2,36 @@
 #define level_h__
 #include "core/common/com_types.h"
 #include "physicssystem.h"
+#include "ext/math/mt_random.h"
 
 
 struct SessionContext;
 
-
 typedef mt::v2i16 Range;
+class RandomHelper
+{
+public:
+    static mt::fast_random_generator s_rnd;
+
+    inline static int RndRange(int min, int max) // [min, max]
+    {
+        return min + s_rnd.rand() % ((max + 1) - min);
+    }
+
+    inline static int RndRange(const Range& range)
+    {
+        return RndRange(range.x, range.y);
+    }
+
+    inline static mt::v2f RndPointOnCircle(const mt::v2f& center, float radius)
+    {
+        mt::v2f result;
+        float angle = static_cast<float>( s_rnd.frand() * M_2PI );
+        mt::sin_cos_low(angle, result.x, result.y);
+        return center + result * radius;
+    }
+};
+
 
 class Level final
 {
@@ -42,6 +66,10 @@ private:
     void CreatePlanet(const mt::v2f& pos);
     bool IsHit(const mt::v2f& pos);
 };
+
+
+
+
 
 
 #endif

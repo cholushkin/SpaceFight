@@ -10,35 +10,46 @@
 #include "config.h"
 #include "res/sheet_gameplay.h"
 #include "ext/math/mt_random.h"
+#include "Level.h"
 
 using namespace mt;
 using namespace r;
-
 
 u32 planetSprites[] = { gameplay::Planet1, gameplay::Planet2, gameplay::Planet3,
 gameplay::Planet4, gameplay::Planet5, gameplay::Planet6 };
 float m_planetRotations[6];
 float m_planetRotationSpeed[6];
-float m_bgRotations[4];
 
-extern mt::fast_random_generator g_rnd;
+float m_bgAlphas[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+float m_bgAngles[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+v2f m_bgPositions[4] = { {0.0f, 100.0f}, {100.0f, 200.0f}, {200.0f, 300.0f}, {300.0f, 400.0f} }; // initially it is treated as a range of radius but later as an abs pos
+
 
 RenderSystem::RenderSystem()
 {
     for (int i = 0; i < ARRAY_SIZE(m_planetRotations); ++i)
     {
-        m_planetRotations[i] = g_rnd.frand() * (float)M_PI;
-        m_planetRotationSpeed[i] = (g_rnd.frand() - 0.5f) * 0.5f;
+        m_planetRotations[i] = RandomHelper::s_rnd.frand() * (float)M_PI;
+        m_planetRotationSpeed[i] = (RandomHelper::s_rnd.frand() - 0.5f) * 0.5f;
     }
 
-    for (int i = 0; i < ARRAY_SIZE(m_bgRotations); ++i)
-        m_bgRotations[i] = g_rnd.frand() * (float)M_PI;
+    for (int i = 0; i < ARRAY_SIZE(m_bgAngles); ++i)
+    {
+        m_bgAngles[i] = RandomHelper::s_rnd.frand() * (float)M_PI;
+        m_bgAlphas[i] = RandomHelper::s_rnd.frand();
+        //auto r = RandomHelper::RndRange(m_bgPositions[i]);
+        //m_bgPositions[i] = RandomHelper::
+    }
 }
 
 void RenderSystem::Update(float dt, entt::DefaultRegistry& /*registry*/)
 {
     for (int i = 0; i < ARRAY_SIZE(m_planetRotations); ++i)
         m_planetRotations[i] += m_planetRotationSpeed[i] * dt;
+
+    for (int i = 0; i < ARRAY_SIZE(m_bgAlphas); ++i)
+        m_bgAlphas[i] += dt * 0.02f;
+    
 }
 
 void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegistry& registry)
@@ -47,8 +58,8 @@ void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegist
     static const v2f offset = v2f(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
 
     // background
-    gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk1, v2f() + offset, COLOR_WHITE, 8.0f);
-    gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk3, v2f(333,333) + offset, COLOR_WHITE, 8.0f);
+    //gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk1, v2f() + offset, 0x44ffffff, 8.0f, m_bgAlphas[0],true);
+    //gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk3, v2f(333,333) + offset, COLOR_WHITE, 8.0f);
 
     // planets, plasma balls
     registry.view<PhysicsAgentComponent, EntityTypeComponent>().each(
