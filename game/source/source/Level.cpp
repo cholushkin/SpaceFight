@@ -39,6 +39,14 @@ void Level::CreateLevelRandom()
     CreatePlayerEntity(0, v2f(-200.0f, 0.0f));
     CreatePlayerEntity(1, v2f(200.0f, 0.0f));
 
+    // create bg
+    for (int i = 0; i < 4; ++i)
+    {
+        v2f rndPos((float)RandomHelper::RndRange(200, SCREEN_WIDTH - 200), (float)RandomHelper::RndRange(200, SCREEN_HEIGHT - 200));
+        rndPos -= v2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+        CreateBG(rndPos);
+    }
+
     // create planets
     auto planetMaxAmount = RandomHelper::RndRange(m_options.PlanetsAmmount);
     for (int i = 0; i < planetMaxAmount; ++i)
@@ -141,6 +149,12 @@ void Level::CreateEnergyStation(const mt::v2f& pos)
         station,
         m_physicsSystem.AddAgent(station, pos, 0.0f, 10.0f, true)
         );
+}
+
+void Level::CreateBG(const v2f& pos)
+{
+    const auto bg = m_registry.create();
+    m_registry.assign<v2f>(bg, pos);
 }
 
 

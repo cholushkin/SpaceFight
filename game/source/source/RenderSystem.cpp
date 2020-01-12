@@ -23,6 +23,9 @@ gameplay::Planet4, gameplay::Planet5, gameplay::Planet6 };
 float m_planetRotations[6];
 float m_planetRotationSpeed[6];
 
+u32 bgSprites[] = { gameplay::SpaceBackgroundChunk1, gameplay::SpaceBackgroundChunk2,
+    gameplay::SpaceBackgroundChunk3, gameplay::SpaceBackgroundChunk4 };
+
 float m_bgAlphas[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 float m_bgAngles[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 v2f m_bgPositions[4] = { {0.0f, 100.0f}, {100.0f, 200.0f}, {200.0f, 300.0f}, {300.0f, 400.0f} }; // initially it is treated as a range of radius but later as an abs pos
@@ -39,9 +42,7 @@ RenderSystem::RenderSystem()
     for (int i = 0; i < ARRAY_SIZE(m_bgAngles); ++i)
     {
         m_bgAngles[i] = RandomHelper::s_rnd.frand() * (float)M_PI;
-        m_bgAlphas[i] = RandomHelper::s_rnd.frand();
-        //auto r = RandomHelper::RndRange(m_bgPositions[i]);
-        //m_bgPositions[i] = RandomHelper::
+        m_bgAlphas[i] = RandomHelper::s_rnd.frand() * 0.5f;
     }
 }
 
@@ -55,9 +56,11 @@ void RenderSystem::Update(float dt, entt::DefaultRegistry& registry)
 
     // update effects
     registry.view<ExplosionEffectComponent>().each(
-        [&](auto /*ent*/, ExplosionEffectComponent& explComp)
-    {
-        explComp.m_progress += dt;
+        [&](auto ent, ExplosionEffectComponent& explComp)
+    {        
+        explComp.UpdateProgress(dt); 
+        if (explComp.m_progress == 1.0f) // todo: need to have decent animation sprite class...
+            registry.destroy(ent);
     });
 }
 
@@ -68,7 +71,15 @@ void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegist
     dr.SetTransform(offset);
 
     // background
-    gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk1, v2f() + offset, 0x44ffffff, 8.0f, m_bgAlphas[0],true);
+    int bgIndex = 0;
+    registry.view<v2f>().each( [&](auto /*entity*/, v2f& pos)
+    {
+        gRes.m_sheet->Draw(r, bgSprites[bgIndex], pos + offset,
+            0x44ffffff, 8.0f, m_bgAlphas[bgIndex], true);
+        ++bgIndex;
+    });
+
+    
     //gRes.m_sheet->Draw(r, gameplay::SpaceBackgroundChunk3, v2f(333,333) + offset, COLOR_WHITE, 8.0f);
 
     registry.view<PhysicsAgentComponent, EntityTypeComponent>().each(
@@ -151,12 +162,6 @@ void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegist
                 psxComp.m_agent->pos + offset,
                 COLOR_WHITE, 1.25f);
             
-            //gRes.m_sheet->Draw(
-            //    r,
-            //    gameplay::Gun,
-            //    psxComp.m_agent->pos + offset,
-            //    COLOR_WHITE, 1.6f);
-
             if (playerComp.m_energy > 0.0f)
                 gRes.m_sheet->Draw(
                     r,
@@ -170,24 +175,24 @@ void RenderSystem::Render(r::Render& r, GameResources& gRes, entt::DefaultRegist
     registry.view<ExplosionEffectComponent>().each(
         [&](auto /*ent*/, ExplosionEffectComponent& explComp)
     {
-        gRes.m_explSprite->Draw(r, 3, explComp.m_pos + offset);
+        gRes.m_explSprite->Draw(r, 
+            (u32)(explComp.m_progress * (ani_expl::GetNFrames(ani_expl::aExp) -1)), 
+            explComp.m_pos + offset); // todo: need to have decent animation sprite class...
     });
 
 #ifdef _DEBUG
 
-    //    dr.DrawStar(v2f(), 10.0f, 4, COLOR_YELLOW);
+    dr.DrawStar(v2f(), 10.0f, 4, COLOR_YELLOW);
     // draw physics body wire
-    //registry.view<PhysicsAgentComponent>().each([&](auto /*entity*/, PhysicsAgentComponent& psxComp)
-    //{    
-    //    dr.DrawCircle(psxComp.m_agent->pos, psxComp.m_agent->radius, 16, COLOR_WHITE);
-    //});
+    registry.view<PhysicsAgentComponent>().each([&](auto /*entity*/, PhysicsAgentComponent& psxComp)
+    {    
+        dr.DrawCircle(psxComp.m_agent->pos, psxComp.m_agent->radius, 16, COLOR_WHITE);
+    });
 
     // draw impact radius
     registry.view<PhysicsAgentComponent, PlayerComponent>().each([&]
     (auto /*entity*/, PhysicsAgentComponent& psxComp, PlayerComponent& playerComp)
     {
-        //dr.DrawCircle(psxComp.m_agent->pos, SHIP_IMPACT_RADIUS, 16, COLOR_AQUA);
-
         bool isInPower = playerComp.m_energy > 0.0f;
         if (isInPower)
             registry.view<EnergyResourceComponent>().each([&](auto ett, EnergyResourceComponent& /*erComp*/)

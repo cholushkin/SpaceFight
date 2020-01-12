@@ -116,6 +116,7 @@ void WidgetModalMessage::Show(const wchar_t* mainText, const wchar_t* secondaryT
     m_textMain.SetText(m_res.m_fnt, mainText);
     m_textSecondary.SetText(m_res.m_fnt, secondaryText);
     m_stateDuration = duration;
+    m_res.m_sfxMenuApply->Play();
 }
 
 void WidgetModalMessage::Close()

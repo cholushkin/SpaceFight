@@ -8,7 +8,7 @@
 
 
 class Level;
-
+struct GameResources;
 class PhysicsSystem : public vp::ICollisionListener
 {
 public:
@@ -23,7 +23,7 @@ public:
 
 
 
-    void Update(float dt, entt::DefaultRegistry& registry);
+    void Update(float dt, entt::DefaultRegistry& registry, GameResources& res);
 private: 
     vp::VerletPhysicsSystem  m_vps; // verlet physics simulation system
     entt::DefaultRegistry&   m_registry;

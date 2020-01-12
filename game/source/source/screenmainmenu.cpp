@@ -7,7 +7,6 @@
 #include "config.h"
 
 using namespace mt;
-using namespace in;
 using namespace r;
 
 ScreenMainMenu::ScreenMainMenu(Application& g)
@@ -19,14 +18,13 @@ ScreenMainMenu::ScreenMainMenu(Application& g)
     g.GetRender().SetClearColor(COLOR_BLACK);
     m_logoText.SetText(m_fnt, L"Space Fight");
     m_logoText.SetFontScale(4);
-    m_logoText.SetFilter(Material::fmNearest); // ???
     m_logoText.SetAlign(BitmapText::tlCenter);
 
     m_promtText.SetText(m_fnt, L"Hit <ENTER> to start the fight");
     m_promtText.SetAlign(BitmapText::tlCenter);
     m_promtText.SetPosition(v2f(0, 700));
 
-    //m_app.GetSMGR().StartMusic(RES_MUSMAINMENU_MP3);
+    m_app.GetSMGR().StartMusic(RES_MUSMAINMENU_MP3);    
 }
 
 ScreenMainMenu::~ScreenMainMenu()
@@ -59,5 +57,3 @@ void ScreenMainMenu::Update(f32 /*dt*/)
         m_app.GetScreenManager().Push(new ScreenGameplay(m_app, SessionContext()));
     }
 }
-
-

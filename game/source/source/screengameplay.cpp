@@ -99,7 +99,7 @@ void ScreenGameplay::Update(f32 dt)
 
         // update systems        
         m_playerControllerSystem.Update(dt, m_registry);
-        m_physicsSystem.Update(dt, m_registry);
+        m_physicsSystem.Update(dt, m_registry, m_res);
         m_gameRuleSystem.Update(dt, m_registry);
         if (m_gameRuleSystem.HasWinner())
         {

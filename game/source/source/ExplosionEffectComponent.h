@@ -7,6 +7,8 @@ struct ExplosionEffectComponent final
     ExplosionEffectComponent( const mt::v2f& pos );
     float m_progress;
     mt::v2f m_pos;
+
+    void UpdateProgress(float dt);
 };
 
 #endif

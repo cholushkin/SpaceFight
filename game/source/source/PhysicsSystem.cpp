@@ -8,6 +8,7 @@
 #include "EnergyResourceComponent.h"
 #include "config.h"
 #include "level.h"
+#include "screengameplay.h"
 
 using namespace vp;
 
@@ -62,7 +63,7 @@ void PhysicsSystem::RemoveObstacle(const uint32_t& entt)
 }
 
 static const float GravConst = 1000.25f;
-void PhysicsSystem::Update(float dt, entt::DefaultRegistry& registry)
+void PhysicsSystem::Update(float dt, entt::DefaultRegistry& registry, GameResources& res)
 {
     m_vps.ProcessTime(dt);
 
@@ -91,6 +92,7 @@ void PhysicsSystem::Update(float dt, entt::DefaultRegistry& registry)
             {
                 registry.assign<ExplosionEffectComponent>(registry.create(), psxComp.m_agent->pos);
                 m_level.DeleteEntity(psxEnt);
+                res.m_sfxExplode1->Play();
             }
         }        
     });
@@ -114,38 +116,4 @@ void PhysicsSystem::OnCollide(const Collision& collision)
     auto& psx2 = m_registry.get<PhysicsAgentComponent>(collision.mP2->m_entity);
     psx1.m_hitImpact += 5.0f;
     psx2.m_hitImpact += 5.0f;
-
-    //uint32_t bullet, ship;
-    //if (IsAtoBCollision(collision, EntityTypeComponent::PlasmaBullet, EntityTypeComponent::Ship, bullet, ship))
-    //{
-    //}
 }
-
-//bool PhysicsSystem::IsAtoBCollision(const vp::Collision& collision,
-//    EntityTypeComponent::EntityType typeA,
-//    EntityTypeComponent::EntityType typeB,
-//    uint32_t& a,
-//    uint32_t& b)
-//{
-//    EASSERT(collision.mP1 != nullptr);
-//    EASSERT(collision.mP2 != nullptr);
-//
-//    if( !(m_registry.has<EntityTypeComponent>(collision.mP1->m_entity) &&
-//        m_registry.has<EntityTypeComponent>(collision.mP2->m_entity)))
-//        return false;
-//
-//    auto et1 = m_registry.get<EntityTypeComponent>(collision.mP1->m_entity).m_entityType;
-//    if (et1 == typeA)
-//        a = collision.mP1->m_entity;
-//    if (et1 == typeB)
-//        b = collision.mP1->m_entity;
-//
-//    auto et2 = m_registry.get<EntityTypeComponent>(collision.mP2->m_entity).m_entityType;
-//    if (et2 == typeA)
-//        a = collision.mP2->m_entity;
-//    if (et2 == typeB)
-//        b = collision.mP2->m_entity;
-//
-//    return (et1 == typeA && et2 == typeB) || (et1 == typeB && et2 == typeA);
-//}
-

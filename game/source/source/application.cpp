@@ -18,11 +18,12 @@ Application::Application() : m_rpool(64)
 bool Application::Init()
 {
     // console 
-#ifdef _DEBUG 
-    //dlog::Log::GetInstance()->EnableLogger(0, new dlog::LoggerSysConsole("unit test info", 120, 1200));
-    //dlog::Log::GetInstance()->GetLogger(0)->SetLevelFilter(dlog::Log::PRIORITY_DEBUG);
-    //NLOGI_COLOR("sf", "Space fight v.0.1. Initializing[c:ff0000].[c:00ff00].[c:0000ff].[c:ffffff]");
+#if defined(_DEBUG) && defined(SHOW_CONSOLE)
+    dlog::Log::GetInstance()->EnableLogger(0, new dlog::LoggerSysConsole("console", 120, 1200));
+    dlog::Log::GetInstance()->GetLogger(0)->SetLevelFilter(dlog::Log::PRIORITY_DEBUG);
+    NLOGI_COLOR("sf", "Space fight v.0.1. Initializing[c:ff0000].[c:00ff00].[c:0000ff].[c:ffffff]");
 #endif
+
     // renderer
     if (!m_render.Init())
         return false;
