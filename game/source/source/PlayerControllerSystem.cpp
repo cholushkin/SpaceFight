@@ -39,7 +39,7 @@ void PlayerControllerSystem::Update(float dt, entt::DefaultRegistry& registry, G
                     [&](auto ent, EnergyResourceComponent& energyRes)
                 {
                     auto distance = (psxComp.m_agent->pos - registry.get<PhysicsAgentComponent>(ent).m_agent->pos).length();
-                    if (distance < SHIP_IMPACT_RADIUS)                    
+                    if (distance < SHIP_IMPACT_RADIUS)
                         energyRes.m_retriveProgression[playerComp.m_playerID] += dt;
                 });
 
@@ -53,7 +53,7 @@ void PlayerControllerSystem::Update(float dt, entt::DefaultRegistry& registry, G
                         if (stationComp.m_energy >= energyDelta)
                         {
                             stationComp.m_energy -= energyDelta;
-                            playerComp.EnergyRecieve(energyDelta);        
+                            playerComp.EnergyRecieve(energyDelta);
                         }
                     }
                 });

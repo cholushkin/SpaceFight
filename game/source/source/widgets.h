@@ -25,11 +25,6 @@ public:
 
 private:
     const r::SheetSprite* m_sheetSprite;
-    //GameContext* mGameContext;
-    //u32 m_lifes;
-    //u32 m_lifes_target;
-    //ScreenGameplay& mScreen;
-    //std::vector<f32> mScales;
 };
 
 class WidgetPlayerDashboard : public IWidget
@@ -61,7 +56,6 @@ public:
         Disappering = 2,
         Closed = 3,
     };
-
 
     WidgetModalMessage(entt::DefaultRegistry& registry, const GameResources& res);
     virtual void Update(f32 dt);

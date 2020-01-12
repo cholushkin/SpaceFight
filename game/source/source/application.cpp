@@ -1,5 +1,4 @@
 #include "application.h"
-#include "core/io/io_base.h"
 #include "res/resources.h"
 #include "screenmainmenu.h"
 #include "config.h"

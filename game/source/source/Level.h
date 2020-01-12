@@ -26,14 +26,14 @@ public:
     inline static mt::v2f RndPointOnCircle(const mt::v2f& center, float radius)
     {
         mt::v2f result;
-        float angle = static_cast<float>( s_rnd.frand() * M_2PI );
+        float angle = static_cast<float>(s_rnd.frand() * M_2PI);
         mt::sin_cos_low(angle, result.x, result.y);
         return center + result * radius;
     }
 };
 
 
-// todo: as system
+// todo: as a system
 class Level final
 {
     DENY_COPY(Level)
@@ -69,10 +69,6 @@ private:
     void CreateBG(const mt::v2f& pos);
     bool IsHit(const mt::v2f& pos);
 };
-
-
-
-
 
 
 #endif

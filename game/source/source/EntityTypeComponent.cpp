@@ -4,5 +4,4 @@
 EntityTypeComponent::EntityTypeComponent(EntityType entityType)
     : m_entityType(entityType)
 {
-
 }

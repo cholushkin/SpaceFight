@@ -42,7 +42,7 @@ GameResources::GameResources(Application& app)
     LoadPS(m_particleSysExplosionA, RES_EXPLOSION1_PSI, RES_PARTICLES_PNG, app.GetRender(), m_resPool);
     LoadPS(m_particleSysExplosionB, RES_EXPLOSION2_PSI, RES_PARTICLES_PNG, app.GetRender(), m_resPool);
     LoadPS(m_particleSysTrail, RES_BURST_PSI, RES_PARTICLES_PNG, app.GetRender(), m_resPool);
-    
+
 }
 
 // ScreenGameplay 
@@ -72,7 +72,7 @@ void ScreenGameplay::Draw(r::Render& r)
 {
     m_renderSystem.Render(r, m_res, m_registry);
     m_player1Dashboard.Draw(r, v2f(16, 16));
-    m_player2Dashboard.Draw(r, v2f(16, 64 + 16));    
+    m_player2Dashboard.Draw(r, v2f(16, 64 + 16));
     m_modalMessenger.Draw(r, v2f());
 }
 
@@ -80,7 +80,7 @@ void ScreenGameplay::Update(f32 dt)
 {
     m_time += dt;
 
-    m_inputSystem.Update(dt, m_registry);    
+    m_inputSystem.Update(dt, m_registry);
 
     // ----- update state
     if (m_gameState == MessageFight)
@@ -115,7 +115,7 @@ void ScreenGameplay::Update(f32 dt)
         }
         else
         {
-            if( m_inputSystem.GetCancelAction() )
+            if (m_inputSystem.GetCancelAction())
                 SetState(MessagePause);
         }
     }
@@ -136,7 +136,7 @@ void ScreenGameplay::Update(f32 dt)
         m_modalMessenger.Update(dt);
         if (m_inputSystem.GetApplyAction())
             m_modalMessenger.Close();
-        else if (m_inputSystem.GetCancelAction() && m_modalMessenger.GetState()== WidgetModalMessage::Static)
+        else if (m_inputSystem.GetCancelAction() && m_modalMessenger.GetState() == WidgetModalMessage::Static)
             ReturnToMainMenu();
         if (m_modalMessenger.GetState() == WidgetModalMessage::Closed)
             SetState(Playing);
@@ -158,14 +158,14 @@ void ScreenGameplay::SetState(EnGameStates state)
         m_player2Dashboard.SetPlayer(1);
 
         m_modalMessenger.Show(
-            L"Fight!", 
+            L"Fight!",
             str::StringBuilderW()(L"Round: %0", m_sessionContext.m_round + 1), GUI_STD_SHOW_DURATION);
 
         SetState(MessageFight);
     }
     else if (m_gameState == MessageWin)
     {
-        m_modalMessenger.Show(            
+        m_modalMessenger.Show(
             str::StringBuilderW()(L"Player %0 wins", m_gameRuleSystem.GetWinnerID() + 1),
             L"",
             GUI_STD_SHOW_DURATION

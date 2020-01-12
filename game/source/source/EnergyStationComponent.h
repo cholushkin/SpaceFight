@@ -4,7 +4,7 @@
 struct EnergyStationComponent final
 {
     EnergyStationComponent(float energy);
-    float m_energy; // if > 0 then it is in process of generating next one
+    float m_energy; // accumulated energy quantity
     bool HasEnergy() const;
 };
 

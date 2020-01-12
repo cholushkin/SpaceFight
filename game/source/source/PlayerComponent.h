@@ -30,7 +30,7 @@ struct PlayerComponent final
     void EnergyRecieve(float points)
     {
         m_energy += points;
-        if (m_energy  >= SHIP_ENERGY_MAX)
+        if (m_energy >= SHIP_ENERGY_MAX)
             m_energy = SHIP_ENERGY_MAX;
     }
 };

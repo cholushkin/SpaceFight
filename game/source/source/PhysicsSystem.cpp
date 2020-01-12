@@ -13,7 +13,7 @@
 using namespace vp;
 
 PhysicsSystem::PhysicsSystem(entt::DefaultRegistry& registry, Level& level)
-    : m_vps(AABB(-SCREEN_WIDTH/2.0f, SCREEN_WIDTH / 2.0f, -SCREEN_HEIGHT/ 2.0f, SCREEN_HEIGHT / 2.0f))
+    : m_vps(AABB(-SCREEN_WIDTH / 2.0f, SCREEN_WIDTH / 2.0f, -SCREEN_HEIGHT / 2.0f, SCREEN_HEIGHT / 2.0f))
     , m_registry(registry)
     , m_level(level)
 {
@@ -96,7 +96,7 @@ void PhysicsSystem::Update(float dt, entt::DefaultRegistry& registry, GameResour
             }
             else
                 res.m_sfxHit->Play();
-        }        
+        }
     });
 
     // retriever progression recover
@@ -115,6 +115,6 @@ void PhysicsSystem::OnCollide(const Collision& collision)
 
     auto& psx1 = m_registry.get<PhysicsAgentComponent>(collision.mP1->m_entity);
     auto& psx2 = m_registry.get<PhysicsAgentComponent>(collision.mP2->m_entity);
-    psx1.m_hitImpact += 5.0f;
-    psx2.m_hitImpact += 5.0f;
+    psx1.m_hitImpact += HIT_IMPACT;
+    psx2.m_hitImpact += HIT_IMPACT;
 }

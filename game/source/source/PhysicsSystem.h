@@ -4,11 +4,10 @@
 #include "entt/entity/registry.hpp"
 #include "EntityTypeComponent.h"
 #include "vphys/vps.h"
-//#include "Level.h"
-
 
 class Level;
 struct GameResources;
+
 class PhysicsSystem : public vp::ICollisionListener
 {
 public:
@@ -17,26 +16,17 @@ public:
 
     vp::VerletAgent* AddAgent(const uint32_t& ent, const mt::v2f pos, float friction, float radius, bool isStatic);
     vp::Obstacle* AddObstacle(const uint32_t& ent, const mt::v2f pos);
-
     void RemoveAgent(const uint32_t& ent);
     void RemoveObstacle(const uint32_t& ent);
-
-
-
+    
     void Update(float dt, entt::DefaultRegistry& registry, GameResources& res);
-private: 
+
+private:
     vp::VerletPhysicsSystem  m_vps; // verlet physics simulation system
     entt::DefaultRegistry&   m_registry;
     Level&                   m_level;
 
-
     void OnCollide(const vp::Collision& collision);
-
-    //bool IsAtoBCollision(const vp::Collision& collision, 
-    //    EntityTypeComponent::EntityType typeA,  
-    //    EntityTypeComponent::EntityType typeB,
-    //    uint32_t& a, 
-    //    uint32_t& b);
 };
 
 #endif

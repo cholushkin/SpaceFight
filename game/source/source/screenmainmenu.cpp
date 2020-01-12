@@ -24,7 +24,7 @@ ScreenMainMenu::ScreenMainMenu(Application& g)
     m_promtText.SetAlign(BitmapText::tlCenter);
     m_promtText.SetPosition(v2f(0, 700));
 
-    m_app.GetSMGR().StartMusic(RES_MUSMAINMENU_MP3);    
+    m_app.GetSMGR().StartMusic(RES_MUSMAINMENU_MP3);
 }
 
 ScreenMainMenu::~ScreenMainMenu()

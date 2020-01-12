@@ -6,8 +6,6 @@
 #include "ext/primitives/r_font.h"
 #include "ext/primitives/r_primitives.h"
 #include "ext/gui/gui_base.h"
-#include "core/alg/alg_base.h"
-#include "ext/profiler/com_profile.h"
 
 class Application
 {

@@ -4,11 +4,9 @@
 #include "entt/entity/registry.hpp"
 #include "core/math/mt_base.h"
 
-// This class will take user input and pass it to appropriate controllers
 class InputSystem
 {
-
-    struct Actions 
+    struct Actions
     {
         bool UP;
         bool LEFT;
@@ -26,8 +24,8 @@ class InputSystem
         // keyboard system section 
         bool Keyboard_Apply;
         bool Keyboard_Cancel;
-        
     };
+
 public:
     InputSystem() = default;
     ~InputSystem() = default;
@@ -38,11 +36,10 @@ public:
     bool GetApplyAction();
     bool GetCancelAction();
 
-private: 
+private:
     KeyStatusMap m_keyStatusMap;
 
     void ProcessInput();
-
     static mt::v2f DirectionVec(const Actions& d);
 };
 

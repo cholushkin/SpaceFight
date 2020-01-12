@@ -16,7 +16,7 @@ public:
     ~ScreenMainMenu();
 
     virtual void Draw(r::Render& r);
-    virtual void Update(f32 /*dt*/);
+    virtual void Update(f32 dt);
 
 protected:
     const r::BitmapFont*        m_fnt;

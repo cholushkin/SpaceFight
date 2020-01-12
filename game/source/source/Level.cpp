@@ -18,11 +18,9 @@ Level::GenerationOptions::GenerationOptions()
     : PlanetsAmmount(2, 6)
     , EnergyStationAmmount(1, 3)
     , AsteroidsAmmount(10, 30)
-    , EnergyPickupsAmmount(10,20)
+    , EnergyPickupsAmmount(10, 20)
 {
 }
-
-
 
 // Level
 // ---------------------------------------------------------------
