@@ -4,8 +4,9 @@
 #include "PlayerComponent.h"
 #include "config.h"
 #include "core/math/mt_base.h"
-#include <algorithm>
-#include <iterator>
+//#include <algorithm>
+//#include <iterator>
+#include "screengameplay.h"
 
 using namespace mt;
 
@@ -25,7 +26,7 @@ bool GameRulesSystem::GetWinnerID() const
     return m_winnerID;
 }
  
-void GameRulesSystem::Update(float dt, entt::DefaultRegistry& registry)
+void GameRulesSystem::Update(float dt, entt::DefaultRegistry& registry, GameResources& res)
 {
     auto playersView = registry.view<PlayerComponent>();
 
@@ -60,6 +61,7 @@ void GameRulesSystem::Update(float dt, entt::DefaultRegistry& registry)
             {
                 playerComp.EnergyRecieve(ENERGY_REWARD_PLASMA_COLLECTED);
                 m_level.DeleteEntity(energyResEnt);
+                res.m_sfxRefillEnergyStep->Play();
             }
         });
         

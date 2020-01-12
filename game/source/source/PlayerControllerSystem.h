@@ -9,7 +9,7 @@ class PlayerControllerSystem
 public:
     PlayerControllerSystem(InputSystem& input, Level& level);
     ~PlayerControllerSystem() = default;
-    void Update(float dt, entt::DefaultRegistry& registry);
+    void Update(float dt, entt::DefaultRegistry& registry, GameResources& res);
 private: 
     InputSystem& m_inputSystem;
     Level& m_level;

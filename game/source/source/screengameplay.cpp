@@ -98,9 +98,9 @@ void ScreenGameplay::Update(f32 dt)
         m_player2Dashboard.Update(dt);
 
         // update systems        
-        m_playerControllerSystem.Update(dt, m_registry);
+        m_playerControllerSystem.Update(dt, m_registry, m_res);
         m_physicsSystem.Update(dt, m_registry, m_res);
-        m_gameRuleSystem.Update(dt, m_registry);
+        m_gameRuleSystem.Update(dt, m_registry, m_res);
         if (m_gameRuleSystem.HasWinner())
         {
             m_winConditionDelay -= dt;

@@ -14,7 +14,7 @@ PlayerControllerSystem::PlayerControllerSystem(InputSystem& input, Level& level)
 {
 }
 
-void PlayerControllerSystem::Update(float dt, entt::DefaultRegistry& registry)
+void PlayerControllerSystem::Update(float dt, entt::DefaultRegistry& registry, GameResources& res)
 {
     registry.view<PlayerComponent, PhysicsAgentComponent>().each(
         [&](auto entity,
@@ -37,9 +37,9 @@ void PlayerControllerSystem::Update(float dt, entt::DefaultRegistry& registry)
             {
                 registry.view<EnergyResourceComponent>().each(
                     [&](auto ent, EnergyResourceComponent& energyRes)
-                {                    
+                {
                     auto distance = (psxComp.m_agent->pos - registry.get<PhysicsAgentComponent>(ent).m_agent->pos).length();
-                    if (distance < SHIP_IMPACT_RADIUS)
+                    if (distance < SHIP_IMPACT_RADIUS)                    
                         energyRes.m_retriveProgression[playerComp.m_playerID] += dt;
                 });
 
@@ -53,8 +53,8 @@ void PlayerControllerSystem::Update(float dt, entt::DefaultRegistry& registry)
                         if (stationComp.m_energy >= energyDelta)
                         {
                             stationComp.m_energy -= energyDelta;
-                            playerComp.EnergyRecieve(energyDelta);
-                        }                        
+                            playerComp.EnergyRecieve(energyDelta);        
+                        }
                     }
                 });
             }
@@ -71,6 +71,7 @@ void PlayerControllerSystem::Update(float dt, entt::DefaultRegistry& registry)
                     {
                         playerComp.m_weaponStatus = 0.0f;
                         m_level.CreatePlasmaBullet(psxComp.m_agent->pos, enemyDirection);
+                        res.m_sfxShoot->Play();
                     }
                 }
             }

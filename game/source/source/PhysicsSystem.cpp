@@ -94,21 +94,22 @@ void PhysicsSystem::Update(float dt, entt::DefaultRegistry& registry, GameResour
                 m_level.DeleteEntity(psxEnt);
                 res.m_sfxExplode1->Play();
             }
+            else
+                res.m_sfxHit->Play();
         }        
     });
 
     // retriever progression recover
     m_registry.view<EnergyResourceComponent>().each(
-        [&](auto /*ent*/, EnergyResourceComponent& eRus)
+        [&](auto /*ent*/, EnergyResourceComponent& eRes)
     {
         for (int i = 0; i < MAX_PLAYERS; ++i)
-            eRus.m_retriveProgression[i] = mt::Clamp(eRus.m_retriveProgression[i] - dt * 0.25f, 0.0f, 3.0f);
+            eRes.m_retriveProgression[i] = mt::Clamp(eRes.m_retriveProgression[i] - dt * 0.25f, 0.0f, 3.0f);
     });
 }
 
 void PhysicsSystem::OnCollide(const Collision& collision)
 {
-    //quick fix
     if (!collision.mP1->HasEntity() || !collision.mP2->HasEntity())
         return;
 
