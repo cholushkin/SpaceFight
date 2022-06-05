@@ -1,0 +1,706 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="shared">
+      <UniqueIdentifier>{20cb8d2e-60b9-4c15-8fe2-a9a698380438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\core">
+      <UniqueIdentifier>{cdac04a5-1bb2-40c6-bbf0-01a280720bd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\core\common">
+      <UniqueIdentifier>{f701c535-12c3-4367-a411-b412a41d5295}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\core\io">
+      <UniqueIdentifier>{c54e7c0a-89b2-4446-8ec9-09d05056ed94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\core\math">
+      <UniqueIdentifier>{5228d565-42e6-4fed-9503-b54ffe17e63a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\core\render">
+      <UniqueIdentifier>{ef37b6e9-7f0c-47df-b7bf-b81d23d21ac2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\core\log">
+      <UniqueIdentifier>{9ac1b26b-789e-4ace-84e6-55baac5a735f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\core\sound">
+      <UniqueIdentifier>{4af75a19-eafc-4ad0-808c-7a657938db10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\core\res">
+      <UniqueIdentifier>{e16bf681-9073-457e-a81c-314cf3cede58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\core\alg">
+      <UniqueIdentifier>{fa4b0502-ce19-4420-b71f-ec23f0d04e48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\ext">
+      <UniqueIdentifier>{3958e238-4438-42cc-b2f0-bdf9e689ce11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\ext\math">
+      <UniqueIdentifier>{ee536e01-3642-49ad-b77b-dc30f10745de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\ext\draw2d">
+      <UniqueIdentifier>{c7d5c97f-3343-4888-8059-32d3c98f02ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\ext\gui">
+      <UniqueIdentifier>{2ebb463c-4dbd-48ac-bb01-87dd5da1e4ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\ext\mathalgs">
+      <UniqueIdentifier>{2d04010c-e5be-4ca9-80b0-5f8273440771}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\ext\patterns">
+      <UniqueIdentifier>{fe5bf548-5d67-4766-be6a-20ec20ec1a54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\ext\primitives">
+      <UniqueIdentifier>{423faf6a-e661-42c7-ab4b-5b8d704fde6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\ext\profiler">
+      <UniqueIdentifier>{082216b9-aa7f-42a2-a6cf-af862bfaec24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\ext\strings">
+      <UniqueIdentifier>{4336f055-0587-4467-95d3-f47db247984a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\ext\algorithm">
+      <UniqueIdentifier>{2266aa8d-aa2a-4180-89e1-34205e360c49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\ext\input">
+      <UniqueIdentifier>{416ad289-fbe2-4e0f-9638-cddf793d3454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\ext\refs">
+      <UniqueIdentifier>{cffee71f-0aa0-46ea-9ee2-e40d6cdcb281}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\ext\log">
+      <UniqueIdentifier>{e2da43e0-31d5-42fe-9089-39245e116fef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\ext\utf8">
+      <UniqueIdentifier>{1f78fc98-b891-4012-abad-98c55759ea5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shared\ext\utf8\utf8">
+      <UniqueIdentifier>{36d72e60-56c5-4333-acb2-82f24fdf905c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{aa8ea1a0-8a42-4e04-aaea-ebc0d94e7a5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core">
+      <UniqueIdentifier>{ba88b45f-64b7-4543-9c27-97ecf0e6a23a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\win">
+      <UniqueIdentifier>{57472a4d-6b55-4964-9adf-fab51a6c1863}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\android">
+      <UniqueIdentifier>{421e53f3-714a-462a-b5e5-085242e25272}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\iphone">
+      <UniqueIdentifier>{130c5c13-b1e2-43e8-94c1-5e3b7fa61163}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\loaders">
+      <UniqueIdentifier>{ecffcfeb-3626-4ab2-bb6e-de9ddc34a92f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\loaders\wepb">
+      <UniqueIdentifier>{38c75c6a-f5e9-4aab-af1f-1b8a2c0b5090}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\loaders\wepb\dec">
+      <UniqueIdentifier>{16f467e6-068b-4e5c-a37e-236aeb85ee60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\loaders\wepb\demux">
+      <UniqueIdentifier>{29990d73-2c03-428c-9dca-a8c46d91a3e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\loaders\wepb\dsp">
+      <UniqueIdentifier>{49a35248-b63b-41d0-ae25-03cc08941052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\loaders\wepb\mux">
+      <UniqueIdentifier>{49b37fdb-5b82-43cd-9d4f-6370100b39ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\loaders\wepb\utils">
+      <UniqueIdentifier>{a273954b-ed07-49b1-a671-1336a32cebc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\loaders\wepb\webp">
+      <UniqueIdentifier>{dd031643-f9c6-444a-8b82-aa12c7789587}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\ext">
+      <UniqueIdentifier>{67c3a895-f593-4931-855e-ebdba835f051}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\shared\config.h">
+      <Filter>shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\platform.h">
+      <Filter>shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\core\common\com_misc.h">
+      <Filter>shared\core\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\core\common\com_types.h">
+      <Filter>shared\core\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\core\io\io_base.h">
+      <Filter>shared\core\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\core\math\mt_base.h">
+      <Filter>shared\core\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\core\math\mt_vmath.h">
+      <Filter>shared\core\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\core\render\r_render.h">
+      <Filter>shared\core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\core\log\log_log.h">
+      <Filter>shared\core\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\core\sound\snd_base.h">
+      <Filter>shared\core\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\core\res\res_base.h">
+      <Filter>shared\core\res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\core\alg\alg_base.h">
+      <Filter>shared\core\alg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\math\mt_camera.h">
+      <Filter>shared\ext\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\math\mt_colors.h">
+      <Filter>shared\ext\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\math\mt_easing.h">
+      <Filter>shared\ext\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\math\mt_random.h">
+      <Filter>shared\ext\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\draw2d\draw_helper.h">
+      <Filter>shared\ext\draw2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\gui\gui_base.h">
+      <Filter>shared\ext\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\gui\wg_memo.h">
+      <Filter>shared\ext\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\mathalgs\mt_base64.h">
+      <Filter>shared\ext\mathalgs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\mathalgs\mt_crc32.h">
+      <Filter>shared\ext\mathalgs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\mathalgs\mt_feedbackloop.h">
+      <Filter>shared\ext\mathalgs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\mathalgs\mt_polygon.h">
+      <Filter>shared\ext\mathalgs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\mathalgs\mt_probability.h">
+      <Filter>shared\ext\mathalgs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\mathalgs\mt_rle.h">
+      <Filter>shared\ext\mathalgs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\patterns\pat_factory_method.h">
+      <Filter>shared\ext\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\patterns\pat_observer.h">
+      <Filter>shared\ext\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\patterns\pat_singleton.h">
+      <Filter>shared\ext\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\primitives\ani_sprite.h">
+      <Filter>shared\ext\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\primitives\r_font.h">
+      <Filter>shared\ext\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\primitives\r_particles.h">
+      <Filter>shared\ext\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\primitives\r_primitives.h">
+      <Filter>shared\ext\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\primitives\r_primitives3d.h">
+      <Filter>shared\ext\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\primitives\r_proc_anim.h">
+      <Filter>shared\ext\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\primitives\r_sheet_sprite.h">
+      <Filter>shared\ext\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\profiler\com_profile.h">
+      <Filter>shared\ext\profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\strings\str_base.h">
+      <Filter>shared\ext\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\strings\str_conv.h">
+      <Filter>shared\ext\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\strings\str_stringbuilder.h">
+      <Filter>shared\ext\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\strings\str_stringmask.h">
+      <Filter>shared\ext\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\strings\str_stringtable.h">
+      <Filter>shared\ext\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\algorithm\alg_arrays.h">
+      <Filter>shared\ext\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\input\in_touchtracker.h">
+      <Filter>shared\ext\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\refs\ref_cast.h">
+      <Filter>shared\ext\refs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\refs\ref_referenced.h">
+      <Filter>shared\ext\refs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\refs\ref_sharedref.h">
+      <Filter>shared\ext\refs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\refs\ref_weakref.h">
+      <Filter>shared\ext\refs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\log\log_loggers.h">
+      <Filter>shared\ext\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\utf8\utf8.h">
+      <Filter>shared\ext\utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\utf8\utf8\core.h">
+      <Filter>shared\ext\utf8\utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\ext\utf8\utf8\unchecked.h">
+      <Filter>shared\ext\utf8\utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\io_file.h">
+      <Filter>source\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\r_device_gl.h">
+      <Filter>source\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\win\resource.h">
+      <Filter>source\core\win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\win\snd_impl.h">
+      <Filter>source\core\win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\r_tex_dds.h">
+      <Filter>source\core\loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\r_tex_webp.h">
+      <Filter>source\core\loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\stb_image.h">
+      <Filter>source\core\loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\dec\alphai.h">
+      <Filter>source\core\loaders\wepb\dec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\dec\decode_vp8.h">
+      <Filter>source\core\loaders\wepb\dec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\dec\vp8i.h">
+      <Filter>source\core\loaders\wepb\dec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\dec\vp8li.h">
+      <Filter>source\core\loaders\wepb\dec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\dec\webpi.h">
+      <Filter>source\core\loaders\wepb\dec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\dsp\dsp.h">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\dsp\lossless.h">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\dsp\neon.h">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\dsp\yuv.h">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\dsp\yuv_tables_sse2.h">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\mux\muxi.h">
+      <Filter>source\core\loaders\wepb\mux</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\bit_reader.h">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\bit_reader_inl.h">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\bit_writer.h">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\color_cache.h">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\endian_inl.h">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\filters.h">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\huffman.h">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\quant_levels_dec.h">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\random.h">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\rescaler.h">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\thread.h">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\utils\utils.h">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\webp\decode.h">
+      <Filter>source\core\loaders\wepb\webp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\webp\demux.h">
+      <Filter>source\core\loaders\wepb\webp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\webp\encode.h">
+      <Filter>source\core\loaders\wepb\webp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\webp\format_constants.h">
+      <Filter>source\core\loaders\wepb\webp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\webp\mux.h">
+      <Filter>source\core\loaders\wepb\webp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\webp\mux_types.h">
+      <Filter>source\core\loaders\wepb\webp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\core\loaders\webp\webp\types.h">
+      <Filter>source\core\loaders\wepb\webp</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\source\core\com_misc.cpp">
+      <Filter>source\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\io_base.cpp">
+      <Filter>source\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\io_file.cpp">
+      <Filter>source\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\log_log.cpp">
+      <Filter>source\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\mt_vmath.cpp">
+      <Filter>source\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\r_device_gl.cpp">
+      <Filter>source\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\r_render.cpp">
+      <Filter>source\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\res_base.cpp">
+      <Filter>source\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\win\e_main.cpp">
+      <Filter>source\core\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\win\r_render_impl.cpp">
+      <Filter>source\core\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\win\snd_impl.cpp">
+      <Filter>source\core\win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\android\e_main.cpp">
+      <Filter>source\core\android</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\android\io_memfile.cpp">
+      <Filter>source\core\android</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\android\jni-stuff.cpp">
+      <Filter>source\core\android</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\android\r_render_impl.cpp">
+      <Filter>source\core\android</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\android\snd_impl.cpp">
+      <Filter>source\core\android</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\iphone\snd_effects_impl.cpp">
+      <Filter>source\core\iphone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\iphone\snd_impl.cpp">
+      <Filter>source\core\iphone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\r_tex_dds.cpp">
+      <Filter>source\core\loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\r_tex_webp.cpp">
+      <Filter>source\core\loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\stb_image.c">
+      <Filter>source\core\loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\alpha.c">
+      <Filter>source\core\loaders\wepb\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\buffer.c">
+      <Filter>source\core\loaders\wepb\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\frame.c">
+      <Filter>source\core\loaders\wepb\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\idec.c">
+      <Filter>source\core\loaders\wepb\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\io.c">
+      <Filter>source\core\loaders\wepb\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\quant.c">
+      <Filter>source\core\loaders\wepb\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\tree.c">
+      <Filter>source\core\loaders\wepb\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\vp8.c">
+      <Filter>source\core\loaders\wepb\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\vp8l.c">
+      <Filter>source\core\loaders\wepb\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dec\webp.c">
+      <Filter>source\core\loaders\wepb\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\demux\demux.c">
+      <Filter>source\core\loaders\wepb\demux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\alpha_processing.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\alpha_processing_mips_dsp_r2.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\alpha_processing_sse2.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\cpu.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\dec.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\dec_clip_tables.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\dec_mips32.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\dec_neon.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\dec_sse2.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\filters_mips_dsp_r2.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\lossless.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\lossless_mips32.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\lossless_neon.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\lossless_sse2.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\upsampling.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\upsampling_mips_dsp_r2.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\upsampling_neon.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\upsampling_sse2.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\yuv.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\yuv_mips32.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\yuv_mips_dsp_r2.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\dsp\yuv_sse2.c">
+      <Filter>source\core\loaders\wepb\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\mux\muxedit.c">
+      <Filter>source\core\loaders\wepb\mux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\mux\muxinternal.c">
+      <Filter>source\core\loaders\wepb\mux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\mux\muxread.c">
+      <Filter>source\core\loaders\wepb\mux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\bit_reader.c">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\color_cache.c">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\filters.c">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\huffman.c">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\quant_levels_dec.c">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\random.c">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\rescaler.c">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\thread.c">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\loaders\webp\utils\utils.c">
+      <Filter>source\core\loaders\wepb\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\ani_sprite.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\com_profile.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\draw_helper.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\gui_base.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\in_touchtracker.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\log_loggers.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\mt_base64.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\mt_camera.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\mt_crc32.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\mt_polygon.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\mt_probability.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\mt_random.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\mt_rle.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\pat_observer.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\r_font.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\r_particles.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\r_pmanager.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\r_primitives.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\r_primitives3d.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\r_sheet_sprite.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\snd_base.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\str_stringbuilder.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\str_stringmask.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\str_stringtable.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ext\wg_memo.cpp">
+      <Filter>source\ext</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\source\core\win\engine.rc">
+      <Filter>source\core\win</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\source\core\android\io_memfile.h">
+      <Filter>source\core\android</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\android\jni-stuff.h">
+      <Filter>source\core\android</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\android\snd_impl.h">
+      <Filter>source\core\android</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\iphone\e_main.m">
+      <Filter>source\core\iphone</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\iphone\getCompressedAudioAsPcm.h">
+      <Filter>source\core\iphone</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\iphone\getCompressedAudioAsPcm.mm">
+      <Filter>source\core\iphone</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\iphone\r_texture.m">
+      <Filter>source\core\iphone</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\iphone\snd_effects_impl.h">
+      <Filter>source\core\iphone</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\iphone\snd_impl.h">
+      <Filter>source\core\iphone</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\iphone\snd_music_impl.h">
+      <Filter>source\core\iphone</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\iphone\snd_music_impl.m">
+      <Filter>source\core\iphone</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\source\core\iphone\TextBox.mm">
+      <Filter>source\core\iphone</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

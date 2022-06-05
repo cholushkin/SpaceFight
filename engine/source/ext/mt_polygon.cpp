@@ -34,7 +34,7 @@ f32 GetDistanceToLine( v2f const& p, v2f const& a, v2f const& b )
   if( (dp1.x + dp1.y) <= 0.0f || 0.0f <= (dp2.x + dp2.y) )
     return distA < distB ? distA : distB;
 
-  const float divider  = sqrt( pow(b.x - a.x, 2) + pow(b.y - a.y, 2) );
+  const float divider  = (float) sqrt( pow(b.x - a.x, 2) + pow(b.y - a.y, 2) );
   float distance       =
     (a.y - b.y) * p.x + (b.x - a.x) * p.y + ( a.x * b.y - a.y * b.x );
 

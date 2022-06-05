@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7F1954BE-948B-42CC-A899-626DE99FC938}</ProjectGuid>
+    <RootNamespace>game</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>15.0.28307.799</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)../../bin/win32/$(Configuration)\</OutDir>
+    <IntDir>../../temp/$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)../../bin/win32/$(Configuration)\</OutDir>
+    <IntDir>../../temp/$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PreBuildEvent>
+      <Command />
+    </PreBuildEvent>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\engine\shared;..\..\..\..\engine\;..\..\source;..\..\helpers;..\..\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;WIN32_LANDSCAPE;RAPIDXML_NO_EXCEPTIONS;_CRTDBG_MAP_ALLOC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(SolutionDir)..\..\res\*.*" "$(OutDir)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PreBuildEvent>
+      <Command />
+    </PreBuildEvent>
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\..\..\engine\shared;..\..\..\..\engine\;..\..\source;..\..\helpers;..\..\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(SolutionDir)..\..\res\*.*" "$(OutDir)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\helpers\erps\erps.h" />
+    <ClInclude Include="..\..\helpers\uid_generator\uidgenerator.h" />
+    <ClInclude Include="..\..\helpers\vphys\vps.h" />
+    <ClInclude Include="..\..\libs\entt\core\family.hpp" />
+    <ClInclude Include="..\..\libs\entt\core\hashed_string.hpp" />
+    <ClInclude Include="..\..\libs\entt\core\ident.hpp" />
+    <ClInclude Include="..\..\libs\entt\entity\actor.hpp" />
+    <ClInclude Include="..\..\libs\entt\entity\entt_traits.hpp" />
+    <ClInclude Include="..\..\libs\entt\entity\registry.hpp" />
+    <ClInclude Include="..\..\libs\entt\entity\sparse_set.hpp" />
+    <ClInclude Include="..\..\libs\entt\entity\view.hpp" />
+    <ClInclude Include="..\..\libs\entt\entt.hpp" />
+    <ClInclude Include="..\..\libs\entt\locator\locator.hpp" />
+    <ClInclude Include="..\..\libs\entt\process\process.hpp" />
+    <ClInclude Include="..\..\libs\entt\process\scheduler.hpp" />
+    <ClInclude Include="..\..\libs\entt\resource\cache.hpp" />
+    <ClInclude Include="..\..\libs\entt\resource\handle.hpp" />
+    <ClInclude Include="..\..\libs\entt\resource\loader.hpp" />
+    <ClInclude Include="..\..\libs\entt\signal\bus.hpp" />
+    <ClInclude Include="..\..\libs\entt\signal\delegate.hpp" />
+    <ClInclude Include="..\..\libs\entt\signal\dispatcher.hpp" />
+    <ClInclude Include="..\..\libs\entt\signal\emitter.hpp" />
+    <ClInclude Include="..\..\libs\entt\signal\sigh.hpp" />
+    <ClInclude Include="..\..\libs\entt\signal\signal.hpp" />
+    <ClInclude Include="..\..\source\application.h" />
+    <ClInclude Include="..\..\source\config.h" />
+    <ClInclude Include="..\..\source\EnergyResourceComponent.h" />
+    <ClInclude Include="..\..\source\EnergyStationComponent.h" />
+    <ClInclude Include="..\..\source\ExplosionEffectComponent.h" />
+    <ClInclude Include="..\..\source\GameRulesSystem.h" />
+    <ClInclude Include="..\..\source\InputSystem.h" />
+    <ClInclude Include="..\..\source\Level.h" />
+    <ClInclude Include="..\..\source\EntityTypeComponent.h" />
+    <ClInclude Include="..\..\source\PhysicsAgentComponent.h" />
+    <ClInclude Include="..\..\source\PhysicsObstacleComponent.h" />
+    <ClInclude Include="..\..\source\PhysicsSystem.h" />
+    <ClInclude Include="..\..\source\PlanetComponent.h" />
+    <ClInclude Include="..\..\source\PlayerComponent.h" />
+    <ClInclude Include="..\..\source\PlayerControllerSystem.h" />
+    <ClInclude Include="..\..\source\RenderSystem.h" />
+    <ClInclude Include="..\..\source\res\ani_expl.h" />
+    <ClInclude Include="..\..\source\res\resources.h" />
+    <ClInclude Include="..\..\source\res\sheet_gameplay.h" />
+    <ClInclude Include="..\..\source\res\sheet_mainmenu.h" />
+    <ClInclude Include="..\..\source\screengameplay.h" />
+    <ClInclude Include="..\..\source\screenmainmenu.h" />
+    <ClInclude Include="..\..\source\widgets.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\helpers\erps\erps.cpp" />
+    <ClCompile Include="..\..\helpers\vphys\vps.cpp" />
+    <ClCompile Include="..\..\source\application.cpp" />
+    <ClCompile Include="..\..\source\EnergyResourceComponent.cpp" />
+    <ClCompile Include="..\..\source\EnergyStationComponent.cpp" />
+    <ClCompile Include="..\..\source\EntityTypeComponent.cpp" />
+    <ClCompile Include="..\..\source\ExplosionEffectComponent.cpp" />
+    <ClCompile Include="..\..\source\GameRulesSystem.cpp" />
+    <ClCompile Include="..\..\source\InputSystem.cpp" />
+    <ClCompile Include="..\..\source\Level.cpp" />
+    <ClCompile Include="..\..\source\PhysicsAgentComponent.cpp" />
+    <ClCompile Include="..\..\source\PhysicsObstacleComponent.cpp" />
+    <ClCompile Include="..\..\source\PhysicsSystem.cpp" />
+    <ClCompile Include="..\..\source\PlanetComponent.cpp" />
+    <ClCompile Include="..\..\source\PlayerComponent.cpp" />
+    <ClCompile Include="..\..\source\PlayerControllerSystem.cpp" />
+    <ClCompile Include="..\..\source\RenderSystem.cpp" />
+    <ClCompile Include="..\..\source\res\ani_expl.cpp" />
+    <ClCompile Include="..\..\source\res\resources.cpp" />
+    <ClCompile Include="..\..\source\res\sheet_gameplay.cpp" />
+    <ClCompile Include="..\..\source\res\sheet_mainmenu.cpp" />
+    <ClCompile Include="..\..\source\screengameplay.cpp" />
+    <ClCompile Include="..\..\source\screenmainmenu.cpp" />
+    <ClCompile Include="..\..\source\widgets.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\engine\build\vs_2019\engine.vcxproj">
+      <Project>{3f2f473f-2ee4-4c67-a6d8-5ebf2910edc5}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="helpers">
+      <UniqueIdentifier>{f9476a62-2c67-4b43-af2a-cacff66c7510}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="helpers\erps">
+      <UniqueIdentifier>{d63fb1c4-4e95-4e9e-9c31-c593a9ed77d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="helpers\vphys">
+      <UniqueIdentifier>{0e245ecc-5669-41ee-a650-d18fc3442f90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source\res">
+      <UniqueIdentifier>{21aa5a11-0199-4979-be30-05754fad8de0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\screens">
+      <UniqueIdentifier>{bc79759e-a751-4771-8b86-b7622aed29b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="helpers\uid_generator">
+      <UniqueIdentifier>{37f396cf-ee22-4324-9553-1f0147648c85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Application">
+      <UniqueIdentifier>{f48e9f6a-9d08-42bf-9e9c-226b51c67b45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game">
+      <UniqueIdentifier>{1642cc7e-f39d-4c0f-b5ca-e58b84c6586b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{c45a8598-33e0-44e0-85c8-7486be4ac3a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\entt">
+      <UniqueIdentifier>{d76935ff-a4bb-4a7d-acea-40aa1b9929ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\Systems">
+      <UniqueIdentifier>{de6bea99-ca17-4cf8-9353-153460aa0e0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\Components">
+      <UniqueIdentifier>{8253798a-7cb9-40f7-a380-3ba60cc8efb6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\helpers\erps\erps.h">
+      <Filter>helpers\erps</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\helpers\vphys\vps.h">
+      <Filter>helpers\vphys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\screengameplay.h">
+      <Filter>Source\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\screenmainmenu.h">
+      <Filter>Source\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\helpers\uid_generator\uidgenerator.h">
+      <Filter>helpers\uid_generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\application.h">
+      <Filter>Source\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\config.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\widgets.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\res\ani_expl.h">
+      <Filter>Source\res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\res\resources.h">
+      <Filter>Source\res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\res\sheet_gameplay.h">
+      <Filter>Source\res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\res\sheet_mainmenu.h">
+      <Filter>Source\res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\core\family.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\core\hashed_string.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\core\ident.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\entity\actor.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\entity\entt_traits.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\entity\registry.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\entity\sparse_set.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\entity\view.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\entt.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\locator\locator.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\process\process.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\process\scheduler.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\resource\cache.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\resource\handle.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\resource\loader.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\signal\bus.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\signal\delegate.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\signal\dispatcher.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\signal\emitter.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\signal\sigh.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\entt\signal\signal.hpp">
+      <Filter>libs\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\InputSystem.h">
+      <Filter>Source\Game\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\PlayerComponent.h">
+      <Filter>Source\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\PhysicsSystem.h">
+      <Filter>Source\Game\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\PhysicsAgentComponent.h">
+      <Filter>Source\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\RenderSystem.h">
+      <Filter>Source\Game\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\PlayerControllerSystem.h">
+      <Filter>Source\Game\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\PhysicsObstacleComponent.h">
+      <Filter>Source\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\PlanetComponent.h">
+      <Filter>Source\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Level.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\EnergyResourceComponent.h">
+      <Filter>Source\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameRulesSystem.h">
+      <Filter>Source\Game\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\EntityTypeComponent.h">
+      <Filter>Source\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\EnergyStationComponent.h">
+      <Filter>Source\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\ExplosionEffectComponent.h">
+      <Filter>Source\Game\Components</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\helpers\erps\erps.cpp">
+      <Filter>helpers\erps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\helpers\vphys\vps.cpp">
+      <Filter>helpers\vphys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\screengameplay.cpp">
+      <Filter>Source\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\screenmainmenu.cpp">
+      <Filter>Source\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\application.cpp">
+      <Filter>Source\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\widgets.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\res\ani_expl.cpp">
+      <Filter>Source\res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\res\resources.cpp">
+      <Filter>Source\res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\res\sheet_gameplay.cpp">
+      <Filter>Source\res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\res\sheet_mainmenu.cpp">
+      <Filter>Source\res</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\InputSystem.cpp">
+      <Filter>Source\Game\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\PlayerComponent.cpp">
+      <Filter>Source\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\PhysicsSystem.cpp">
+      <Filter>Source\Game\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\PhysicsAgentComponent.cpp">
+      <Filter>Source\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\RenderSystem.cpp">
+      <Filter>Source\Game\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\PlayerControllerSystem.cpp">
+      <Filter>Source\Game\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\PhysicsObstacleComponent.cpp">
+      <Filter>Source\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\PlanetComponent.cpp">
+      <Filter>Source\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Level.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\EnergyResourceComponent.cpp">
+      <Filter>Source\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameRulesSystem.cpp">
+      <Filter>Source\Game\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\EntityTypeComponent.cpp">
+      <Filter>Source\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\EnergyStationComponent.cpp">
+      <Filter>Source\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ExplosionEffectComponent.cpp">
+      <Filter>Source\Game\Components</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
