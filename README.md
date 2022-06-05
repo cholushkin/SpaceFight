@@ -1,6 +1,6 @@
 Example project for EnTT lib ( https://github.com/skypjack/entt ) and damn engine ( self made crossplatform 2D engine ).  
   
-**Mechanic prototype.**  
+## Mechanic prototype
   
 This is a game for 2 or more players on one screen. Every player controls each own spaceship and the goal is to be the last survivor. 
 Moving and shooting takes energy of the ship. Shooting has auto aiming. 
@@ -14,3 +14,4 @@ Controls are shown on the screenshot below.
 ![Main menu](screenshots/ScreenshotMainMenu.png)
 ![Fight!](screenshots/ScreenshotFight.png)
 ![Shooting](screenshots/ScreenshotShoot.png)
+
