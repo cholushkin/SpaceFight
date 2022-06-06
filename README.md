@@ -20,6 +20,8 @@ Controls are shown on the screenshot below.
 There are several things you may do:
 * Gamepad support. 
 * More than two players multi-player support. 
+* CSV config files for game tuning parameters.
 
+     
 Happy to see your pull requests :) 
 
